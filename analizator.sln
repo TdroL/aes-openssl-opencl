@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual C++ Express 2010
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "analizator-bd-openssl", "analizator-bd-openssl\analizator-bd-openssl.vcxproj", "{62421B6A-4ADA-4C39-9E19-9DCBEB7065D2}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "analizator-sd-openssl", "analizator-sd-openssl\analizator-sd-openssl.vcxproj", "{2D23446E-9F10-4310-9114-75FF2088E970}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "analizator-bd-opencl", "analizator-bd-opencl\analizator-bd-opencl.vcxproj", "{1C619ABD-BEC7-4B0F-96B0-9FD18101C3ED}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{62421B6A-4ADA-4C39-9E19-9DCBEB7065D2}.Debug|Win32.ActiveCfg = Debug|Win32
+		{62421B6A-4ADA-4C39-9E19-9DCBEB7065D2}.Debug|Win32.Build.0 = Debug|Win32
+		{62421B6A-4ADA-4C39-9E19-9DCBEB7065D2}.Release|Win32.ActiveCfg = Release|Win32
+		{62421B6A-4ADA-4C39-9E19-9DCBEB7065D2}.Release|Win32.Build.0 = Release|Win32
+		{2D23446E-9F10-4310-9114-75FF2088E970}.Debug|Win32.ActiveCfg = Debug|Win32
+		{2D23446E-9F10-4310-9114-75FF2088E970}.Debug|Win32.Build.0 = Debug|Win32
+		{2D23446E-9F10-4310-9114-75FF2088E970}.Release|Win32.ActiveCfg = Release|Win32
+		{2D23446E-9F10-4310-9114-75FF2088E970}.Release|Win32.Build.0 = Release|Win32
+		{1C619ABD-BEC7-4B0F-96B0-9FD18101C3ED}.Debug|Win32.ActiveCfg = Debug|Win32
+		{1C619ABD-BEC7-4B0F-96B0-9FD18101C3ED}.Debug|Win32.Build.0 = Debug|Win32
+		{1C619ABD-BEC7-4B0F-96B0-9FD18101C3ED}.Release|Win32.ActiveCfg = Release|Win32
+		{1C619ABD-BEC7-4B0F-96B0-9FD18101C3ED}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

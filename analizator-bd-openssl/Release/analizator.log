@@ -1,0 +1,18 @@
+﻿Build started 2012-04-19 19:27:33.
+     1>Project "C:\Users\tdrol\documents\visual studio 2010\Projects\analizator\analizator\analizator.vcxproj" on node 2 (build target(s)).
+     1>InitializeBuildStatus:
+         Creating "Release\analizator-bd-openssl.unsuccessfulbuild" because "AlwaysCreate" was specified.
+       ClCompile:
+         All outputs are up-to-date.
+         All outputs are up-to-date.
+       Link:
+         All outputs are up-to-date.
+         analizator.vcxproj -> C:\Users\tdrol\documents\visual studio 2010\Projects\analizator\Release\analizator-bd-openssl.exe
+       FinalizeBuildStatus:
+         Deleting file "Release\analizator-bd-openssl.unsuccessfulbuild".
+         Touching "Release\analizator-bd-openssl.lastbuildstate".
+     1>Done Building Project "C:\Users\tdrol\documents\visual studio 2010\Projects\analizator\analizator\analizator.vcxproj" (build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:00.17
