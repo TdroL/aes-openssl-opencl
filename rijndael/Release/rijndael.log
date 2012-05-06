@@ -1,0 +1,27 @@
+﻿Build started 2012-05-05 19:18:23.
+     1>Project "C:\Users\tdrol\documents\visual studio 2010\Projects\analizator\rijndael\rijndael.vcxproj" on node 2 (rebuild target(s)).
+     1>_PrepareForClean:
+         Deleting file "Release\rijndael.lastbuildstate".
+       InitializeBuildStatus:
+         Touching "Release\rijndael.unsuccessfulbuild".
+       ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /Zi /nologo /W3 /WX- /O2 /Oi /Oy- /GL /D WIN32 /D NDEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Yc"StdAfx.h" /Fp"Release\rijndael.pch" /Fo"Release\\" /Fd"Release\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt stdafx.cpp
+         stdafx.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /Zi /nologo /W3 /WX- /O2 /Oi /Oy- /GL /D WIN32 /D NDEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Yu"StdAfx.h" /Fp"Release\rijndael.pch" /Fo"Release\\" /Fd"Release\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt decrypt.cpp encrypt.cpp rijndael.cpp
+         decrypt.cpp
+     1>decrypt.cpp(2): warning C4627: '#include "rijndael.h"': skipped when looking for precompiled header use
+                 Add directive to 'StdAfx.h' or rebuild precompiled header
+     1>decrypt.cpp(41): fatal error C1010: unexpected end of file while looking for precompiled header. Did you forget to add '#include "StdAfx.h"' to your source?
+         encrypt.cpp
+     1>encrypt.cpp(2): warning C4627: '#include "rijndael.h"': skipped when looking for precompiled header use
+                 Add directive to 'StdAfx.h' or rebuild precompiled header
+     1>encrypt.cpp(55): fatal error C1010: unexpected end of file while looking for precompiled header. Did you forget to add '#include "StdAfx.h"' to your source?
+         rijndael.cpp
+     1>rijndael.cpp(1): warning C4603: 'FULL_UNROLL' : macro is not defined or definition is different after precompiled header use
+                 Add macro to precompiled header instead of defining here
+                 rijndael.cpp(3) : use of precompiled header
+     1>Done Building Project "C:\Users\tdrol\documents\visual studio 2010\Projects\analizator\rijndael\rijndael.vcxproj" (rebuild target(s)) -- FAILED.
+
+Build FAILED.
+
+Time Elapsed 00:00:00.56

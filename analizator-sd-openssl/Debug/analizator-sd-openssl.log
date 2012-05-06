@@ -1,16 +1,12 @@
-﻿Build started 2012-04-27 14:53:20.
-     1>Project "C:\Users\tdrol\documents\visual studio 2010\Projects\analizator\analizator-sd-openssl\analizator-sd-openssl.vcxproj" on node 2 (build target(s)).
-     1>PrepareForBuild:
-         Creating directory "C:\Users\tdrol\documents\visual studio 2010\Projects\analizator\Debug\".
-       InitializeBuildStatus:
-         Creating "Debug\analizator-sd-openssl.unsuccessfulbuild" because "AlwaysCreate" was specified.
+﻿Build started 2012-05-06 17:42:37.
+     1>Project "C:\Users\tdrol\documents\visual studio 2010\Projects\analizator\analizator-sd-openssl\analizator-sd-openssl.vcxproj" on node 3 (build target(s)).
+     1>InitializeBuildStatus:
+         Touching "Debug\analizator-sd-openssl.unsuccessfulbuild".
        ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /IC:\Users\tdrol\lib\openssl\include /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MT /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yc"StdAfx.h" /Fp"Debug\analizator-sd-openssl.pch" /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt stdafx.cpp
-         stdafx.cpp
-         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /IC:\Users\tdrol\lib\openssl\include /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MT /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yu"StdAfx.h" /Fp"Debug\analizator-sd-openssl.pch" /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt "analizator-sd-openssl.cpp"
-         analizator-sd-openssl.cpp
+         All outputs are up-to-date.
+         All outputs are up-to-date.
        ManifestResourceCompile:
-         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\rc.exe /nologo /fo"Debug\analizator-sd-openssl.exe.embed.manifest.res" Debug\analizator-sd-openssl_manifest.rc 
+         All outputs are up-to-date.
        Link:
          C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\tdrol\documents\visual studio 2010\Projects\analizator\Debug\analizator-sd-openssl.exe" /INCREMENTAL /NOLOGO /LIBPATH:C:\Users\tdrol\lib\openssl\lib libeay32.lib ssleay32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"Debug\analizator-sd-openssl.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"C:\Users\tdrol\documents\visual studio 2010\Projects\analizator\Debug\analizator-sd-openssl.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\tdrol\documents\visual studio 2010\Projects\analizator\Debug\analizator-sd-openssl.lib" /MACHINE:X86 "Debug\analizator-sd-openssl.exe.embed.manifest.res"
          "Debug\analizator-sd-openssl.obj"
@@ -32,4 +28,4 @@
 
 Build FAILED.
 
-Time Elapsed 00:00:04.44
+Time Elapsed 00:00:01.33

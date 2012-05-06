@@ -7,7 +7,7 @@ struct Key_Data {
 	uint8_t expanded_key[16*32];
 };
 
-int test_data_size = 10;
+static unsigned int test_data_size = 10;
 Key_Data test_data[] = {
 	// 16 bytes
 	{
@@ -90,7 +90,7 @@ Key_Data test_data[] = {
 			0xae, 0x12, 0x7c, 0xda, 0xdb, 0x47, 0x9b, 0xa8, 0xf2, 0x20, 0xdf, 0x3d, 0x48, 0x58, 0xf6, 0xb1
 		}
 	},
-	// 24 bytes
+	// 24 bytes, 13 rounds
 	{
 		24,
 		{
@@ -160,7 +160,8 @@ Key_Data test_data[] = {
 			0xa4, 0x97, 0x0a, 0x33, 0x1a, 0x78, 0xdc, 0x09, 0xc4, 0x18, 0xc2, 0x71, 0xe3, 0xa4, 0x1d, 0x5d
 		}
 	},
-		{
+	// 32 bytes, 15 rounds
+	{
 		32,
 		{
 			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
@@ -245,38 +246,23 @@ void key_schedule_test()
 {
 	printf("Test: key_schedule\n");
 
-	uint8_t *result = new uint8_t[240];
+	uint8_t result[RKLENGTH(256)];
 
-	for (int i = 0; i < test_data_size; i++)
+	for (unsigned int i = 0; i < test_data_size; i++)
 	{
 		Key_Data &data = test_data[i];
+		memcpy(result, data.key, data.length);
 
-		key_schedule(data.key, data.length, result);
+		key_schedule(result, data.length*8);
 
-		int l;
-
-		switch (data.length)
+		if (memcmp(result, data.expanded_key, RKLENGTH(data.length*8)) == 0)
 		{
-		case 16:
-			l = 176;
-			break;
-		case 24:
-			l = 208;
-			break;
-		case 32:
-			l = 240;
-			break;
-		}
-
-		if (memcmp(result, data.expanded_key, l) == 0)
-		{
-			printf("  #%i (%u bit) pass\n", i, data.length);
+			printf("  #%u (%u bit) pass\n", i+1, data.length);
 		}
 		else
 		{
-			printf("  #%i (%u bit) fail\n", i, data.length);
+			printf("  #%u (%u bit) fail\n", i+1, data.length);
 		}
 	}
 	printf("\n");
-	delete[] result;
 }

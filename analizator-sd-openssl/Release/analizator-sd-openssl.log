@@ -1,9 +1,12 @@
-﻿Build started 2012-04-30 18:18:57.
-     1>Project "C:\Users\tdrol\documents\visual studio 2010\Projects\analizator\analizator-sd-openssl\analizator-sd-openssl.vcxproj" on node 2 (build target(s)).
-     1>InitializeBuildStatus:
+﻿Build started 2012-05-05 19:56:14.
+     1>Project "C:\Users\tdrol\documents\visual studio 2010\Projects\analizator\analizator-sd-openssl\analizator-sd-openssl.vcxproj" on node 3 (rebuild target(s)).
+     1>_PrepareForClean:
+         Deleting file "Release\analizator-sd-openssl.lastbuildstate".
+       InitializeBuildStatus:
          Creating "Release\analizator-sd-openssl.unsuccessfulbuild" because "AlwaysCreate" was specified.
        ClCompile:
-         All outputs are up-to-date.
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /IC:\Users\tdrol\lib\openssl\include /Zi /nologo /W3 /WX- /O2 /Oi /Oy- /GL /D WIN32 /D NDEBUG /D _CONSOLE /D _UNICODE /D UNICODE /GF /Gm /EHsc /MT /GS /Gy /arch:SSE2 /fp:precise /Zc:wchar_t /Zc:forScope /Yc"StdAfx.h" /Fp"Release\analizator-sd-openssl.pch" /Fo"Release\\" /Fd"Release\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt stdafx.cpp
+         stdafx.cpp
          C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /IC:\Users\tdrol\lib\openssl\include /Zi /nologo /W3 /WX- /O2 /Oi /Oy- /GL /D WIN32 /D NDEBUG /D _CONSOLE /D _UNICODE /D UNICODE /GF /Gm /EHsc /MT /GS /Gy /arch:SSE2 /fp:precise /Zc:wchar_t /Zc:forScope /Yu"StdAfx.h" /Fp"Release\analizator-sd-openssl.pch" /Fo"Release\\" /Fd"Release\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt "analizator-sd-openssl.cpp"
          analizator-sd-openssl.cpp
        Link:
@@ -17,8 +20,8 @@
        FinalizeBuildStatus:
          Deleting file "Release\analizator-sd-openssl.unsuccessfulbuild".
          Touching "Release\analizator-sd-openssl.lastbuildstate".
-     1>Done Building Project "C:\Users\tdrol\documents\visual studio 2010\Projects\analizator\analizator-sd-openssl\analizator-sd-openssl.vcxproj" (build target(s)).
+     1>Done Building Project "C:\Users\tdrol\documents\visual studio 2010\Projects\analizator\analizator-sd-openssl\analizator-sd-openssl.vcxproj" (rebuild target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:02.58
+Time Elapsed 00:00:04.76

@@ -1,7 +1,9 @@
 #include "stdafx.h"
 #include "key_schedule.h"
 
-uint8_t sbox[256] = {
+// based on http://www.samiam.org/key-schedule.html
+
+static uint8_t sbox[256] = {
 	0x63, 0x7C, 0x77, 0x7B, 0xF2, 0x6B, 0x6F, 0xC5, 0x30, 0x01, 0x67, 0x2B, 0xFE, 0xD7, 0xAB, 0x76,
 	0xCA, 0x82, 0xC9, 0x7D, 0xFA, 0x59, 0x47, 0xF0, 0xAD, 0xD4, 0xA2, 0xAF, 0x9C, 0xA4, 0x72, 0xC0,
 	0xB7, 0xFD, 0x93, 0x26, 0x36, 0x3F, 0xF7, 0xCC, 0x34, 0xA5, 0xE5, 0xF1, 0x71, 0xD8, 0x31, 0x15,
@@ -20,7 +22,7 @@ uint8_t sbox[256] = {
 	0x8C, 0xA1, 0x89, 0x0D, 0xBF, 0xE6, 0x42, 0x68, 0x41, 0x99, 0x2D, 0x0F, 0xB0, 0x54, 0xBB, 0x16
 };
 
-uint8_t rcon[256] = {
+static uint8_t rcon[256] = {
 	0x8d, 0x01, 0x02, 0x04, 0x08, 0x10, 0x20, 0x40, 0x80, 0x1b, 0x36, 0x6c, 0xd8, 0xab, 0x4d, 0x9a, 
 	0x2f, 0x5e, 0xbc, 0x63, 0xc6, 0x97, 0x35, 0x6a, 0xd4, 0xb3, 0x7d, 0xfa, 0xef, 0xc5, 0x91, 0x39, 
 	0x72, 0xe4, 0xd3, 0xbd, 0x61, 0xc2, 0x9f, 0x25, 0x4a, 0x94, 0x33, 0x66, 0xcc, 0x83, 0x1d, 0x3a, 
@@ -39,62 +41,48 @@ uint8_t rcon[256] = {
 	0x61, 0xc2, 0x9f, 0x25, 0x4a, 0x94, 0x33, 0x66, 0xcc, 0x83, 0x1d, 0x3a, 0x74, 0xe8, 0xcb, 0x8d
 };
 
-void key_schedule(const uint8_t *key, unsigned int n, uint8_t *expanded_key)
+void key_schedule(uint8_t *key, unsigned int key_length)
 {
-	unsigned int b, i, k;
+	unsigned int b, i, k, n;
 
-	switch (n)
-	{
-	case 16:
-		b = 176;
-	break;
-	case 24:
-		b = 208;
-	break;
-	case 32:
-		b = 240;
-	break;
-	default:
-		printf("Error: expand_key - n must be 16, 24 or 32\n");
-		exit(EXIT_FAILURE);
-	}
-
-	for (unsigned int j = 0; j < n; j++)
-	{
-		expanded_key[j] = key[j];
-	}
+	n = KEYLENGTH(key_length);
+	b = RKLENGTH(key_length);
 
 	i = 1;
 	k = n;
 
 	while (k < b)
 	{
-		uint8_t t[4] = { 
-			expanded_key[k-4],
-			expanded_key[k-3],
-			expanded_key[k-2],
-			expanded_key[k-1]
+		uint_u t = {
+			key[k-4],
+			key[k-3],
+			key[k-2],
+			key[k-1]
 		};
 
 		if (k % n == 0)
 		{
-			key_schedule_core(t, i);
+			key_schedule_core(t.c, i);
 			i += 1;
 		}
 
-		if (n == 32 && k % n == 16)
+		// (n == 32 && k % n == 16)
+		// (n == 32 && (k & 31) == 16)
+		if (n == 32 && k % 32 == 16)
 		{
-			t[0] = sbox[t[0]];
-			t[1] = sbox[t[1]];
-			t[2] = sbox[t[2]];
-			t[3] = sbox[t[3]];
+			t.c[0] = sbox[t.c[0]];
+			t.c[1] = sbox[t.c[1]];
+			t.c[2] = sbox[t.c[2]];
+			t.c[3] = sbox[t.c[3]];
 		}
 
-		expanded_key[k+0] = expanded_key[k+0-n] ^ t[0];
-		expanded_key[k+1] = expanded_key[k+1-n] ^ t[1];
-		expanded_key[k+2] = expanded_key[k+2-n] ^ t[2];
-		expanded_key[k+3] = expanded_key[k+3-n] ^ t[3];
-
+		((uint_u *) &key[k])->i = ((uint_u *) &key[k-n])->i ^ t.i;
+/*
+		key[k+0] = key[k+0-n] ^ t.c[0];
+		key[k+1] = key[k+1-n] ^ t.c[1];
+		key[k+2] = key[k+2-n] ^ t.c[2];
+		key[k+3] = key[k+3-n] ^ t.c[3];
+*/
 		k += 4;
 	}
 }

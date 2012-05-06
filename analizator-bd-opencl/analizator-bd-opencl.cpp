@@ -4,10 +4,14 @@
 #ifdef TEST_KEY_SCHEDULE
 	#include "key_schedule_test.h"
 #endif
+#include "cl_encrypt.h"
+#ifdef TEST_CL_ENCRYPT
+	#include "cl_encrypt_test.h"
+#endif
 #include <fstream>
 #include <sstream>
 #include <ctime>
-
+/*
 #define KiB 1024
 #define MiB (1024*KiB)
 
@@ -18,13 +22,16 @@ cl_context context;
 cl_command_queue queue;
 cl_program program;
 cl_kernel kernel;
+
+#define KEYBITS 256
+
 #define BUFFER_SIZE 8 * MiB
 #define ROUNDKEYS_SIZE 16 * 15
 #define IV_SIZE 8
 cl_mem state;
 cl_mem roundkeys;
 unsigned int argi;
-uint32_t count = 100;
+uint32_t count = 128;
 
 unsigned char *inbuf = NULL;
 unsigned char *outbuf = NULL;
@@ -39,24 +46,29 @@ void create_kernel(const char *kernel_name);
 void create_buffers();
 void execute(size_t count);
 void release();
-
+*/
 int main(int argc, char **argv)
 {
 	#ifdef TEST_KEY_SCHEDULE
 		key_schedule_test();
 	#endif
 
+	#ifdef TEST_CL_ENCRYPT
+		cl_encrypt_test();
+	#endif
+
+	/*
 	char *source = "./aes-encrypt.cl";
 
 	printf("Loading \"%s\"\n", source);
 	start = clock();
 	init(source);
-	create_kernel("main");
+	create_kernel("aes_encrypt_256");
 	end = clock();
 
 	printf("Ready (%ums)\n", end - start);
 
-	printf("GPU info:\n");
+	printf("\nGPU info:\n");
 	unsigned long int param_value;
 	
 	param_value = clGetDeviceInfo(device_id, CL_DEVICE_LOCAL_MEM_SIZE, sizeof(param_value), &param_value, NULL);
@@ -88,7 +100,7 @@ int main(int argc, char **argv)
 	clGetDeviceInfo(device_id, CL_DEVICE_MAX_WORK_GROUP_SIZE, sizeof(param_value), &param_value, NULL);
 	printf("  maximum work-group size  %u\n", param_value);
 	clGetDeviceInfo(device_id, CL_DEVICE_MAX_WORK_ITEM_SIZES, sizeof(param_value), &param_value, NULL);
-	printf("  maximum work-item sizes  %u\n\n", param_value);
+	printf("  maximum work-item sizes  %u\n", param_value);
 
 	inbuf = new unsigned char[BUFFER_SIZE];
 	outbuf = new unsigned char[BUFFER_SIZE];
@@ -106,10 +118,18 @@ int main(int argc, char **argv)
 	// simple key and iv
 	keys = new unsigned char[ROUNDKEYS_SIZE];
 	iv = new unsigned char[IV_SIZE];
+	unsigned int key_length = (ROUNDKEYS_SIZE == 240) ? 32 : ((ROUNDKEYS_SIZE == 208) ? 24 : 16);
 
-	for (int i = 0; i < ROUNDKEYS_SIZE; i++) keys[i] = i;
+	for (unsigned int i = 0; i < key_length; i++) keys[i] = i + 1;
 
-	for (int i = 0; i < IV_SIZE; i++) iv[i] = i;
+	for (unsigned int i = 0; i < IV_SIZE; i++) iv[i] = 0;
+
+	key_schedule(keys, ROUNDKEYS_SIZE / 16);
+
+	printf("\nKey info:\n");
+	printf("  key length: %u bits\n", key_length);
+	printf("  expanded key length: %u bytes\n", ROUNDKEYS_SIZE);
+	printf("  rounds: %u\n", ROUNDKEYS_SIZE / 16);
 
 	create_buffers();
 
@@ -127,19 +147,20 @@ int main(int argc, char **argv)
 		exit(EXIT_FAILURE);
 	}
 
-	for (uint32_t i = 0; i < count + 64; i++)
+	for (uint32_t i = 0; i < count; i++)
 	{
-		printf("%u ", outbuf[i]);
-		if ((i+1) % 32 == 0)
+		printf("%2x ", outbuf[i]);
+		if ((i+1) % 16 == 0)
 		{
 			printf("\n");
 		}
 	}
 	release();
+	*/
 
 	return EXIT_SUCCESS;
 }
-
+/*
 void print_error(cl_int err)
 {
 	switch (err)
@@ -229,38 +250,6 @@ void init(const char *file_name)
 	char *source_str = new char[size];
 
 	f.read(source_str, size);
-
-	/*
-	FILE *fh = fopen(file_name, "r");
-
-	if ( ! fh) {
-		printf("Error: failed to open %s\n", file_name);
-		exit(EXIT_FAILURE);
-	}
-
-	fseek(fh, 0, SEEK_END);
-	size_t size = ftell(fh);
-
-	if (size == 0)
-	{
-		printf("Error: %s is empty\n", file_name);
-		exit(EXIT_FAILURE);
-	}
-
-	fseek(fh, 0, SEEK_SET);
-
-	char *source_str = new char[size + 1];
-	source_str[size] = '\0';
-
-	if ( ! fread(source_str, sizeof(char), size, fh))
-	{
-		printf("Error: could not read %s\n", file_name);
-		delete source_str;
-		exit(EXIT_FAILURE);
-	}
-
-	fclose(fh);
-	*/
 
 	program = clCreateProgramWithSource(context, 1, (const char **) &source_str,
 	                                    NULL, &err);
@@ -368,7 +357,7 @@ void execute(unsigned int count)
 		global += local;
 	}
 
-	printf("Info: global %i, local %i, count %i\n", global, local, count);
+	printf("\nInfo: global %i, local %i, count %i\n", global, local, count);
 
 	// Execute the kernel over the vector using the
 	// maximum number of work group items for this device
@@ -388,8 +377,9 @@ void release()
 {
 	clReleaseMemObject(state);
 	clReleaseMemObject(roundkeys);
-	clReleaseContext(context);
 	clReleaseKernel(kernel);
 	clReleaseProgram(program);
 	clReleaseCommandQueue(queue);
+	clReleaseContext(context);
 }
+*/

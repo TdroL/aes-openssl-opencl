@@ -2,12 +2,17 @@
 #define KEY_SCHEDULE_H
 
 #include <cstdint>
-#include <cstdio>
-#include <cstdlib>
 
-// based on http://www.samiam.org/key-schedule.html
+#define KEYLENGTH(keybits) ((keybits)/8)
+#define RKLENGTH(keybits)  (((keybits)/8+28)*4)
+#define NROUNDS(keybits)   ((keybits)/32+6)
 
-void key_schedule(const uint8_t *key, unsigned int n, uint8_t *expanded_key);
+typedef union {
+	uint8_t c[4];
+	uint32_t i;
+} uint_u;
+
+void key_schedule(uint8_t *keys, unsigned int rounds);
 void key_schedule_core(uint8_t *block, unsigned int i);
 
 #endif
