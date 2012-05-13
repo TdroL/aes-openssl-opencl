@@ -333,123 +333,328 @@ __constant uint Te4[256] = {
 	0xb0b0b0b0U, 0x54545454U, 0xbbbbbbbbU, 0x16161616U
 };
 
+typedef union {
+	uint i;
+	struct {
+		uchar c0;
+		uchar c1;
+		uchar c2;
+		uchar c3;
+	};
+} uint_u;
+
+#define GETU32(plaintext) (((uint)(plaintext)[0] << 24) ^ \
+						   ((uint)(plaintext)[1] << 16) ^ \
+ 						   ((uint)(plaintext)[2] <<  8) ^ \
+						   ((uint)(plaintext)[3]      ))
+
+#define PUTU32(ciphertext, st) { (ciphertext)[0] = (uchar)((st) >> 24); \
+								 (ciphertext)[1] = (uchar)((st) >> 16); \
+								 (ciphertext)[2] = (uchar)((st) >>  8); \
+								 (ciphertext)[3] = (uchar)((st)      ); }
+
 __kernel void aes_encrypt_256(
-	__global uint *state,
-	__global uint *rk,
-	const uint limit
+	__global uchar *state,
+	__global const uint *roundkeys
 ) {
-	const uint id = get_global_id(0)*4;
+	const uint id = get_global_id(0);
 
-	uint s0, s1, s2, s3, t0, t1, t2, t3;
-	uchar *cs0, *cs1, *cs2, *cs3, *ct0, *ct1, *ct2, *ct3, *st;
+	state += id * 16;
 
+	uint_u s0, s1, s2, s3, t0, t1, t2, t3;
 
-	s0 = state[id+0] ^ rk[0];
-	s1 = state[id+1] ^ rk[1];
-	s2 = state[id+2] ^ rk[2];
-	s3 = state[id+3] ^ rk[3];
+	s0.i = GETU32(&state[ 0]) ^ roundkeys[0];
+	s1.i = GETU32(&state[ 4]) ^ roundkeys[1];
+	s2.i = GETU32(&state[ 8]) ^ roundkeys[2];
+	s3.i = GETU32(&state[12]) ^ roundkeys[3];
 
-	/* round 1: */
-	cs0 = &s0; cs1 = &s1; cs2 = &s2; cs3 = &s3;
-	ct0 = &t0; ct1 = &t1; ct2 = &t2; ct3 = &t3;
-	t0 = Te0[cs0[3]] ^ Te1[cs1[2]] ^ Te2[cs2[1]] ^ Te3[cs3[0]] ^ rk[ 4];
-	t1 = Te0[cs1[3]] ^ Te1[cs2[2]] ^ Te2[cs3[1]] ^ Te3[cs0[0]] ^ rk[ 5];
-	t2 = Te0[cs2[3]] ^ Te1[cs3[2]] ^ Te2[cs0[1]] ^ Te3[cs1[0]] ^ rk[ 6];
-	t3 = Te0[cs3[3]] ^ Te1[cs0[2]] ^ Te2[cs1[1]] ^ Te3[cs2[0]] ^ rk[ 7];
-	/* round 2: */
-	ct0 = &t0; ct1 = &t1; ct2 = &t2; ct3 = &t3;
-	s0 = Te0[ct0[3]] ^ Te1[ct1[2]] ^ Te2[ct2[1]] ^ Te3[ct3[0]] ^ rk[ 8];
-	s1 = Te0[ct1[3]] ^ Te1[ct2[2]] ^ Te2[ct3[1]] ^ Te3[ct0[0]] ^ rk[ 9];
-	s2 = Te0[ct2[3]] ^ Te1[ct3[2]] ^ Te2[ct0[1]] ^ Te3[ct1[0]] ^ rk[10];
-	s3 = Te0[ct3[3]] ^ Te1[ct0[2]] ^ Te2[ct1[1]] ^ Te3[ct2[0]] ^ rk[11];
-	/* round 3: */
-	cs0 = &s0; cs1 = &s1; cs2 = &s2; cs3 = &s3;
-	t0 = Te0[cs0[3]] ^ Te1[cs1[2]] ^ Te2[cs2[1]] ^ Te3[cs3[0]] ^ rk[12];
-	t1 = Te0[cs1[3]] ^ Te1[cs2[2]] ^ Te2[cs3[1]] ^ Te3[cs0[0]] ^ rk[13];
-	t2 = Te0[cs2[3]] ^ Te1[cs3[2]] ^ Te2[cs0[1]] ^ Te3[cs1[0]] ^ rk[14];
-	t3 = Te0[cs3[3]] ^ Te1[cs0[2]] ^ Te2[cs1[1]] ^ Te3[cs2[0]] ^ rk[15];
-	/* round 4: */
-	ct0 = &t0; ct1 = &t1; ct2 = &t2; ct3 = &t3;
-	s0 = Te0[ct0[3]] ^ Te1[ct1[2]] ^ Te2[ct2[1]] ^ Te3[ct3[0]] ^ rk[16];
-	s1 = Te0[ct1[3]] ^ Te1[ct2[2]] ^ Te2[ct3[1]] ^ Te3[ct0[0]] ^ rk[17];
-	s2 = Te0[ct2[3]] ^ Te1[ct3[2]] ^ Te2[ct0[1]] ^ Te3[ct1[0]] ^ rk[18];
-	s3 = Te0[ct3[3]] ^ Te1[ct0[2]] ^ Te2[ct1[1]] ^ Te3[ct2[0]] ^ rk[19];
-	/* round 5: */
-	cs0 = &s0; cs1 = &s1; cs2 = &s2; cs3 = &s3;
-	t0 = Te0[cs0[3]] ^ Te1[cs1[2]] ^ Te2[cs2[1]] ^ Te3[cs3[0]] ^ rk[20];
-	t1 = Te0[cs1[3]] ^ Te1[cs2[2]] ^ Te2[cs3[1]] ^ Te3[cs0[0]] ^ rk[21];
-	t2 = Te0[cs2[3]] ^ Te1[cs3[2]] ^ Te2[cs0[1]] ^ Te3[cs1[0]] ^ rk[22];
-	t3 = Te0[cs3[3]] ^ Te1[cs0[2]] ^ Te2[cs1[1]] ^ Te3[cs2[0]] ^ rk[23];
-	/* round 6: */
-	ct0 = &t0; ct1 = &t1; ct2 = &t2; ct3 = &t3;
-	s0 = Te0[ct0[3]] ^ Te1[ct1[2]] ^ Te2[ct2[1]] ^ Te3[ct3[0]] ^ rk[24];
-	s1 = Te0[ct1[3]] ^ Te1[ct2[2]] ^ Te2[ct3[1]] ^ Te3[ct0[0]] ^ rk[25];
-	s2 = Te0[ct2[3]] ^ Te1[ct3[2]] ^ Te2[ct0[1]] ^ Te3[ct1[0]] ^ rk[26];
-	s3 = Te0[ct3[3]] ^ Te1[ct0[2]] ^ Te2[ct1[1]] ^ Te3[ct2[0]] ^ rk[27];
-	/* round 7: */
-	cs0 = &s0; cs1 = &s1; cs2 = &s2; cs3 = &s3;
-	t0 = Te0[cs0[3]] ^ Te1[cs1[2]] ^ Te2[cs2[1]] ^ Te3[cs3[0]] ^ rk[28];
-	t1 = Te0[cs1[3]] ^ Te1[cs2[2]] ^ Te2[cs3[1]] ^ Te3[cs0[0]] ^ rk[29];
-	t2 = Te0[cs2[3]] ^ Te1[cs3[2]] ^ Te2[cs0[1]] ^ Te3[cs1[0]] ^ rk[30];
-	t3 = Te0[cs3[3]] ^ Te1[cs0[2]] ^ Te2[cs1[1]] ^ Te3[cs2[0]] ^ rk[31];
-	/* round 8: */
-	ct0 = &t0; ct1 = &t1; ct2 = &t2; ct3 = &t3;
-	s0 = Te0[ct0[3]] ^ Te1[ct1[2]] ^ Te2[ct2[1]] ^ Te3[ct3[0]] ^ rk[32];
-	s1 = Te0[ct1[3]] ^ Te1[ct2[2]] ^ Te2[ct3[1]] ^ Te3[ct0[0]] ^ rk[33];
-	s2 = Te0[ct2[3]] ^ Te1[ct3[2]] ^ Te2[ct0[1]] ^ Te3[ct1[0]] ^ rk[34];
-	s3 = Te0[ct3[3]] ^ Te1[ct0[2]] ^ Te2[ct1[1]] ^ Te3[ct2[0]] ^ rk[35];
-	/* round 9: */
-	cs0 = &s0; cs1 = &s1; cs2 = &s2; cs3 = &s3;
-	t0 = Te0[cs0[3]] ^ Te1[cs1[2]] ^ Te2[cs2[1]] ^ Te3[cs3[0]] ^ rk[36];
-	t1 = Te0[cs1[3]] ^ Te1[cs2[2]] ^ Te2[cs3[1]] ^ Te3[cs0[0]] ^ rk[37];
-	t2 = Te0[cs2[3]] ^ Te1[cs3[2]] ^ Te2[cs0[1]] ^ Te3[cs1[0]] ^ rk[38];
-	t3 = Te0[cs3[3]] ^ Te1[cs0[2]] ^ Te2[cs1[1]] ^ Te3[cs2[0]] ^ rk[39];
-	/* round 10: */
-	ct0 = &t0; ct1 = &t1; ct2 = &t2; ct3 = &t3;
-	s0 = Te0[ct0[3]] ^ Te1[ct1[2]] ^ Te2[ct2[1]] ^ Te3[ct3[0]] ^ rk[40];
-	s1 = Te0[ct1[3]] ^ Te1[ct2[2]] ^ Te2[ct3[1]] ^ Te3[ct0[0]] ^ rk[41];
-	s2 = Te0[ct2[3]] ^ Te1[ct3[2]] ^ Te2[ct0[1]] ^ Te3[ct1[0]] ^ rk[42];
-	s3 = Te0[ct3[3]] ^ Te1[ct0[2]] ^ Te2[ct1[1]] ^ Te3[ct2[0]] ^ rk[43];
-	/* round 11: */
-	cs0 = &s0; cs1 = &s1; cs2 = &s2; cs3 = &s3;
-	t0 = Te0[cs0[3]] ^ Te1[cs1[2]] ^ Te2[cs2[1]] ^ Te3[cs3[0]] ^ rk[44];
-	t1 = Te0[cs1[3]] ^ Te1[cs2[2]] ^ Te2[cs3[1]] ^ Te3[cs0[0]] ^ rk[45];
-	t2 = Te0[cs2[3]] ^ Te1[cs3[2]] ^ Te2[cs0[1]] ^ Te3[cs1[0]] ^ rk[46];
-	t3 = Te0[cs3[3]] ^ Te1[cs0[2]] ^ Te2[cs1[1]] ^ Te3[cs2[0]] ^ rk[47];
-	/* round 12: */
-	ct0 = &t0; ct1 = &t1; ct2 = &t2; ct3 = &t3;
-	s0 = Te0[ct0[3]] ^ Te1[ct1[2]] ^ Te2[ct2[1]] ^ Te3[ct3[0]] ^ rk[48];
-	s1 = Te0[ct1[3]] ^ Te1[ct2[2]] ^ Te2[ct3[1]] ^ Te3[ct0[0]] ^ rk[49];
-	s2 = Te0[ct2[3]] ^ Te1[ct3[2]] ^ Te2[ct0[1]] ^ Te3[ct1[0]] ^ rk[50];
-	s3 = Te0[ct3[3]] ^ Te1[ct0[2]] ^ Te2[ct1[1]] ^ Te3[ct2[0]] ^ rk[51];
-	/* round 13: */
-	cs0 = &s0; cs1 = &s1; cs2 = &s2; cs3 = &s3;
-	t0 = Te0[cs0[3]] ^ Te1[cs1[2]] ^ Te2[cs2[1]] ^ Te3[cs3[0]] ^ rk[52];
-	t1 = Te0[cs1[3]] ^ Te1[cs2[2]] ^ Te2[cs3[1]] ^ Te3[cs0[0]] ^ rk[53];
-	t2 = Te0[cs2[3]] ^ Te1[cs3[2]] ^ Te2[cs0[1]] ^ Te3[cs1[0]] ^ rk[54];
-	t3 = Te0[cs3[3]] ^ Te1[cs0[2]] ^ Te2[cs1[1]] ^ Te3[cs2[0]] ^ rk[55];
+	t0.i = Te0[s0.c3] ^ Te1[s1.c2] ^ Te2[s2.c1] ^ Te3[s3.c0] ^ roundkeys[ 4];
+	t1.i = Te0[s1.c3] ^ Te1[s2.c2] ^ Te2[s3.c1] ^ Te3[s0.c0] ^ roundkeys[ 5];
+	t2.i = Te0[s2.c3] ^ Te1[s3.c2] ^ Te2[s0.c1] ^ Te3[s1.c0] ^ roundkeys[ 6];
+	t3.i = Te0[s3.c3] ^ Te1[s0.c2] ^ Te2[s1.c1] ^ Te3[s2.c0] ^ roundkeys[ 7];
 
-	rk += 14 << 2;
+	s0.i = Te0[t0.c3] ^ Te1[t1.c2] ^ Te2[t2.c1] ^ Te3[t3.c0] ^ roundkeys[ 8];
+	s1.i = Te0[t1.c3] ^ Te1[t2.c2] ^ Te2[t3.c1] ^ Te3[t0.c0] ^ roundkeys[ 9];
+	s2.i = Te0[t2.c3] ^ Te1[t3.c2] ^ Te2[t0.c1] ^ Te3[t1.c0] ^ roundkeys[10];
+	s3.i = Te0[t3.c3] ^ Te1[t0.c2] ^ Te2[t1.c1] ^ Te3[t2.c0] ^ roundkeys[11];
 
-	ct0 = &t0; ct1 = &t1; ct2 = &t2; ct3 = &t3;
-	state[id+0] = (Te4[ct0[3]] & 0xff000000) ^
-	              (Te4[ct1[2]] & 0x00ff0000) ^
-	              (Te4[ct2[1]] & 0x0000ff00) ^
-	              (Te4[ct3[0]] & 0x000000ff) ^
-	              rk[0];
-	state[id+1] = (Te4[ct1[3]] & 0xff000000) ^
-	              (Te4[ct2[2]] & 0x00ff0000) ^
-	              (Te4[ct3[1]] & 0x0000ff00) ^
-	              (Te4[ct0[0]] & 0x000000ff) ^
-	              rk[1];
-	state[id+2] = (Te4[ct2[3]] & 0xff000000) ^
-	              (Te4[ct3[2]] & 0x00ff0000) ^
-	              (Te4[ct0[1]] & 0x0000ff00) ^
-	              (Te4[ct1[0]] & 0x000000ff) ^
-	              rk[2];
-	state[id+3] = (Te4[ct3[3]] & 0xff000000) ^
-	              (Te4[ct0[2]] & 0x00ff0000) ^
-	              (Te4[ct1[1]] & 0x0000ff00) ^
-	              (Te4[ct2[0]] & 0x000000ff) ^
-	              rk[3];
+	t0.i = Te0[s0.c3] ^ Te1[s1.c2] ^ Te2[s2.c1] ^ Te3[s3.c0] ^ roundkeys[12];
+	t1.i = Te0[s1.c3] ^ Te1[s2.c2] ^ Te2[s3.c1] ^ Te3[s0.c0] ^ roundkeys[13];
+	t2.i = Te0[s2.c3] ^ Te1[s3.c2] ^ Te2[s0.c1] ^ Te3[s1.c0] ^ roundkeys[14];
+	t3.i = Te0[s3.c3] ^ Te1[s0.c2] ^ Te2[s1.c1] ^ Te3[s2.c0] ^ roundkeys[15];
+
+	s0.i = Te0[t0.c3] ^ Te1[t1.c2] ^ Te2[t2.c1] ^ Te3[t3.c0] ^ roundkeys[16];
+	s1.i = Te0[t1.c3] ^ Te1[t2.c2] ^ Te2[t3.c1] ^ Te3[t0.c0] ^ roundkeys[17];
+	s2.i = Te0[t2.c3] ^ Te1[t3.c2] ^ Te2[t0.c1] ^ Te3[t1.c0] ^ roundkeys[18];
+	s3.i = Te0[t3.c3] ^ Te1[t0.c2] ^ Te2[t1.c1] ^ Te3[t2.c0] ^ roundkeys[19];
+
+	t0.i = Te0[s0.c3] ^ Te1[s1.c2] ^ Te2[s2.c1] ^ Te3[s3.c0] ^ roundkeys[20];
+	t1.i = Te0[s1.c3] ^ Te1[s2.c2] ^ Te2[s3.c1] ^ Te3[s0.c0] ^ roundkeys[21];
+	t2.i = Te0[s2.c3] ^ Te1[s3.c2] ^ Te2[s0.c1] ^ Te3[s1.c0] ^ roundkeys[22];
+	t3.i = Te0[s3.c3] ^ Te1[s0.c2] ^ Te2[s1.c1] ^ Te3[s2.c0] ^ roundkeys[23];
+
+	s0.i = Te0[t0.c3] ^ Te1[t1.c2] ^ Te2[t2.c1] ^ Te3[t3.c0] ^ roundkeys[24];
+	s1.i = Te0[t1.c3] ^ Te1[t2.c2] ^ Te2[t3.c1] ^ Te3[t0.c0] ^ roundkeys[25];
+	s2.i = Te0[t2.c3] ^ Te1[t3.c2] ^ Te2[t0.c1] ^ Te3[t1.c0] ^ roundkeys[26];
+	s3.i = Te0[t3.c3] ^ Te1[t0.c2] ^ Te2[t1.c1] ^ Te3[t2.c0] ^ roundkeys[27];
+
+	t0.i = Te0[s0.c3] ^ Te1[s1.c2] ^ Te2[s2.c1] ^ Te3[s3.c0] ^ roundkeys[28];
+	t1.i = Te0[s1.c3] ^ Te1[s2.c2] ^ Te2[s3.c1] ^ Te3[s0.c0] ^ roundkeys[29];
+	t2.i = Te0[s2.c3] ^ Te1[s3.c2] ^ Te2[s0.c1] ^ Te3[s1.c0] ^ roundkeys[30];
+	t3.i = Te0[s3.c3] ^ Te1[s0.c2] ^ Te2[s1.c1] ^ Te3[s2.c0] ^ roundkeys[31];
+
+	s0.i = Te0[t0.c3] ^ Te1[t1.c2] ^ Te2[t2.c1] ^ Te3[t3.c0] ^ roundkeys[32];
+	s1.i = Te0[t1.c3] ^ Te1[t2.c2] ^ Te2[t3.c1] ^ Te3[t0.c0] ^ roundkeys[33];
+	s2.i = Te0[t2.c3] ^ Te1[t3.c2] ^ Te2[t0.c1] ^ Te3[t1.c0] ^ roundkeys[34];
+	s3.i = Te0[t3.c3] ^ Te1[t0.c2] ^ Te2[t1.c1] ^ Te3[t2.c0] ^ roundkeys[35];
+
+	t0.i = Te0[s0.c3] ^ Te1[s1.c2] ^ Te2[s2.c1] ^ Te3[s3.c0] ^ roundkeys[36];
+	t1.i = Te0[s1.c3] ^ Te1[s2.c2] ^ Te2[s3.c1] ^ Te3[s0.c0] ^ roundkeys[37];
+	t2.i = Te0[s2.c3] ^ Te1[s3.c2] ^ Te2[s0.c1] ^ Te3[s1.c0] ^ roundkeys[38];
+	t3.i = Te0[s3.c3] ^ Te1[s0.c2] ^ Te2[s1.c1] ^ Te3[s2.c0] ^ roundkeys[39];
+
+	s0.i = Te0[t0.c3] ^ Te1[t1.c2] ^ Te2[t2.c1] ^ Te3[t3.c0] ^ roundkeys[40];
+	s1.i = Te0[t1.c3] ^ Te1[t2.c2] ^ Te2[t3.c1] ^ Te3[t0.c0] ^ roundkeys[41];
+	s2.i = Te0[t2.c3] ^ Te1[t3.c2] ^ Te2[t0.c1] ^ Te3[t1.c0] ^ roundkeys[42];
+	s3.i = Te0[t3.c3] ^ Te1[t0.c2] ^ Te2[t1.c1] ^ Te3[t2.c0] ^ roundkeys[43];
+
+	t0.i = Te0[s0.c3] ^ Te1[s1.c2] ^ Te2[s2.c1] ^ Te3[s3.c0] ^ roundkeys[44];
+	t1.i = Te0[s1.c3] ^ Te1[s2.c2] ^ Te2[s3.c1] ^ Te3[s0.c0] ^ roundkeys[45];
+	t2.i = Te0[s2.c3] ^ Te1[s3.c2] ^ Te2[s0.c1] ^ Te3[s1.c0] ^ roundkeys[46];
+	t3.i = Te0[s3.c3] ^ Te1[s0.c2] ^ Te2[s1.c1] ^ Te3[s2.c0] ^ roundkeys[47];
+
+	s0.i = Te0[t0.c3] ^ Te1[t1.c2] ^ Te2[t2.c1] ^ Te3[t3.c0] ^ roundkeys[48];
+	s1.i = Te0[t1.c3] ^ Te1[t2.c2] ^ Te2[t3.c1] ^ Te3[t0.c0] ^ roundkeys[49];
+	s2.i = Te0[t2.c3] ^ Te1[t3.c2] ^ Te2[t0.c1] ^ Te3[t1.c0] ^ roundkeys[50];
+	s3.i = Te0[t3.c3] ^ Te1[t0.c2] ^ Te2[t1.c1] ^ Te3[t2.c0] ^ roundkeys[51];
+
+	t0.i = Te0[s0.c3] ^ Te1[s1.c2] ^ Te2[s2.c1] ^ Te3[s3.c0] ^ roundkeys[52];
+	t1.i = Te0[s1.c3] ^ Te1[s2.c2] ^ Te2[s3.c1] ^ Te3[s0.c0] ^ roundkeys[53];
+	t2.i = Te0[s2.c3] ^ Te1[s3.c2] ^ Te2[s0.c1] ^ Te3[s1.c0] ^ roundkeys[54];
+	t3.i = Te0[s3.c3] ^ Te1[s0.c2] ^ Te2[s1.c1] ^ Te3[s2.c0] ^ roundkeys[55];
+
+	roundkeys += 56;
+
+	s0.c3 = Te4[t0.c3];
+	s0.c2 = Te4[t1.c2];
+	s0.c1 = Te4[t2.c1];
+	s0.c0 = Te4[t3.c0];
+	s0.i ^= roundkeys[0];
+
+	s1.c3 = Te4[t1.c3];
+	s1.c2 = Te4[t2.c2];
+	s1.c1 = Te4[t3.c1];
+	s1.c0 = Te4[t0.c0];
+	s1.i ^= roundkeys[1];
+
+	s2.c3 = Te4[t2.c3];
+	s2.c2 = Te4[t3.c2];
+	s2.c1 = Te4[t0.c1];
+	s2.c0 = Te4[t1.c0];
+	s2.i ^= roundkeys[2];
+
+	s3.c3 = Te4[t3.c3];
+	s3.c2 = Te4[t0.c2];
+	s3.c1 = Te4[t1.c1];
+	s3.c0 = Te4[t2.c0];
+	s3.i ^= roundkeys[3];
+
+	PUTU32(&state[ 0], s0.i);
+	PUTU32(&state[ 4], s1.i);
+	PUTU32(&state[ 8], s2.i);
+	PUTU32(&state[12], s3.i);
+}
+
+__kernel void aes_encrypt_192(
+	__global uchar *state,
+	__global uint *roundkeys
+) {
+	const uint id = get_global_id(0);
+
+	state += id * 16;
+
+	uint_u s0, s1, s2, s3, t0, t1, t2, t3;
+
+	s0.i = GETU32(&state[ 0]) ^ roundkeys[0];
+	s1.i = GETU32(&state[ 4]) ^ roundkeys[1];
+	s2.i = GETU32(&state[ 8]) ^ roundkeys[2];
+	s3.i = GETU32(&state[12]) ^ roundkeys[3];
+
+	t0.i = Te0[s0.c3] ^ Te1[s1.c2] ^ Te2[s2.c1] ^ Te3[s3.c0] ^ roundkeys[ 4];
+	t1.i = Te0[s1.c3] ^ Te1[s2.c2] ^ Te2[s3.c1] ^ Te3[s0.c0] ^ roundkeys[ 5];
+	t2.i = Te0[s2.c3] ^ Te1[s3.c2] ^ Te2[s0.c1] ^ Te3[s1.c0] ^ roundkeys[ 6];
+	t3.i = Te0[s3.c3] ^ Te1[s0.c2] ^ Te2[s1.c1] ^ Te3[s2.c0] ^ roundkeys[ 7];
+
+	s0.i = Te0[t0.c3] ^ Te1[t1.c2] ^ Te2[t2.c1] ^ Te3[t3.c0] ^ roundkeys[ 8];
+	s1.i = Te0[t1.c3] ^ Te1[t2.c2] ^ Te2[t3.c1] ^ Te3[t0.c0] ^ roundkeys[ 9];
+	s2.i = Te0[t2.c3] ^ Te1[t3.c2] ^ Te2[t0.c1] ^ Te3[t1.c0] ^ roundkeys[10];
+	s3.i = Te0[t3.c3] ^ Te1[t0.c2] ^ Te2[t1.c1] ^ Te3[t2.c0] ^ roundkeys[11];
+
+	t0.i = Te0[s0.c3] ^ Te1[s1.c2] ^ Te2[s2.c1] ^ Te3[s3.c0] ^ roundkeys[12];
+	t1.i = Te0[s1.c3] ^ Te1[s2.c2] ^ Te2[s3.c1] ^ Te3[s0.c0] ^ roundkeys[13];
+	t2.i = Te0[s2.c3] ^ Te1[s3.c2] ^ Te2[s0.c1] ^ Te3[s1.c0] ^ roundkeys[14];
+	t3.i = Te0[s3.c3] ^ Te1[s0.c2] ^ Te2[s1.c1] ^ Te3[s2.c0] ^ roundkeys[15];
+
+	s0.i = Te0[t0.c3] ^ Te1[t1.c2] ^ Te2[t2.c1] ^ Te3[t3.c0] ^ roundkeys[16];
+	s1.i = Te0[t1.c3] ^ Te1[t2.c2] ^ Te2[t3.c1] ^ Te3[t0.c0] ^ roundkeys[17];
+	s2.i = Te0[t2.c3] ^ Te1[t3.c2] ^ Te2[t0.c1] ^ Te3[t1.c0] ^ roundkeys[18];
+	s3.i = Te0[t3.c3] ^ Te1[t0.c2] ^ Te2[t1.c1] ^ Te3[t2.c0] ^ roundkeys[19];
+
+	t0.i = Te0[s0.c3] ^ Te1[s1.c2] ^ Te2[s2.c1] ^ Te3[s3.c0] ^ roundkeys[20];
+	t1.i = Te0[s1.c3] ^ Te1[s2.c2] ^ Te2[s3.c1] ^ Te3[s0.c0] ^ roundkeys[21];
+	t2.i = Te0[s2.c3] ^ Te1[s3.c2] ^ Te2[s0.c1] ^ Te3[s1.c0] ^ roundkeys[22];
+	t3.i = Te0[s3.c3] ^ Te1[s0.c2] ^ Te2[s1.c1] ^ Te3[s2.c0] ^ roundkeys[23];
+
+	s0.i = Te0[t0.c3] ^ Te1[t1.c2] ^ Te2[t2.c1] ^ Te3[t3.c0] ^ roundkeys[24];
+	s1.i = Te0[t1.c3] ^ Te1[t2.c2] ^ Te2[t3.c1] ^ Te3[t0.c0] ^ roundkeys[25];
+	s2.i = Te0[t2.c3] ^ Te1[t3.c2] ^ Te2[t0.c1] ^ Te3[t1.c0] ^ roundkeys[26];
+	s3.i = Te0[t3.c3] ^ Te1[t0.c2] ^ Te2[t1.c1] ^ Te3[t2.c0] ^ roundkeys[27];
+
+	t0.i = Te0[s0.c3] ^ Te1[s1.c2] ^ Te2[s2.c1] ^ Te3[s3.c0] ^ roundkeys[28];
+	t1.i = Te0[s1.c3] ^ Te1[s2.c2] ^ Te2[s3.c1] ^ Te3[s0.c0] ^ roundkeys[29];
+	t2.i = Te0[s2.c3] ^ Te1[s3.c2] ^ Te2[s0.c1] ^ Te3[s1.c0] ^ roundkeys[30];
+	t3.i = Te0[s3.c3] ^ Te1[s0.c2] ^ Te2[s1.c1] ^ Te3[s2.c0] ^ roundkeys[31];
+
+	s0.i = Te0[t0.c3] ^ Te1[t1.c2] ^ Te2[t2.c1] ^ Te3[t3.c0] ^ roundkeys[32];
+	s1.i = Te0[t1.c3] ^ Te1[t2.c2] ^ Te2[t3.c1] ^ Te3[t0.c0] ^ roundkeys[33];
+	s2.i = Te0[t2.c3] ^ Te1[t3.c2] ^ Te2[t0.c1] ^ Te3[t1.c0] ^ roundkeys[34];
+	s3.i = Te0[t3.c3] ^ Te1[t0.c2] ^ Te2[t1.c1] ^ Te3[t2.c0] ^ roundkeys[35];
+
+	t0.i = Te0[s0.c3] ^ Te1[s1.c2] ^ Te2[s2.c1] ^ Te3[s3.c0] ^ roundkeys[36];
+	t1.i = Te0[s1.c3] ^ Te1[s2.c2] ^ Te2[s3.c1] ^ Te3[s0.c0] ^ roundkeys[37];
+	t2.i = Te0[s2.c3] ^ Te1[s3.c2] ^ Te2[s0.c1] ^ Te3[s1.c0] ^ roundkeys[38];
+	t3.i = Te0[s3.c3] ^ Te1[s0.c2] ^ Te2[s1.c1] ^ Te3[s2.c0] ^ roundkeys[39];
+
+	s0.i = Te0[t0.c3] ^ Te1[t1.c2] ^ Te2[t2.c1] ^ Te3[t3.c0] ^ roundkeys[40];
+	s1.i = Te0[t1.c3] ^ Te1[t2.c2] ^ Te2[t3.c1] ^ Te3[t0.c0] ^ roundkeys[41];
+	s2.i = Te0[t2.c3] ^ Te1[t3.c2] ^ Te2[t0.c1] ^ Te3[t1.c0] ^ roundkeys[42];
+	s3.i = Te0[t3.c3] ^ Te1[t0.c2] ^ Te2[t1.c1] ^ Te3[t2.c0] ^ roundkeys[43];
+
+	t0.i = Te0[s0.c3] ^ Te1[s1.c2] ^ Te2[s2.c1] ^ Te3[s3.c0] ^ roundkeys[44];
+	t1.i = Te0[s1.c3] ^ Te1[s2.c2] ^ Te2[s3.c1] ^ Te3[s0.c0] ^ roundkeys[45];
+	t2.i = Te0[s2.c3] ^ Te1[s3.c2] ^ Te2[s0.c1] ^ Te3[s1.c0] ^ roundkeys[46];
+	t3.i = Te0[s3.c3] ^ Te1[s0.c2] ^ Te2[s1.c1] ^ Te3[s2.c0] ^ roundkeys[47];
+
+	roundkeys += 48;
+
+	s0.c3 = Te4[t0.c3];
+	s0.c2 = Te4[t1.c2];
+	s0.c1 = Te4[t2.c1];
+	s0.c0 = Te4[t3.c0];
+	s0.i ^= roundkeys[0];
+
+	s1.c3 = Te4[t1.c3];
+	s1.c2 = Te4[t2.c2];
+	s1.c1 = Te4[t3.c1];
+	s1.c0 = Te4[t0.c0];
+	s1.i ^= roundkeys[1];
+
+	s2.c3 = Te4[t2.c3];
+	s2.c2 = Te4[t3.c2];
+	s2.c1 = Te4[t0.c1];
+	s2.c0 = Te4[t1.c0];
+	s2.i ^= roundkeys[2];
+
+	s3.c3 = Te4[t3.c3];
+	s3.c2 = Te4[t0.c2];
+	s3.c1 = Te4[t1.c1];
+	s3.c0 = Te4[t2.c0];
+	s3.i ^= roundkeys[3];
+
+	PUTU32(&state[ 0], s0.i);
+	PUTU32(&state[ 4], s1.i);
+	PUTU32(&state[ 8], s2.i);
+	PUTU32(&state[12], s3.i);
+}
+
+__kernel void aes_encrypt_128(
+	__global uchar *state,
+	__global uint *roundkeys
+) {
+	const uint id = get_global_id(0);
+
+	state += id * 16;
+
+	uint_u s0, s1, s2, s3, t0, t1, t2, t3;
+
+	s0.i = GETU32(&state[ 0]) ^ roundkeys[0];
+	s1.i = GETU32(&state[ 4]) ^ roundkeys[1];
+	s2.i = GETU32(&state[ 8]) ^ roundkeys[2];
+	s3.i = GETU32(&state[12]) ^ roundkeys[3];
+
+	t0.i = Te0[s0.c3] ^ Te1[s1.c2] ^ Te2[s2.c1] ^ Te3[s3.c0] ^ roundkeys[ 4];
+	t1.i = Te0[s1.c3] ^ Te1[s2.c2] ^ Te2[s3.c1] ^ Te3[s0.c0] ^ roundkeys[ 5];
+	t2.i = Te0[s2.c3] ^ Te1[s3.c2] ^ Te2[s0.c1] ^ Te3[s1.c0] ^ roundkeys[ 6];
+	t3.i = Te0[s3.c3] ^ Te1[s0.c2] ^ Te2[s1.c1] ^ Te3[s2.c0] ^ roundkeys[ 7];
+
+	s0.i = Te0[t0.c3] ^ Te1[t1.c2] ^ Te2[t2.c1] ^ Te3[t3.c0] ^ roundkeys[ 8];
+	s1.i = Te0[t1.c3] ^ Te1[t2.c2] ^ Te2[t3.c1] ^ Te3[t0.c0] ^ roundkeys[ 9];
+	s2.i = Te0[t2.c3] ^ Te1[t3.c2] ^ Te2[t0.c1] ^ Te3[t1.c0] ^ roundkeys[10];
+	s3.i = Te0[t3.c3] ^ Te1[t0.c2] ^ Te2[t1.c1] ^ Te3[t2.c0] ^ roundkeys[11];
+
+	t0.i = Te0[s0.c3] ^ Te1[s1.c2] ^ Te2[s2.c1] ^ Te3[s3.c0] ^ roundkeys[12];
+	t1.i = Te0[s1.c3] ^ Te1[s2.c2] ^ Te2[s3.c1] ^ Te3[s0.c0] ^ roundkeys[13];
+	t2.i = Te0[s2.c3] ^ Te1[s3.c2] ^ Te2[s0.c1] ^ Te3[s1.c0] ^ roundkeys[14];
+	t3.i = Te0[s3.c3] ^ Te1[s0.c2] ^ Te2[s1.c1] ^ Te3[s2.c0] ^ roundkeys[15];
+
+	s0.i = Te0[t0.c3] ^ Te1[t1.c2] ^ Te2[t2.c1] ^ Te3[t3.c0] ^ roundkeys[16];
+	s1.i = Te0[t1.c3] ^ Te1[t2.c2] ^ Te2[t3.c1] ^ Te3[t0.c0] ^ roundkeys[17];
+	s2.i = Te0[t2.c3] ^ Te1[t3.c2] ^ Te2[t0.c1] ^ Te3[t1.c0] ^ roundkeys[18];
+	s3.i = Te0[t3.c3] ^ Te1[t0.c2] ^ Te2[t1.c1] ^ Te3[t2.c0] ^ roundkeys[19];
+
+	t0.i = Te0[s0.c3] ^ Te1[s1.c2] ^ Te2[s2.c1] ^ Te3[s3.c0] ^ roundkeys[20];
+	t1.i = Te0[s1.c3] ^ Te1[s2.c2] ^ Te2[s3.c1] ^ Te3[s0.c0] ^ roundkeys[21];
+	t2.i = Te0[s2.c3] ^ Te1[s3.c2] ^ Te2[s0.c1] ^ Te3[s1.c0] ^ roundkeys[22];
+	t3.i = Te0[s3.c3] ^ Te1[s0.c2] ^ Te2[s1.c1] ^ Te3[s2.c0] ^ roundkeys[23];
+
+	s0.i = Te0[t0.c3] ^ Te1[t1.c2] ^ Te2[t2.c1] ^ Te3[t3.c0] ^ roundkeys[24];
+	s1.i = Te0[t1.c3] ^ Te1[t2.c2] ^ Te2[t3.c1] ^ Te3[t0.c0] ^ roundkeys[25];
+	s2.i = Te0[t2.c3] ^ Te1[t3.c2] ^ Te2[t0.c1] ^ Te3[t1.c0] ^ roundkeys[26];
+	s3.i = Te0[t3.c3] ^ Te1[t0.c2] ^ Te2[t1.c1] ^ Te3[t2.c0] ^ roundkeys[27];
+
+	t0.i = Te0[s0.c3] ^ Te1[s1.c2] ^ Te2[s2.c1] ^ Te3[s3.c0] ^ roundkeys[28];
+	t1.i = Te0[s1.c3] ^ Te1[s2.c2] ^ Te2[s3.c1] ^ Te3[s0.c0] ^ roundkeys[29];
+	t2.i = Te0[s2.c3] ^ Te1[s3.c2] ^ Te2[s0.c1] ^ Te3[s1.c0] ^ roundkeys[30];
+	t3.i = Te0[s3.c3] ^ Te1[s0.c2] ^ Te2[s1.c1] ^ Te3[s2.c0] ^ roundkeys[31];
+
+	s0.i = Te0[t0.c3] ^ Te1[t1.c2] ^ Te2[t2.c1] ^ Te3[t3.c0] ^ roundkeys[32];
+	s1.i = Te0[t1.c3] ^ Te1[t2.c2] ^ Te2[t3.c1] ^ Te3[t0.c0] ^ roundkeys[33];
+	s2.i = Te0[t2.c3] ^ Te1[t3.c2] ^ Te2[t0.c1] ^ Te3[t1.c0] ^ roundkeys[34];
+	s3.i = Te0[t3.c3] ^ Te1[t0.c2] ^ Te2[t1.c1] ^ Te3[t2.c0] ^ roundkeys[35];
+
+	t0.i = Te0[s0.c3] ^ Te1[s1.c2] ^ Te2[s2.c1] ^ Te3[s3.c0] ^ roundkeys[36];
+	t1.i = Te0[s1.c3] ^ Te1[s2.c2] ^ Te2[s3.c1] ^ Te3[s0.c0] ^ roundkeys[37];
+	t2.i = Te0[s2.c3] ^ Te1[s3.c2] ^ Te2[s0.c1] ^ Te3[s1.c0] ^ roundkeys[38];
+	t3.i = Te0[s3.c3] ^ Te1[s0.c2] ^ Te2[s1.c1] ^ Te3[s2.c0] ^ roundkeys[39];
+
+	roundkeys += 40;
+
+	s0.c3 = Te4[t0.c3];
+	s0.c2 = Te4[t1.c2];
+	s0.c1 = Te4[t2.c1];
+	s0.c0 = Te4[t3.c0];
+	s0.i ^= roundkeys[0];
+
+	s1.c3 = Te4[t1.c3];
+	s1.c2 = Te4[t2.c2];
+	s1.c1 = Te4[t3.c1];
+	s1.c0 = Te4[t0.c0];
+	s1.i ^= roundkeys[1];
+
+	s2.c3 = Te4[t2.c3];
+	s2.c2 = Te4[t3.c2];
+	s2.c1 = Te4[t0.c1];
+	s2.c0 = Te4[t1.c0];
+	s2.i ^= roundkeys[2];
+
+	s3.c3 = Te4[t3.c3];
+	s3.c2 = Te4[t0.c2];
+	s3.c1 = Te4[t1.c1];
+	s3.c0 = Te4[t2.c0];
+	s3.i ^= roundkeys[3];
+
+	PUTU32(&state[ 0], s0.i);
+	PUTU32(&state[ 4], s1.i);
+	PUTU32(&state[ 8], s2.i);
+	PUTU32(&state[12], s3.i);
 }

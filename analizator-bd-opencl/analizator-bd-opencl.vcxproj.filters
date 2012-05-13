@@ -16,6 +16,13 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="ReadMe.txt" />
+    <None Include="key_schedule_sbox.txt" />
+    <None Include="key_schedule_rcon.txt" />
+    <None Include="cl_encrypt_test_data.txt" />
+    <None Include="key_schedule_test_data.txt" />
+    <None Include="..\Release\aes-encrypt.cl">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -24,16 +31,13 @@
     <ClInclude Include="targetver.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="key_schedule.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="key_schedule_test.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="cl_encrypt_test.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="cl_encrypt.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="rijndael.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -44,16 +48,13 @@
     <ClCompile Include="analizator-bd-opencl.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="key_schedule_test.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="key_schedule.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="cl_encrypt_test.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="cl_encrypt.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="rijndael.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

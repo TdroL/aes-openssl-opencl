@@ -1,9 +1,5 @@
 #include "stdafx.h"
 #include "CL/cl.h"
-#include "key_schedule.h"
-#ifdef TEST_KEY_SCHEDULE
-	#include "key_schedule_test.h"
-#endif
 #include "cl_encrypt.h"
 #ifdef TEST_CL_ENCRYPT
 	#include "cl_encrypt_test.h"
@@ -11,10 +7,12 @@
 #include <fstream>
 #include <sstream>
 #include <ctime>
-/*
-#define KiB 1024
-#define MiB (1024*KiB)
+#include "rijndael.h"
 
+#define KiB * 1024
+#define MiB * 1024 KiB
+
+/*
 cl_int err;
 cl_platform_id cp_platform;
 cl_device_id device_id;
@@ -47,16 +45,72 @@ void create_buffers();
 void execute(size_t count);
 void release();
 */
+
 int main(int argc, char **argv)
 {
-	#ifdef TEST_KEY_SCHEDULE
-		key_schedule_test();
-	#endif
+#ifdef PRINT_TEST_DATA
+	print_test_data();
+	return EXIT_SUCCESS;
+#endif
 
-	#ifdef TEST_CL_ENCRYPT
-		cl_encrypt_test();
-	#endif
+#ifdef TEST_CL_ENCRYPT
+	cl_encrypt_test();
+#endif
+	const size_t rk_length = 256;
+	uint32_t rk[RKLENGTH(rk_length)];
+	char key[KEYLENGTH(rk_length)] = "tajny klucz";
 
+	rijndaelSetupEncrypt((unsigned long *) rk, (uint8_t *) key, rk_length);
+
+	const size_t data_length = 128 MiB;
+	uint8_t *data = new uint8_t[data_length];
+
+	memset(data, 0, data_length);
+
+	cl_init("aes_encrypt_256", data_length, RKLENGTH(rk_length));
+
+#ifdef PRINT_PLATFORM_INFO
+	cl_print_platform_info();
+#endif
+
+#ifdef PRINT_DEVICE_INFO
+	cl_print_device_info();
+#endif
+
+	clock_t start, end;
+
+	start = clock();
+	cl_encrypt(data, rk);
+	end = clock();
+
+	printf("OpenCL   %ums\n", ((1000*(end-start))/CLOCKS_PER_SEC));
+
+	start = clock();
+
+	for (size_t pos = 0; pos < data_length; pos += 16)
+	{
+		rijndaelEncrypt((unsigned long *) rk, 14, data + pos, data + pos);
+	}
+
+	end = clock();
+
+	printf("Rijndael %ums\n", ((1000*(end-start))/CLOCKS_PER_SEC));
+
+	/*
+	for (size_t pos = 0; pos < data_length; pos += 512*16)
+	{
+		uint8_t zeros[512*8] = {0};
+
+		if (memcmp(data + pos, zeros, 512*8) != 0)
+		{
+			printf("%u\n", pos);
+		}
+	}
+	*/
+
+	cl_release_all();
+	
+	delete[] data;
 	/*
 	char *source = "./aes-encrypt.cl";
 

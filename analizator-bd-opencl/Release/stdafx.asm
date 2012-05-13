@@ -6,8 +6,7 @@
 	include listing.inc
 	.model	flat
 
+INCLUDELIB LIBCMT
 INCLUDELIB OLDNAMES
 
-PUBLIC	___@@_PchSym_@00@UfhvihUgwiloUwlxfnvmghUerhfzoLhgfwrlLCABAUkilqvxghUzmzorazgliUzmzorazgliRywRlkvmxoUivovzhvUhgwzucOlyq@
-___@@_PchSym_@00@UfhvihUgwiloUwlxfnvmghUerhfzoLhgfwrlLCABAUkilqvxghUzmzorazgliUzmzorazgliRywRlkvmxoUivovzhvUhgwzucOlyq@ DD 01H DUP (?)
 END

@@ -6,6 +6,7 @@
 	include listing.inc
 	.model	flat
 
+INCLUDELIB LIBCMT
 INCLUDELIB OLDNAMES
 
 PUBLIC	?has_denorm@_Num_base@std@@2W4float_denorm_style@2@B ; std::_Num_base::has_denorm
@@ -190,7 +191,6 @@ PUBLIC	?binary@?$_Iosb@H@std@@2W4_Openmode@12@B	; std::_Iosb<int>::binary
 PUBLIC	?beg@?$_Iosb@H@std@@2W4_Seekdir@12@B		; std::_Iosb<int>::beg
 PUBLIC	?cur@?$_Iosb@H@std@@2W4_Seekdir@12@B		; std::_Iosb<int>::cur
 PUBLIC	?end@?$_Iosb@H@std@@2W4_Seekdir@12@B		; std::_Iosb<int>::end
-EXTRN	@__security_check_cookie@4:PROC
 ;	COMDAT ?end@?$_Iosb@H@std@@2W4_Seekdir@12@B
 CONST	SEGMENT
 ?end@?$_Iosb@H@std@@2W4_Seekdir@12@B DD 02H		; std::_Iosb<int>::end
@@ -918,136 +918,349 @@ CONST	ENDS
 ;	COMDAT ?has_denorm@_Num_base@std@@2W4float_denorm_style@2@B
 CONST	SEGMENT
 ?has_denorm@_Num_base@std@@2W4float_denorm_style@2@B DD 00H ; std::_Num_base::has_denorm
+CONST	ENDS
+PUBLIC	??_C@_0P@FKBFPCKM@Rijndael?5?$CFums?6?$AA@	; `string'
+PUBLIC	??_C@_0P@PCNOIKCI@OpenCL?5?5?5?$CFums?6?$AA@	; `string'
+PUBLIC	??_C@_0BA@JPOPBOHB@aes_encrypt_256?$AA@		; `string'
+PUBLIC	??_C@_0M@OBKLGGDF@tajny?5klucz?$AA@		; `string'
+PUBLIC	__$ArrayPad$
 PUBLIC	_main
-; Function compile flags: /Ogtp
+EXTRN	??_V@YAXPAX@Z:PROC				; operator delete[]
+EXTRN	?cl_release_all@@YAXXZ:PROC			; cl_release_all
+EXTRN	?rijndaelEncrypt@@YAXPBKHQBEQAE@Z:PROC		; rijndaelEncrypt
+EXTRN	_printf:PROC
+EXTRN	?cl_encrypt@@YAXPAEPAI@Z:PROC			; cl_encrypt
+EXTRN	_clock:PROC
+EXTRN	?cl_init@@YAXPADII@Z:PROC			; cl_init
+EXTRN	??_U@YAPAXI@Z:PROC				; operator new[]
+EXTRN	?rijndaelSetupEncrypt@@YAHPAKPBEH@Z:PROC	; rijndaelSetupEncrypt
+EXTRN	___security_cookie:DWORD
+EXTRN	@__security_check_cookie@4:PROC
+EXTRN	_memset:PROC
+;	COMDAT ??_C@_0P@FKBFPCKM@Rijndael?5?$CFums?6?$AA@
 ; File c:\users\tdrol\documents\visual studio 2010\projects\analizator\analizator-bd-opencl\analizator-bd-opencl.cpp
+CONST	SEGMENT
+??_C@_0P@FKBFPCKM@Rijndael?5?$CFums?6?$AA@ DB 'Rijndael %ums', 0aH, 00H ; `string'
+CONST	ENDS
+;	COMDAT ??_C@_0P@PCNOIKCI@OpenCL?5?5?5?$CFums?6?$AA@
+CONST	SEGMENT
+??_C@_0P@PCNOIKCI@OpenCL?5?5?5?$CFums?6?$AA@ DB 'OpenCL   %ums', 0aH, 00H ; `string'
+CONST	ENDS
+;	COMDAT ??_C@_0BA@JPOPBOHB@aes_encrypt_256?$AA@
+CONST	SEGMENT
+??_C@_0BA@JPOPBOHB@aes_encrypt_256?$AA@ DB 'aes_encrypt_256', 00H ; `string'
+CONST	ENDS
+;	COMDAT ??_C@_0M@OBKLGGDF@tajny?5klucz?$AA@
+CONST	SEGMENT
+??_C@_0M@OBKLGGDF@tajny?5klucz?$AA@ DB 'tajny klucz', 00H ; `string'
+; Function compile flags: /Ogtp
+CONST	ENDS
 ;	COMDAT _main
 _TEXT	SEGMENT
+_start$ = -280						; size = 4
+_rk$ = -276						; size = 240
+_key$ = -36						; size = 32
+__$ArrayPad$ = -4					; size = 4
 _argc$ = 8						; size = 4
 _argv$ = 12						; size = 4
 _main	PROC						; COMDAT
 
-; 52   : 	#ifdef TEST_KEY_SCHEDULE
-; 53   : 		key_schedule_test();
+; 50   : {
 
-	call	?key_schedule_test@@YAXXZ		; key_schedule_test
+	push	ebp
+	mov	ebp, esp
+	sub	esp, 280				; 00000118H
+	mov	eax, DWORD PTR ___security_cookie
+	xor	eax, ebp
+	mov	DWORD PTR __$ArrayPad$[ebp], eax
 
-; 54   : 	#endif
+; 51   : #ifdef PRINT_TEST_DATA
+; 52   : 	print_test_data();
+; 53   : 	return EXIT_SUCCESS;
+; 54   : #endif
 ; 55   : 
-; 56   : 	#ifdef TEST_CL_ENCRYPT
-; 57   : 		cl_encrypt_test();
+; 56   : #ifdef TEST_CL_ENCRYPT
+; 57   : 	cl_encrypt_test();
+; 58   : #endif
+; 59   : 	const size_t rk_length = 256;
+; 60   : 	uint32_t rk[RKLENGTH(rk_length)];
+; 61   : 	char key[KEYLENGTH(rk_length)] = "tajny klucz";
 
-	call	?cl_encrypt_test@@YAXXZ			; cl_encrypt_test
+	movq	xmm0, QWORD PTR ??_C@_0M@OBKLGGDF@tajny?5klucz?$AA@
+	mov	eax, DWORD PTR ??_C@_0M@OBKLGGDF@tajny?5klucz?$AA@+8
+	push	ebx
+	push	esi
+	push	edi
 
-; 58   : 	#endif
-; 59   : 
-; 60   : 	/*
-; 61   : 	char *source = "./aes-encrypt.cl";
 ; 62   : 
-; 63   : 	printf("Loading \"%s\"\n", source);
-; 64   : 	start = clock();
-; 65   : 	init(source);
-; 66   : 	create_kernel("aes_encrypt_256");
-; 67   : 	end = clock();
-; 68   : 
-; 69   : 	printf("Ready (%ums)\n", end - start);
-; 70   : 
-; 71   : 	printf("\nGPU info:\n");
-; 72   : 	unsigned long int param_value;
-; 73   : 	
-; 74   : 	param_value = clGetDeviceInfo(device_id, CL_DEVICE_LOCAL_MEM_SIZE, sizeof(param_value), &param_value, NULL);
-; 75   : 	{
-; 76   : 		double memory = (double) param_value;
-; 77   : 		char units[][4] = {"B  ", "KiB", "MiB", "GiB"};
-; 78   : 		char *unit = units[0];
-; 79   : 		for (int i = 1; memory >= 1024; i++)
-; 80   : 		{
-; 81   : 			memory /= 1024;
-; 82   : 			unit = units[i];
-; 83   : 		}
-; 84   : 		printf("  local memory size        %.2f %s\n", memory, unit);
-; 85   : 	}
-; 86   : 	clGetDeviceInfo(device_id, CL_DEVICE_GLOBAL_MEM_SIZE, sizeof(param_value), &param_value, NULL);
-; 87   : 	{
-; 88   : 		double memory = (double) param_value;
-; 89   : 		char units[][4] = {"B  ", "KiB", "MiB", "GiB"};
-; 90   : 		char *unit = units[0];
-; 91   : 		for (int i = 1; memory >= 1024; i++)
-; 92   : 		{
-; 93   : 			memory /= 1024;
-; 94   : 			unit = units[i];
-; 95   : 		}
-; 96   : 		printf("  global memory size       %.2f %s\n", memory, unit);
-; 97   : 	}
-; 98   : 	clGetDeviceInfo(device_id, CL_DEVICE_MAX_COMPUTE_UNITS, sizeof(param_value), &param_value, NULL);
-; 99   : 	printf("  maximum compute units    %u\n", param_value);
-; 100  : 	clGetDeviceInfo(device_id, CL_DEVICE_MAX_WORK_GROUP_SIZE, sizeof(param_value), &param_value, NULL);
-; 101  : 	printf("  maximum work-group size  %u\n", param_value);
-; 102  : 	clGetDeviceInfo(device_id, CL_DEVICE_MAX_WORK_ITEM_SIZES, sizeof(param_value), &param_value, NULL);
-; 103  : 	printf("  maximum work-item sizes  %u\n", param_value);
-; 104  : 
-; 105  : 	inbuf = new unsigned char[BUFFER_SIZE];
-; 106  : 	outbuf = new unsigned char[BUFFER_SIZE];
-; 107  : 	int inlen = BUFFER_SIZE,
-; 108  : 		outlen = 0;
-; 109  : 
-; 110  : 	if (argc > 1)
-; 111  : 	{
-; 112  : 		count = atoi(argv[1]);
-; 113  : 	}
-; 114  : 
-; 115  : 	// fill input buffer
-; 116  : 	memset(inbuf, 0, sizeof(*inbuf) * BUFFER_SIZE);
-; 117  : 
-; 118  : 	// simple key and iv
-; 119  : 	keys = new unsigned char[ROUNDKEYS_SIZE];
-; 120  : 	iv = new unsigned char[IV_SIZE];
-; 121  : 	unsigned int key_length = (ROUNDKEYS_SIZE == 240) ? 32 : ((ROUNDKEYS_SIZE == 208) ? 24 : 16);
+; 63   : 	rijndaelSetupEncrypt((unsigned long *) rk, (uint8_t *) key, rk_length);
+
+	push	256					; 00000100H
+	lea	ecx, DWORD PTR _key$[ebp]
+	push	ecx
+	lea	edx, DWORD PTR _rk$[ebp]
+	movq	QWORD PTR _key$[ebp], xmm0
+	pxor	xmm0, xmm0
+	push	edx
+	mov	DWORD PTR _key$[ebp+8], eax
+	movq	QWORD PTR _key$[ebp+12], xmm0
+	movq	QWORD PTR _key$[ebp+20], xmm0
+	mov	DWORD PTR _key$[ebp+28], 0
+	call	?rijndaelSetupEncrypt@@YAHPAKPBEH@Z	; rijndaelSetupEncrypt
+
+; 64   : 
+; 65   : 	const size_t data_length = 128 MiB;
+; 66   : 	uint8_t *data = new uint8_t[data_length];
+
+	push	134217728				; 08000000H
+	call	??_U@YAPAXI@Z				; operator new[]
+
+; 67   : 
+; 68   : 	memset(data, 0, data_length);
+
+	push	134217728				; 08000000H
+	mov	esi, eax
+	push	0
+	push	esi
+	call	_memset
+
+; 69   : 
+; 70   : 	cl_init("aes_encrypt_256", data_length, RKLENGTH(rk_length));
+
+	push	60					; 0000003cH
+	push	134217728				; 08000000H
+	push	OFFSET ??_C@_0BA@JPOPBOHB@aes_encrypt_256?$AA@
+	call	?cl_init@@YAXPADII@Z			; cl_init
+
+; 71   : 
+; 72   : #ifdef PRINT_PLATFORM_INFO
+; 73   : 	cl_print_platform_info();
+; 74   : #endif
+; 75   : 
+; 76   : #ifdef PRINT_DEVICE_INFO
+; 77   : 	cl_print_device_info();
+; 78   : #endif
+; 79   : 
+; 80   : 	clock_t start, end;
+; 81   : 
+; 82   : 	start = clock();
+
+	call	_clock
+	mov	edi, eax
+
+; 83   : 	cl_encrypt(data, rk);
+
+	lea	eax, DWORD PTR _rk$[ebp]
+	push	eax
+	push	esi
+	call	?cl_encrypt@@YAXPAEPAI@Z		; cl_encrypt
+
+; 84   : 	end = clock();
+
+	call	_clock
+
+; 85   : 
+; 86   : 	printf("OpenCL   %ums\n", ((1000*(end-start))/CLOCKS_PER_SEC));
+
+	sub	eax, edi
+	imul	eax, 1000				; 000003e8H
+	mov	ecx, eax
+	mov	eax, 274877907				; 10624dd3H
+	imul	ecx
+	sar	edx, 6
+	mov	ecx, edx
+	shr	ecx, 31					; 0000001fH
+	add	ecx, edx
+	push	ecx
+	push	OFFSET ??_C@_0P@PCNOIKCI@OpenCL?5?5?5?$CFums?6?$AA@
+	call	_printf
+	add	esp, 56					; 00000038H
+
+; 87   : 
+; 88   : 	start = clock();
+
+	call	_clock
+	mov	DWORD PTR _start$[ebp], eax
+	mov	edi, esi
+	mov	ebx, 8388608				; 00800000H
+$LL3@main:
+
+; 89   : 
+; 90   : 	for (size_t pos = 0; pos < data_length; pos += 16)
+; 91   : 	{
+; 92   : 		rijndaelEncrypt((unsigned long *) rk, 14, data + pos, data + pos);
+
+	push	edi
+	push	edi
+	lea	edx, DWORD PTR _rk$[ebp]
+	push	14					; 0000000eH
+	push	edx
+	call	?rijndaelEncrypt@@YAXPBKHQBEQAE@Z	; rijndaelEncrypt
+	add	esp, 16					; 00000010H
+	add	edi, 16					; 00000010H
+	dec	ebx
+	jne	SHORT $LL3@main
+
+; 93   : 	}
+; 94   : 
+; 95   : 	end = clock();
+
+	call	_clock
+
+; 96   : 
+; 97   : 	printf("Rijndael %ums\n", ((1000*(end-start))/CLOCKS_PER_SEC));
+
+	sub	eax, DWORD PTR _start$[ebp]
+	imul	eax, 1000				; 000003e8H
+	mov	ecx, eax
+	mov	eax, 274877907				; 10624dd3H
+	imul	ecx
+	sar	edx, 6
+	mov	eax, edx
+	shr	eax, 31					; 0000001fH
+	add	eax, edx
+	push	eax
+	push	OFFSET ??_C@_0P@FKBFPCKM@Rijndael?5?$CFums?6?$AA@
+	call	_printf
+
+; 98   : 
+; 99   : 	/*
+; 100  : 	for (size_t pos = 0; pos < data_length; pos += 512*16)
+; 101  : 	{
+; 102  : 		uint8_t zeros[512*8] = {0};
+; 103  : 
+; 104  : 		if (memcmp(data + pos, zeros, 512*8) != 0)
+; 105  : 		{
+; 106  : 			printf("%u\n", pos);
+; 107  : 		}
+; 108  : 	}
+; 109  : 	*/
+; 110  : 
+; 111  : 	cl_release_all();
+
+	call	?cl_release_all@@YAXXZ			; cl_release_all
+
+; 112  : 	
+; 113  : 	delete[] data;
+
+	push	esi
+	call	??_V@YAXPAX@Z				; operator delete[]
+
+; 114  : 	/*
+; 115  : 	char *source = "./aes-encrypt.cl";
+; 116  : 
+; 117  : 	printf("Loading \"%s\"\n", source);
+; 118  : 	start = clock();
+; 119  : 	init(source);
+; 120  : 	create_kernel("aes_encrypt_256");
+; 121  : 	end = clock();
 ; 122  : 
-; 123  : 	for (unsigned int i = 0; i < key_length; i++) keys[i] = i + 1;
+; 123  : 	printf("Ready (%ums)\n", end - start);
 ; 124  : 
-; 125  : 	for (unsigned int i = 0; i < IV_SIZE; i++) iv[i] = 0;
-; 126  : 
-; 127  : 	key_schedule(keys, ROUNDKEYS_SIZE / 16);
-; 128  : 
-; 129  : 	printf("\nKey info:\n");
-; 130  : 	printf("  key length: %u bits\n", key_length);
-; 131  : 	printf("  expanded key length: %u bytes\n", ROUNDKEYS_SIZE);
-; 132  : 	printf("  rounds: %u\n", ROUNDKEYS_SIZE / 16);
-; 133  : 
-; 134  : 	create_buffers();
-; 135  : 
-; 136  : 	clEnqueueWriteBuffer(queue, state,     CL_TRUE, 0, sizeof(*inbuf) * BUFFER_SIZE,   inbuf,  0, NULL, NULL);
-; 137  : 	clEnqueueWriteBuffer(queue, roundkeys, CL_TRUE, 0, sizeof(*keys) * ROUNDKEYS_SIZE, keys,   0, NULL, NULL);
-; 138  : 
-; 139  : 	start = clock();
-; 140  : 	execute(count);
-; 141  : 	end = clock();
-; 142  : 
-; 143  : 	err = clEnqueueReadBuffer(queue, state, CL_TRUE, 0, sizeof(*inbuf) * BUFFER_SIZE, outbuf, 0, NULL, NULL);
-; 144  : 
-; 145  : 	if (err != CL_SUCCESS) {
-; 146  : 		printf("Error: failed to read from buffer\n", err);
-; 147  : 		exit(EXIT_FAILURE);
-; 148  : 	}
-; 149  : 
-; 150  : 	for (uint32_t i = 0; i < count; i++)
-; 151  : 	{
-; 152  : 		printf("%2x ", outbuf[i]);
-; 153  : 		if ((i+1) % 16 == 0)
-; 154  : 		{
-; 155  : 			printf("\n");
-; 156  : 		}
-; 157  : 	}
-; 158  : 	release();
-; 159  : 	*/
-; 160  : 
-; 161  : 	return EXIT_SUCCESS;
+; 125  : 	printf("\nGPU info:\n");
+; 126  : 	unsigned long int param_value;
+; 127  : 	
+; 128  : 	param_value = clGetDeviceInfo(device_id, CL_DEVICE_LOCAL_MEM_SIZE, sizeof(param_value), &param_value, NULL);
+; 129  : 	{
+; 130  : 		double memory = (double) param_value;
+; 131  : 		char units[][4] = {"B  ", "KiB", "MiB", "GiB"};
+; 132  : 		char *unit = units[0];
+; 133  : 		for (int i = 1; memory >= 1024; i++)
+; 134  : 		{
+; 135  : 			memory /= 1024;
+; 136  : 			unit = units[i];
+; 137  : 		}
+; 138  : 		printf("  local memory size        %.2f %s\n", memory, unit);
+; 139  : 	}
+; 140  : 	clGetDeviceInfo(device_id, CL_DEVICE_GLOBAL_MEM_SIZE, sizeof(param_value), &param_value, NULL);
+; 141  : 	{
+; 142  : 		double memory = (double) param_value;
+; 143  : 		char units[][4] = {"B  ", "KiB", "MiB", "GiB"};
+; 144  : 		char *unit = units[0];
+; 145  : 		for (int i = 1; memory >= 1024; i++)
+; 146  : 		{
+; 147  : 			memory /= 1024;
+; 148  : 			unit = units[i];
+; 149  : 		}
+; 150  : 		printf("  global memory size       %.2f %s\n", memory, unit);
+; 151  : 	}
+; 152  : 	clGetDeviceInfo(device_id, CL_DEVICE_MAX_COMPUTE_UNITS, sizeof(param_value), &param_value, NULL);
+; 153  : 	printf("  maximum compute units    %u\n", param_value);
+; 154  : 	clGetDeviceInfo(device_id, CL_DEVICE_MAX_WORK_GROUP_SIZE, sizeof(param_value), &param_value, NULL);
+; 155  : 	printf("  maximum work-group size  %u\n", param_value);
+; 156  : 	clGetDeviceInfo(device_id, CL_DEVICE_MAX_WORK_ITEM_SIZES, sizeof(param_value), &param_value, NULL);
+; 157  : 	printf("  maximum work-item sizes  %u\n", param_value);
+; 158  : 
+; 159  : 	inbuf = new unsigned char[BUFFER_SIZE];
+; 160  : 	outbuf = new unsigned char[BUFFER_SIZE];
+; 161  : 	int inlen = BUFFER_SIZE,
+; 162  : 		outlen = 0;
+; 163  : 
+; 164  : 	if (argc > 1)
+; 165  : 	{
+; 166  : 		count = atoi(argv[1]);
+; 167  : 	}
+; 168  : 
+; 169  : 	// fill input buffer
+; 170  : 	memset(inbuf, 0, sizeof(*inbuf) * BUFFER_SIZE);
+; 171  : 
+; 172  : 	// simple key and iv
+; 173  : 	keys = new unsigned char[ROUNDKEYS_SIZE];
+; 174  : 	iv = new unsigned char[IV_SIZE];
+; 175  : 	unsigned int key_length = (ROUNDKEYS_SIZE == 240) ? 32 : ((ROUNDKEYS_SIZE == 208) ? 24 : 16);
+; 176  : 
+; 177  : 	for (unsigned int i = 0; i < key_length; i++) keys[i] = i + 1;
+; 178  : 
+; 179  : 	for (unsigned int i = 0; i < IV_SIZE; i++) iv[i] = 0;
+; 180  : 
+; 181  : 	key_schedule(keys, ROUNDKEYS_SIZE / 16);
+; 182  : 
+; 183  : 	printf("\nKey info:\n");
+; 184  : 	printf("  key length: %u bits\n", key_length);
+; 185  : 	printf("  expanded key length: %u bytes\n", ROUNDKEYS_SIZE);
+; 186  : 	printf("  rounds: %u\n", ROUNDKEYS_SIZE / 16);
+; 187  : 
+; 188  : 	create_buffers();
+; 189  : 
+; 190  : 	clEnqueueWriteBuffer(queue, state,     CL_TRUE, 0, sizeof(*inbuf) * BUFFER_SIZE,   inbuf,  0, NULL, NULL);
+; 191  : 	clEnqueueWriteBuffer(queue, roundkeys, CL_TRUE, 0, sizeof(*keys) * ROUNDKEYS_SIZE, keys,   0, NULL, NULL);
+; 192  : 
+; 193  : 	start = clock();
+; 194  : 	execute(count);
+; 195  : 	end = clock();
+; 196  : 
+; 197  : 	err = clEnqueueReadBuffer(queue, state, CL_TRUE, 0, sizeof(*inbuf) * BUFFER_SIZE, outbuf, 0, NULL, NULL);
+; 198  : 
+; 199  : 	if (err != CL_SUCCESS) {
+; 200  : 		printf("Error: failed to read from buffer\n", err);
+; 201  : 		exit(EXIT_FAILURE);
+; 202  : 	}
+; 203  : 
+; 204  : 	for (uint32_t i = 0; i < count; i++)
+; 205  : 	{
+; 206  : 		printf("%2x ", outbuf[i]);
+; 207  : 		if ((i+1) % 16 == 0)
+; 208  : 		{
+; 209  : 			printf("\n");
+; 210  : 		}
+; 211  : 	}
+; 212  : 	release();
+; 213  : 	*/
+; 214  : 
+; 215  : 	return EXIT_SUCCESS;
+; 216  : }
 
+	mov	ecx, DWORD PTR __$ArrayPad$[ebp]
+	add	esp, 12					; 0000000cH
+	pop	edi
+	pop	esi
+	xor	ecx, ebp
 	xor	eax, eax
-
-; 162  : }
-
+	pop	ebx
+	call	@__security_check_cookie@4
+	mov	esp, ebp
+	pop	ebp
 	ret	0
 _main	ENDP
+_TEXT	ENDS
 END

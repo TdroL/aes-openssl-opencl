@@ -3,8 +3,8 @@
 
 #include <cstdint>
 #include <cstring>
-#include "key_schedule.h"
 
 void cl_encrypt_test();
+void print_test_data();
 
 #endif
