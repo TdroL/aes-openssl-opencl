@@ -9,6 +9,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "analizator-bd-opencl", "ana
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "rijndael-aes", "rijndael-aes\rijndael-aes.vcxproj", "{D98FA826-3A81-4A4C-AC19-9B49142B4C3A}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "opencl-tests", "opencl-tests\opencl-tests.vcxproj", "{55A2BED8-FB6B-430D-BE60-81E9496B6C32}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -40,6 +42,12 @@ Global
 		{D98FA826-3A81-4A4C-AC19-9B49142B4C3A}.Debug2|Win32.Build.0 = Debug|Win32
 		{D98FA826-3A81-4A4C-AC19-9B49142B4C3A}.Release|Win32.ActiveCfg = Release|Win32
 		{D98FA826-3A81-4A4C-AC19-9B49142B4C3A}.Release|Win32.Build.0 = Release|Win32
+		{55A2BED8-FB6B-430D-BE60-81E9496B6C32}.Debug|Win32.ActiveCfg = Debug|Win32
+		{55A2BED8-FB6B-430D-BE60-81E9496B6C32}.Debug|Win32.Build.0 = Debug|Win32
+		{55A2BED8-FB6B-430D-BE60-81E9496B6C32}.Debug2|Win32.ActiveCfg = Debug|Win32
+		{55A2BED8-FB6B-430D-BE60-81E9496B6C32}.Debug2|Win32.Build.0 = Debug|Win32
+		{55A2BED8-FB6B-430D-BE60-81E9496B6C32}.Release|Win32.ActiveCfg = Release|Win32
+		{55A2BED8-FB6B-430D-BE60-81E9496B6C32}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

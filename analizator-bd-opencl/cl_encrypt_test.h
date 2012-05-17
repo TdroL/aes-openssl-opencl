@@ -5,6 +5,5 @@
 #include <cstring>
 
 void cl_encrypt_test();
-void print_test_data();
 
 #endif

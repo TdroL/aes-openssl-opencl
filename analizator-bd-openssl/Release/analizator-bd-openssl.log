@@ -1,5 +1,5 @@
-﻿Build started 2012-05-11 21:28:46.
-     1>Project "C:\Users\tdrol\documents\visual studio 2010\Projects\analizator\analizator-bd-openssl\analizator-bd-openssl.vcxproj" on node 2 (build target(s)).
+﻿Build started 2012-05-16 17:18:02.
+     1>Project "C:\Users\tdrol\documents\visual studio 2010\Projects\analizator\analizator-bd-openssl\analizator-bd-openssl.vcxproj" on node 3 (build target(s)).
      1>InitializeBuildStatus:
          Creating "Release\analizator-bd-openssl.unsuccessfulbuild" because "AlwaysCreate" was specified.
        ClCompile:
@@ -21,4 +21,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:03.26
+Time Elapsed 00:00:04.36

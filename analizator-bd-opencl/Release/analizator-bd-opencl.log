@@ -1,11 +1,11 @@
-﻿Build started 2012-05-12 23:59:01.
+﻿Build started 2012-05-18 00:34:22.
      1>Project "C:\Users\tdrol\documents\visual studio 2010\Projects\analizator\analizator-bd-opencl\analizator-bd-opencl.vcxproj" on node 2 (build target(s)).
      1>InitializeBuildStatus:
          Creating "Release\analizator-bd-opencl.unsuccessfulbuild" because "AlwaysCreate" was specified.
        ClCompile:
          All outputs are up-to-date.
-         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /I"C:\Program Files (x86)\NVIDIA GPU Computing Toolkit\CUDA\v4.1\include" /Zi /nologo /W3 /WX- /O2 /Oi /Ot /Oy- /D NDEBUG /D WIN32 /D _CONSOLE /D _UNICODE /D UNICODE /GF /Gm /EHsc /MT /GS /Gy /arch:SSE2 /fp:precise /Zc:wchar_t /Zc:forScope /Yu"StdAfx.h" /Fp"Release\analizator-bd-opencl.pch" /FAs /Fa"Release\\" /Fo"Release\\" /Fd"Release\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt "analizator-bd-opencl.cpp"
-         analizator-bd-opencl.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /I"C:\Program Files (x86)\NVIDIA GPU Computing Toolkit\CUDA\v4.1\include" /Zi /nologo /W3 /WX- /O2 /Oi /Ot /Oy- /D NDEBUG /D WIN32 /D _CONSOLE /D _UNICODE /D UNICODE /GF /Gm /EHsc /MT /GS /Gy /arch:SSE2 /fp:precise /Zc:wchar_t /Zc:forScope /Yu"StdAfx.h" /Fp"Release\analizator-bd-opencl.pch" /FAs /Fa"Release\\" /Fo"Release\\" /Fd"Release\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt cl_encrypt.cpp
+         cl_encrypt.cpp
        Link:
          C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\tdrol\documents\visual studio 2010\Projects\analizator\Release\analizator-bd-opencl.exe" /INCREMENTAL:NO /NOLOGO /LIBPATH:"C:\Program Files (x86)\NVIDIA GPU Computing Toolkit\CUDA\v4.1\lib\Win32" opencl.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"Release\analizator-bd-opencl.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"C:\Users\tdrol\documents\visual studio 2010\Projects\analizator\Release\analizator-bd-opencl.pdb" /SUBSYSTEM:CONSOLE /OPT:REF /OPT:ICF /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\tdrol\documents\visual studio 2010\Projects\analizator\Release\analizator-bd-opencl.lib" /MACHINE:X86 "Release\analizator-bd-opencl.obj"
          Release\cl_encrypt.obj
@@ -22,4 +22,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:02.44
+Time Elapsed 00:00:02.41

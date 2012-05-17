@@ -20,7 +20,46 @@
     <None Include="key_schedule_rcon.txt" />
     <None Include="cl_encrypt_test_data.txt" />
     <None Include="key_schedule_test_data.txt" />
-    <None Include="..\Release\aes-encrypt.cl">
+    <None Include="..\Release\aes_encrypt_tables.cl">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Release\aes_encrypt_rijndael_256.cl">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Release\aes_encrypt_rijndael_192.cl">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Release\aes_encrypt_rijndael_128.cl">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Release\aes_encrypt.cl">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Release\aes_encrypt_rijndael.cl">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Release\aes_encrypt_vector_256.cl">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Release\aes_encrypt_vector.cl">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Release\aes_encrypt_vector_128.cl">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Release\aes_encrypt_vector_192.cl">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Release\aes_encrypt_rijndael_256_local.cl">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Release\aes_encrypt_vector_128_local.cl">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Release\aes_encrypt_vector_192_local.cl">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Release\aes_encrypt_vector_256_local.cl">
       <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>
@@ -38,6 +77,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="rijndael.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="md5.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

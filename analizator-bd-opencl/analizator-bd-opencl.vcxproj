@@ -85,7 +85,20 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <None Include="..\Release\aes-encrypt.cl" />
+    <None Include="..\Release\aes_encrypt.cl" />
+    <None Include="..\Release\aes_encrypt_rijndael.cl" />
+    <None Include="..\Release\aes_encrypt_rijndael_128.cl" />
+    <None Include="..\Release\aes_encrypt_rijndael_192.cl" />
+    <None Include="..\Release\aes_encrypt_rijndael_256.cl" />
+    <None Include="..\Release\aes_encrypt_rijndael_256_local.cl" />
+    <None Include="..\Release\aes_encrypt_tables.cl" />
+    <None Include="..\Release\aes_encrypt_vector.cl" />
+    <None Include="..\Release\aes_encrypt_vector_128.cl" />
+    <None Include="..\Release\aes_encrypt_vector_128_local.cl" />
+    <None Include="..\Release\aes_encrypt_vector_192.cl" />
+    <None Include="..\Release\aes_encrypt_vector_192_local.cl" />
+    <None Include="..\Release\aes_encrypt_vector_256.cl" />
+    <None Include="..\Release\aes_encrypt_vector_256_local.cl" />
     <None Include="cl_encrypt_test_data.txt" />
     <None Include="key_schedule_rcon.txt" />
     <None Include="key_schedule_sbox.txt" />
@@ -95,6 +108,7 @@
   <ItemGroup>
     <ClInclude Include="cl_encrypt.h" />
     <ClInclude Include="cl_encrypt_test.h" />
+    <ClInclude Include="md5.h" />
     <ClInclude Include="rijndael.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
