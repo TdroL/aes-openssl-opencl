@@ -24259,83 +24259,17 @@ $LN11@scalar@22:
 	ret	4
 ??_G?$basic_fstream@DU?$char_traits@D@std@@@std@@UAEPAXI@Z ENDP ; std::basic_fstream<char,std::char_traits<char> >::`scalar deleting destructor'
 _TEXT	ENDS
-PUBLIC	??_C@_0CD@CEAJHNIK@?$AN?5?5?5?5?5?5?5?5?5?5?5?5?5?5?5?5?5?5?5?5?5?5?5?5?5?5?5?5?5?5?5@ ; `string'
-PUBLIC	??_C@_01EEMJAFIK@?6?$AA@			; `string'
-PUBLIC	??_C@_06LCOPCLHF@?$AN?$CFi?1?$CFi?$AA@		; `string'
-PUBLIC	??_C@_0BH@FOFJDIBL@Nie?5mozna?5otworzyc?5?$CFs?6?$AA@ ; `string'
-PUBLIC	??_C@_05IHLANGIP@B?4txt?$AA@			; `string'
-PUBLIC	??_C@_0M@DNDABPJK@Seria?3?5?$CFiB?6?$AA@	; `string'
-PUBLIC	??_C@_07DJIJHPMI@KiB?4txt?$AA@			; `string'
-PUBLIC	??_C@_0O@KLNENJON@Seria?3?5?$CFiKiB?6?$AA@	; `string'
-PUBLIC	??_C@_07PPOGHGEP@MiB?4txt?$AA@			; `string'
-PUBLIC	??_C@_0O@CEJECMEN@Seria?3?5?$CFiMiB?6?$AA@	; `string'
-PUBLIC	??_C@_0BF@DGLNFFIB@?4?1results?9bd?9opencl?1?$AA@ ; `string'
-PUBLIC	??_C@_01JOAMLHOP@?9?$AA@			; `string'
 PUBLIC	??_C@_0M@OBKLGGDF@tajny?5klucz?$AA@		; `string'
 PUBLIC	??_C@_0BJ@FOOMHJDB@aes_encrypt_rijndael_256?$AA@ ; `string'
 PUBLIC	__$ArrayPad$
 PUBLIC	_main
-EXTRN	?cl_release_all@@YAXXZ:PROC			; cl_release_all
-EXTRN	_clock:PROC
 EXTRN	_exit:PROC
-EXTRN	_printf:PROC
-EXTRN	?cl_update@@YAXPAEPAI@Z:PROC			; cl_update
+EXTRN	?cl_print_device_info@@YAXXZ:PROC		; cl_print_device_info
 EXTRN	?cl_init@@YA_NPADII_N@Z:PROC			; cl_init
 EXTRN	?rijndaelSetupEncrypt@@YAHPAKPBEH@Z:PROC	; rijndaelSetupEncrypt
 EXTRN	_atoi:PROC
-;	COMDAT ??_C@_0CD@CEAJHNIK@?$AN?5?5?5?5?5?5?5?5?5?5?5?5?5?5?5?5?5?5?5?5?5?5?5?5?5?5?5?5?5?5?5@
-; File c:\program files (x86)\microsoft visual studio 10.0\vc\include\xiosbase
-CONST	SEGMENT
-??_C@_0CD@CEAJHNIK@?$AN?5?5?5?5?5?5?5?5?5?5?5?5?5?5?5?5?5?5?5?5?5?5?5?5?5?5?5?5?5?5?5@ DB 0dH
-	DB	'                                ', 0dH, 00H	; `string'
-CONST	ENDS
-;	COMDAT ??_C@_01EEMJAFIK@?6?$AA@
-CONST	SEGMENT
-??_C@_01EEMJAFIK@?6?$AA@ DB 0aH, 00H			; `string'
-CONST	ENDS
-;	COMDAT ??_C@_06LCOPCLHF@?$AN?$CFi?1?$CFi?$AA@
-CONST	SEGMENT
-??_C@_06LCOPCLHF@?$AN?$CFi?1?$CFi?$AA@ DB 0dH, '%i/%i', 00H ; `string'
-CONST	ENDS
-;	COMDAT ??_C@_0BH@FOFJDIBL@Nie?5mozna?5otworzyc?5?$CFs?6?$AA@
-CONST	SEGMENT
-??_C@_0BH@FOFJDIBL@Nie?5mozna?5otworzyc?5?$CFs?6?$AA@ DB 'Nie mozna otwor'
-	DB	'zyc %s', 0aH, 00H				; `string'
-CONST	ENDS
-;	COMDAT ??_C@_05IHLANGIP@B?4txt?$AA@
-CONST	SEGMENT
-??_C@_05IHLANGIP@B?4txt?$AA@ DB 'B.txt', 00H		; `string'
-CONST	ENDS
-;	COMDAT ??_C@_0M@DNDABPJK@Seria?3?5?$CFiB?6?$AA@
-CONST	SEGMENT
-??_C@_0M@DNDABPJK@Seria?3?5?$CFiB?6?$AA@ DB 'Seria: %iB', 0aH, 00H ; `string'
-CONST	ENDS
-;	COMDAT ??_C@_07DJIJHPMI@KiB?4txt?$AA@
-CONST	SEGMENT
-??_C@_07DJIJHPMI@KiB?4txt?$AA@ DB 'KiB.txt', 00H	; `string'
-CONST	ENDS
-;	COMDAT ??_C@_0O@KLNENJON@Seria?3?5?$CFiKiB?6?$AA@
-CONST	SEGMENT
-??_C@_0O@KLNENJON@Seria?3?5?$CFiKiB?6?$AA@ DB 'Seria: %iKiB', 0aH, 00H ; `string'
-CONST	ENDS
-;	COMDAT ??_C@_07PPOGHGEP@MiB?4txt?$AA@
-CONST	SEGMENT
-??_C@_07PPOGHGEP@MiB?4txt?$AA@ DB 'MiB.txt', 00H	; `string'
-CONST	ENDS
-;	COMDAT ??_C@_0O@CEJECMEN@Seria?3?5?$CFiMiB?6?$AA@
-CONST	SEGMENT
-??_C@_0O@CEJECMEN@Seria?3?5?$CFiMiB?6?$AA@ DB 'Seria: %iMiB', 0aH, 00H ; `string'
-CONST	ENDS
-;	COMDAT ??_C@_0BF@DGLNFFIB@?4?1results?9bd?9opencl?1?$AA@
-CONST	SEGMENT
-??_C@_0BF@DGLNFFIB@?4?1results?9bd?9opencl?1?$AA@ DB './results-bd-opencl'
-	DB	'/', 00H					; `string'
-CONST	ENDS
-;	COMDAT ??_C@_01JOAMLHOP@?9?$AA@
-CONST	SEGMENT
-??_C@_01JOAMLHOP@?9?$AA@ DB '-', 00H			; `string'
-CONST	ENDS
 ;	COMDAT ??_C@_0M@OBKLGGDF@tajny?5klucz?$AA@
+; File c:\program files (x86)\microsoft visual studio 10.0\vc\include\xstring
 CONST	SEGMENT
 ??_C@_0M@OBKLGGDF@tajny?5klucz?$AA@ DB 'tajny klucz', 00H ; `string'
 CONST	ENDS
@@ -24343,61 +24277,14 @@ CONST	ENDS
 CONST	SEGMENT
 ??_C@_0BJ@FOOMHJDB@aes_encrypt_rijndael_256?$AA@ DB 'aes_encrypt_rijndael'
 	DB	'_256', 00H					; `string'
-CONST	ENDS
-;	COMDAT xdata$x
-xdata$x	SEGMENT
-__ehfuncinfo$_main DD 019930522H
-	DD	0cH
-	DD	FLAT:__unwindtable$_main
-	DD	2 DUP(00H)
-	DD	2 DUP(00H)
-	DD	00H
-	DD	01H
-__unwindtable$_main DD 0ffffffffH
-	DD	FLAT:__unwindfunclet$_main$4
-	DD	00H
-	DD	00H
-	DD	01H
-	DD	00H
-	DD	01H
-	DD	FLAT:__unwindfunclet$_main$8
-	DD	03H
-	DD	00H
-	DD	00H
-	DD	FLAT:__unwindfunclet$_main$5
-	DD	05H
-	DD	FLAT:__unwindfunclet$_main$12
-	DD	0ffffffffH
-	DD	FLAT:__unwindfunclet$_main$0
-	DD	07H
-	DD	FLAT:__unwindfunclet$_main$1
-	DD	08H
-	DD	FLAT:__unwindfunclet$_main$2
-	DD	0ffffffffH
-	DD	FLAT:__unwindfunclet$_main$14
-	DD	0aH
-	DD	FLAT:__unwindfunclet$_main$17
 ; Function compile flags: /Ogtp
 ; File c:\users\tdrol\documents\visual studio 2010\projects\analizator\analizator-bd-opencl\analizator-bd-opencl.cpp
-xdata$x	ENDS
+CONST	ENDS
 ;	COMDAT _main
 _TEXT	SEGMENT
-$T43363 = -688						; size = 4
-_f$ = -684						; size = 184
-_results$ = -500					; size = 168
-__Lock$44087 = -332					; size = 4
-$T43122 = -332						; size = 4
-$T44060 = -328						; size = 4
-_data$ = -328						; size = 4
-$T43991 = -324						; size = 4
-_loops$ = -324						; size = 4
-_size_of_data$ = -320					; size = 4
-$T24986 = -316						; size = 28
-$T24983 = -316						; size = 28
-_rk$ = -288						; size = 240
-_key$ = -48						; size = 32
-__$ArrayPad$ = -16					; size = 4
-__$EHRec$ = -12						; size = 12
+_rk$ = -276						; size = 240
+_key$ = -36						; size = 32
+__$ArrayPad$ = -4					; size = 4
 _argc$ = 8						; size = 4
 _argv$ = 12						; size = 4
 _main	PROC						; COMDAT
@@ -24406,20 +24293,10 @@ _main	PROC						; COMDAT
 
 	push	ebp
 	mov	ebp, esp
-	push	-1
-	push	__ehhandler$_main
-	mov	eax, DWORD PTR fs:0
-	push	eax
-	sub	esp, 676				; 000002a4H
+	sub	esp, 276				; 00000114H
 	mov	eax, DWORD PTR ___security_cookie
 	xor	eax, ebp
 	mov	DWORD PTR __$ArrayPad$[ebp], eax
-	push	ebx
-	push	esi
-	push	edi
-	push	eax
-	lea	eax, DWORD PTR __$EHRec$[ebp]
-	mov	DWORD PTR fs:0, eax
 
 ; 17   : #ifdef TEST_CL_ENCRYPT
 ; 18   : 	cl_encrypt_test();
@@ -24433,11 +24310,11 @@ _main	PROC						; COMDAT
 ; 26   : 	if (argc > 1)
 
 	mov	ecx, DWORD PTR _argc$[ebp]
+	push	ebx
+	push	esi
+	push	edi
 	mov	edi, DWORD PTR _argv$[ebp]
 	mov	esi, 1048576				; 00100000H
-	mov	DWORD PTR $T43122[ebp], 0
-	mov	DWORD PTR _size_of_data$[ebp], esi
-	mov	DWORD PTR _loops$[ebp], 256		; 00000100H
 	mov	ebx, OFFSET ??_C@_0BJ@FOOMHJDB@aes_encrypt_rijndael_256?$AA@
 	cmp	ecx, 1
 	jle	SHORT $LN21@main
@@ -24464,7 +24341,6 @@ $LN21@main:
 	call	_atoi
 	mov	ecx, DWORD PTR _argc$[ebp]
 	add	esp, 4
-	mov	DWORD PTR _size_of_data$[ebp], eax
 	mov	esi, eax
 $LN20@main:
 
@@ -24484,8 +24360,8 @@ $LN20@main:
 	add	eax, -75				; ffffffb5H
 	cmp	eax, 34					; 00000022H
 	ja	SHORT $LN17@main
-	movzx	eax, BYTE PTR $LN298@main[eax]
-	jmp	DWORD PTR $LN313@main[eax*4]
+	movzx	eax, BYTE PTR $LN40@main[eax]
+	jmp	DWORD PTR $LN42@main[eax*4]
 $LN16@main:
 
 ; 41   : 		{
@@ -24497,7 +24373,7 @@ $LN16@main:
 
 ; 45   : 		break;
 
-	jmp	SHORT $LN310@main
+	jmp	SHORT $LN17@main
 $LN15@main:
 
 ; 46   : 		case 'k':
@@ -24505,8 +24381,6 @@ $LN15@main:
 ; 48   : 			size_of_data *= 1 KiB;
 
 	shl	esi, 10					; 0000000aH
-$LN310@main:
-	mov	DWORD PTR _size_of_data$[ebp], esi
 $LN17@main:
 
 ; 49   : 		break;
@@ -24526,7 +24400,6 @@ $LN17@main:
 	push	ecx
 	call	_atoi
 	add	esp, 4
-	mov	DWORD PTR _loops$[ebp], eax
 $LN14@main:
 
 ; 57   : 	}
@@ -24548,7 +24421,6 @@ $LN14@main:
 	movq	QWORD PTR _key$[ebp+20], xmm0
 	mov	DWORD PTR _key$[ebp+28], 0
 	call	??_U@YAPAXI@Z				; operator new[]
-	mov	edi, eax
 
 ; 63   : 
 ; 64   : 	rijndaelSetupEncrypt((unsigned long *) rk, (uint8_t *) key, rk_length);
@@ -24558,7 +24430,6 @@ $LN14@main:
 	push	eax
 	lea	ecx, DWORD PTR _rk$[ebp]
 	push	ecx
-	mov	DWORD PTR _data$[ebp], edi
 	call	?rijndaelSetupEncrypt@@YAHPAKPBEH@Z	; rijndaelSetupEncrypt
 
 ; 65   : 
@@ -24569,574 +24440,137 @@ $LN14@main:
 	push	esi
 	push	ebx
 	call	?cl_init@@YA_NPADII_N@Z			; cl_init
+	add	esp, 32					; 00000020H
 
 ; 67   : 
 ; 68   : #ifdef PRINT_PLATFORM_INFO
 ; 69   : 	cl_print_platform_info();
 ; 70   : #endif
 ; 71   : 
-; 72   : #ifdef PRINT_DEVICE_INFO
+; 72   : #ifndef PRINT_DEVICE_INFO
 ; 73   : 	cl_print_device_info();
-; 74   : #endif
-; 75   : 
-; 76   : 	// find any errors in first run
-; 77   : 	cl_update(data, rk);
 
-	lea	edx, DWORD PTR _rk$[ebp]
-	push	edx
-	push	edi
-	call	?cl_update@@YAXPAEPAI@Z			; cl_update
-	add	esp, 40					; 00000028H
+	call	?cl_print_device_info@@YAXXZ		; cl_print_device_info
 
-; 78   : 
-; 79   : 	clock_t start, end;
-; 80   : 	std::stringstream results;
+; 74   : 	exit(EXIT_SUCCESS);
 
-	mov	DWORD PTR _results$[ebp], OFFSET ??_8?$basic_stringstream@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@7B?$basic_istream@DU?$char_traits@D@std@@@1@@
-	mov	DWORD PTR _results$[ebp+16], OFFSET ??_8?$basic_stringstream@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@7B?$basic_ostream@DU?$char_traits@D@std@@@1@@
-	xorpd	xmm0, xmm0
-	lea	ecx, DWORD PTR _results$[ebp+96]
-	mov	DWORD PTR __$EHRec$[ebp+8], 0
-	mov	DWORD PTR $T43122[ebp], 1
-	mov	DWORD PTR _results$[ebp+96], OFFSET ??_7?$basic_istream@DU?$char_traits@D@std@@@std@@6B@
-	movlpd	QWORD PTR _results$[ebp+8], xmm0
-	call	?_Init@ios_base@std@@IAEXXZ		; std::ios_base::_Init
-	lea	eax, DWORD PTR _results$[ebp+24]
-	push	32					; 00000020H
-	lea	ecx, DWORD PTR _results$[ebp+96]
-	mov	DWORD PTR _results$[ebp+152], eax
-	mov	DWORD PTR _results$[ebp+156], 0
-	call	?widen@?$basic_ios@DU?$char_traits@D@std@@@std@@QBEDD@Z ; std::basic_ios<char,std::char_traits<char> >::widen
-	cmp	DWORD PTR _results$[ebp+152], 0
-	mov	BYTE PTR _results$[ebp+160], al
-	jne	SHORT $LN70@main
-	mov	eax, DWORD PTR _results$[ebp+108]
-	or	eax, 4
 	push	0
-	push	eax
-	lea	ecx, DWORD PTR _results$[ebp+96]
-	call	?clear@ios_base@std@@QAEXH_N@Z		; std::ios_base::clear
-$LN70@main:
-	mov	ecx, DWORD PTR _results$[ebp+16]
-	mov	edx, DWORD PTR [ecx+4]
-	mov	DWORD PTR _results$[ebp+edx+16], OFFSET ??_7?$basic_ostream@DU?$char_traits@D@std@@@std@@6B@
-	mov	eax, DWORD PTR _results$[ebp]
-	mov	ecx, DWORD PTR [eax+4]
-	mov	DWORD PTR _results$[ebp+ecx], OFFSET ??_7?$basic_iostream@DU?$char_traits@D@std@@@std@@6B@
-	mov	edx, DWORD PTR _results$[ebp]
-	mov	eax, DWORD PTR [edx+4]
-	lea	ecx, DWORD PTR _results$[ebp+24]
-	mov	DWORD PTR __$EHRec$[ebp+8], 5
-	mov	DWORD PTR _results$[ebp+eax], OFFSET ??_7?$basic_stringstream@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@6B@
-	call	??0?$basic_streambuf@DU?$char_traits@D@std@@@std@@IAE@XZ ; std::basic_streambuf<char,std::char_traits<char> >::basic_streambuf<char,std::char_traits<char> >
-	xor	eax, eax
-	mov	DWORD PTR _results$[ebp+24], OFFSET ??_7?$basic_stringbuf@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@6B@
-	mov	DWORD PTR _results$[ebp+84], eax
-	mov	DWORD PTR _results$[ebp+88], eax
-
-; 81   : 	std::fstream f;
-
-	push	1
-	lea	ecx, DWORD PTR _f$[ebp]
-	mov	DWORD PTR __$EHRec$[ebp+8], 7
-	call	??0?$basic_fstream@DU?$char_traits@D@std@@@std@@QAE@XZ ; std::basic_fstream<char,std::char_traits<char> >::basic_fstream<char,std::char_traits<char> >
-
-; 82   : 
-; 83   : 	results << "./results-bd-opencl/" << kernel_name << "-";
-
-	push	OFFSET ??_C@_01JOAMLHOP@?9?$AA@
-	push	ebx
-	lea	ecx, DWORD PTR _results$[ebp+16]
-	push	OFFSET ??_C@_0BF@DGLNFFIB@?4?1results?9bd?9opencl?1?$AA@
-	push	ecx
-	mov	BYTE PTR __$EHRec$[ebp+8], 8
-	call	??$?6U?$char_traits@D@std@@@std@@YAAAV?$basic_ostream@DU?$char_traits@D@std@@@0@AAV10@PBD@Z ; std::operator<<<std::char_traits<char> >
-	add	esp, 8
-	push	eax
-	call	??$?6U?$char_traits@D@std@@@std@@YAAAV?$basic_ostream@DU?$char_traits@D@std@@@0@AAV10@PBD@Z ; std::operator<<<std::char_traits<char> >
-	add	esp, 8
-	push	eax
-	call	??$?6U?$char_traits@D@std@@@std@@YAAAV?$basic_ostream@DU?$char_traits@D@std@@@0@AAV10@PBD@Z ; std::operator<<<std::char_traits<char> >
-	add	esp, 8
-
-; 84   : 
-; 85   : 	if (size_of_data >= 1 MiB)
-
-	cmp	esi, 1048576				; 00100000H
-	jb	SHORT $LN13@main
-
-; 86   : 	{
-; 87   : 		printf("Seria: %iMiB\n", (size_of_data / (1 MiB)));
-
-	mov	ebx, esi
-	shr	ebx, 20					; 00000014H
-	push	ebx
-	push	OFFSET ??_C@_0O@CEJECMEN@Seria?3?5?$CFiMiB?6?$AA@
-	call	_printf
-	add	esp, 8
-
-; 88   : 		results << (size_of_data / (1 MiB)) << "MiB.txt";
-
-	push	OFFSET ??_C@_07PPOGHGEP@MiB?4txt?$AA@
-	push	ebx
-	jmp	SHORT $LN311@main
-$LN13@main:
-
-; 89   : 	}
-; 90   : 	else if (size_of_data >= 1 KiB)
-; 91   : 	{
-; 92   : 		printf("Seria: %iKiB\n", size_of_data);
-
-	push	esi
-	cmp	esi, 1024				; 00000400H
-	jb	SHORT $LN11@main
-	push	OFFSET ??_C@_0O@KLNENJON@Seria?3?5?$CFiKiB?6?$AA@
-	call	_printf
-	add	esp, 8
-
-; 93   : 		results << size_of_data << "KiB.txt";
-
-	push	OFFSET ??_C@_07DJIJHPMI@KiB?4txt?$AA@
-
-; 94   : 	}
-; 95   : 	else
-
-	jmp	SHORT $LN312@main
-$LN11@main:
-
-; 96   : 	{
-; 97   : 		printf("Seria: %iB\n", size_of_data);
-
-	push	OFFSET ??_C@_0M@DNDABPJK@Seria?3?5?$CFiB?6?$AA@
-	call	_printf
-	add	esp, 8
-
-; 98   : 		results << size_of_data << "B.txt";
-
-	push	OFFSET ??_C@_05IHLANGIP@B?4txt?$AA@
-$LN312@main:
-	push	esi
-$LN311@main:
-	lea	ecx, DWORD PTR _results$[ebp+16]
-	call	??6?$basic_ostream@DU?$char_traits@D@std@@@std@@QAEAAV01@I@Z ; std::basic_ostream<char,std::char_traits<char> >::operator<<
-	push	eax
-	call	??$?6U?$char_traits@D@std@@@std@@YAAAV?$basic_ostream@DU?$char_traits@D@std@@@0@AAV10@PBD@Z ; std::operator<<<std::char_traits<char> >
-	add	esp, 8
-
-; 99   : 	}
-; 100  : 
-; 101  : 	f.open(results.str(), std::fstream::out | std::fstream::trunc);
-
-	lea	edx, DWORD PTR $T24983[ebp]
-	push	edx
-	lea	ecx, DWORD PTR _results$[ebp]
-	call	?str@?$basic_stringstream@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QBE?AV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@2@XZ ; std::basic_stringstream<char,std::char_traits<char>,std::allocator<char> >::str
-	mov	ebx, 16					; 00000010H
-	mov	BYTE PTR __$EHRec$[ebp+8], 9
-	cmp	DWORD PTR [eax+20], ebx
-	jb	SHORT $LN121@main
-	mov	eax, DWORD PTR [eax]
-$LN121@main:
-	push	64					; 00000040H
-	push	18					; 00000012H
-	push	eax
-	lea	ecx, DWORD PTR _f$[ebp+24]
-	call	?open@?$basic_filebuf@DU?$char_traits@D@std@@@std@@QAEPAV12@PBDHH@Z ; std::basic_filebuf<char,std::char_traits<char> >::open
-	test	eax, eax
-	jne	SHORT $LN124@main
-	mov	eax, DWORD PTR _f$[ebp]
-	mov	ecx, DWORD PTR [eax+4]
-	mov	eax, DWORD PTR _f$[ebp+ecx+12]
-	lea	ecx, DWORD PTR _f$[ebp+ecx]
-	or	eax, 2
-	cmp	DWORD PTR [ecx+56], 0
-	jne	SHORT $LN134@main
-	or	eax, 4
-	jmp	SHORT $LN134@main
-$LN124@main:
-	mov	ecx, DWORD PTR _f$[ebp]
-	mov	ecx, DWORD PTR [ecx+4]
-	mov	eax, DWORD PTR _f$[ebp+ecx+56]
-	lea	ecx, DWORD PTR _f$[ebp+ecx]
-	neg	eax
-	sbb	eax, eax
-	and	eax, -4					; fffffffcH
-	add	eax, 4
-$LN134@main:
-	push	0
-	push	eax
-	call	?clear@ios_base@std@@QAEXH_N@Z		; std::ios_base::clear
-	mov	BYTE PTR __$EHRec$[ebp+8], 8
-	cmp	DWORD PTR $T24983[ebp+20], ebx
-	jb	SHORT $LN150@main
-	mov	edx, DWORD PTR $T24983[ebp]
-	push	edx
-	call	??3@YAXPAX@Z				; operator delete
-	add	esp, 4
-$LN150@main:
-
-; 102  : 
-; 103  : 	if ( ! f.is_open())
-
-	cmp	DWORD PTR _f$[ebp+108], 0
-	jne	SHORT $LN9@main
-
-; 104  : 	{
-; 105  : 		printf("Nie mozna otworzyc %s\n", results.str().c_str());
-
-	lea	eax, DWORD PTR $T24986[ebp]
-	push	eax
-	lea	ecx, DWORD PTR _results$[ebp]
-	call	?str@?$basic_stringstream@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QBE?AV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@2@XZ ; std::basic_stringstream<char,std::char_traits<char>,std::allocator<char> >::str
-	cmp	DWORD PTR [eax+20], ebx
-	jb	SHORT $LN170@main
-	mov	eax, DWORD PTR [eax]
-$LN170@main:
-	push	eax
-	push	OFFSET ??_C@_0BH@FOFJDIBL@Nie?5mozna?5otworzyc?5?$CFs?6?$AA@
-	call	_printf
-	add	esp, 8
-	cmp	DWORD PTR $T24986[ebp+20], ebx
-	jb	SHORT $LN182@main
-	mov	ecx, DWORD PTR $T24986[ebp]
-	push	ecx
-	call	??3@YAXPAX@Z				; operator delete
-	add	esp, 4
-$LN182@main:
-
-; 106  : 		exit(EXIT_FAILURE);
-
-	push	1
 	call	_exit
-$LN314@main:
-$LN9@main:
+$LN43@main:
+$LN41@main:
+	npad	3
+$LN42@main:
 
-; 107  : 	}
-; 108  : 
-; 109  : 	for (unsigned int i = 0; i < loops; i++)
+; 75   : #endif
+; 76   : 
+; 77   : 	// find any errors in first run
+; 78   : 	cl_update(data, rk);
+; 79   : 
+; 80   : 	clock_t start, end;
+; 81   : 	std::stringstream results;
+; 82   : 	std::fstream f;
+; 83   : 
+; 84   : 	results << "./results-bd-opencl/" << kernel_name << "-";
+; 85   : 
+; 86   : 	if (size_of_data >= 1 MiB)
+; 87   : 	{
+; 88   : 		printf("Seria: %iMiB\n", (size_of_data / (1 MiB)));
+; 89   : 		results << (size_of_data / (1 MiB)) << "MiB.txt";
+; 90   : 	}
+; 91   : 	else if (size_of_data >= 1 KiB)
+; 92   : 	{
+; 93   : 		printf("Seria: %iKiB\n", size_of_data);
+; 94   : 		results << size_of_data << "KiB.txt";
+; 95   : 	}
+; 96   : 	else
+; 97   : 	{
+; 98   : 		printf("Seria: %iB\n", size_of_data);
+; 99   : 		results << size_of_data << "B.txt";
+; 100  : 	}
+; 101  : 
+; 102  : 	f.open(results.str(), std::fstream::out | std::fstream::trunc);
+; 103  : 
+; 104  : 	if ( ! f.is_open())
+; 105  : 	{
+; 106  : 		printf("Nie mozna otworzyc %s\n", results.str().c_str());
+; 107  : 		exit(EXIT_FAILURE);
+; 108  : 	}
+; 109  : 
+; 110  : 	for (unsigned int i = 0; i < loops; i++)
+; 111  : 	{
+; 112  : 		for (size_t j = 0; j < size_of_data; data[j] = j+i, j++);
+; 113  : 
+; 114  : 		start = clock();
+; 115  : 		cl_update(data, rk);
+; 116  : 		end = clock();
+; 117  : 
+; 118  : 		printf("\r%i/%i", i+1, loops);
+; 119  : 
+; 120  : 		f << (end - start) << "\n";
+; 121  : 		f.flush();
+; 122  : 
+; 123  : 		// fake sleep
+; 124  : 		while ((clock() - end) < (50 * CLOCKS_PER_SEC / 1000));
+; 125  : 	}
+; 126  : 
+; 127  : 	printf("\r                                \r");
+; 128  : 	f.close();
+; 129  : 	
+; 130  : 	/*
+; 131  : 	printf("  ");
+; 132  : 	for (size_t pos = 0; pos < 8; pos++)
+; 133  : 	{
+; 134  : 		printf("%08x ", *((uint32_t *) &data[pos*4]));
+; 135  : 	}
+; 136  : 	printf("\n");
+; 137  : 	*/
+; 138  : 	/*
+; 139  : 	printf("OpenCL   %ums\n", ((1000*(end-start))/CLOCKS_PER_SEC));
+; 140  : 
+; 141  : 	memset(data, 0, data_length);
+; 142  : 	for (size_t i = 0; i < data_length; data[i] = i, i++);
+; 143  : 
+; 144  : 	start = clock();
+; 145  : 	for (size_t pos = 0; pos < data_length; pos += 16)
+; 146  : 	{
+; 147  : 		rijndaelEncrypt((unsigned long *) rk, 14, data + pos, data + pos);
+; 148  : 	}
+; 149  : 	end = clock();
+; 150  : 	*/
+; 151  : 	/*
+; 152  : 	printf("  ");
+; 153  : 	for (size_t pos = 0; pos < 8; pos++)
+; 154  : 	{
+; 155  : 		printf("%08x ", *((uint32_t *) &data[pos*4]));
+; 156  : 	}
+; 157  : 	printf("\n");
+; 158  : 	*/
+; 159  : 	/*
+; 160  : 	printf("Rijndael %ums\n", ((1000*(end-start))/CLOCKS_PER_SEC));
+; 161  : 	*/
+; 162  : 	/*
+; 163  : 	for (size_t pos = 0; pos < data_length; pos += 512*16)
+; 164  : 	{
+; 165  : 		uint8_t zeros[512*8] = {0};
+; 166  : 
+; 167  : 		if (memcmp(data + pos, zeros, 512*8) != 0)
+; 168  : 		{
+; 169  : 			printf("%u\n", pos);
+; 170  : 		}
+; 171  : 	}
+; 172  : 	*/
+; 173  : 
+; 174  : 	cl_release_all();
+; 175  : 	
+; 176  : 	delete[] data;
+; 177  : 
+; 178  : 	return EXIT_SUCCESS;
+; 179  : }
 
-	xor	ebx, ebx
-	cmp	DWORD PTR _loops$[ebp], ebx
-	jbe	$LN6@main
-	jmp	SHORT $LN8@main
-	npad	5
-$LL301@main:
-	mov	esi, DWORD PTR _size_of_data$[ebp]
-$LN8@main:
-
-; 110  : 	{
-; 111  : 		for (size_t j = 0; j < size_of_data; data[j] = j+i, j++);
-
-	xor	eax, eax
-	test	esi, esi
-	je	SHORT $LN3@main
-	npad	4
-$LL5@main:
-	lea	edx, DWORD PTR [eax+ebx]
-	mov	BYTE PTR [eax+edi], dl
-	inc	eax
-	cmp	eax, esi
-	jb	SHORT $LL5@main
-$LN3@main:
-
-; 112  : 
-; 113  : 		start = clock();
-
-	call	_clock
-	mov	esi, eax
-
-; 114  : 		cl_update(data, rk);
-
-	lea	eax, DWORD PTR _rk$[ebp]
-	push	eax
-	push	edi
-	call	?cl_update@@YAXPAEPAI@Z			; cl_update
-
-; 115  : 		end = clock();
-
-	call	_clock
-
-; 116  : 
-; 117  : 		printf("\r%i/%i", i+1, loops);
-
-	mov	ecx, DWORD PTR _loops$[ebp]
-	push	ecx
-	inc	ebx
-	push	ebx
-	push	OFFSET ??_C@_06LCOPCLHF@?$AN?$CFi?1?$CFi?$AA@
-	mov	edi, eax
-	call	_printf
-	add	esp, 20					; 00000014H
-
-; 118  : 
-; 119  : 		f << (end - start) << "\n";
-
-	mov	edx, edi
-	push	OFFSET ??_C@_01EEMJAFIK@?6?$AA@
-	sub	edx, esi
-	push	edx
-	lea	ecx, DWORD PTR _f$[ebp+16]
-	call	??6?$basic_ostream@DU?$char_traits@D@std@@@std@@QAEAAV01@J@Z ; std::basic_ostream<char,std::char_traits<char> >::operator<<
-	push	eax
-	call	??$?6U?$char_traits@D@std@@@std@@YAAAV?$basic_ostream@DU?$char_traits@D@std@@@0@AAV10@PBD@Z ; std::operator<<<std::char_traits<char> >
-
-; 120  : 		f.flush();
-
-	mov	eax, DWORD PTR _f$[ebp+16]
-	mov	eax, DWORD PTR [eax+4]
-	lea	eax, DWORD PTR _f$[ebp+eax+16]
-	add	esp, 8
-	xor	esi, esi
-	test	BYTE PTR [eax+12], 6
-	jne	SHORT $LN194@main
-	mov	eax, DWORD PTR [eax+56]
-	mov	edx, DWORD PTR [eax]
-	mov	ecx, eax
-	mov	eax, DWORD PTR [edx+52]
-	call	eax
-	cmp	eax, -1
-	jne	SHORT $LN194@main
-	mov	esi, 4
-$LN194@main:
-	mov	ecx, DWORD PTR _f$[ebp+16]
-	mov	ecx, DWORD PTR [ecx+4]
-	lea	ecx, DWORD PTR _f$[ebp+ecx+16]
-	test	esi, esi
-	je	SHORT $LL2@main
-	mov	eax, DWORD PTR [ecx+12]
-	or	eax, esi
-	cmp	DWORD PTR [ecx+56], 0
-	jne	SHORT $LN212@main
-	or	eax, 4
-$LN212@main:
-	push	0
-	push	eax
-	call	?clear@ios_base@std@@QAEXH_N@Z		; std::ios_base::clear
-$LL2@main:
-
-; 121  : 
-; 122  : 		// fake sleep
-; 123  : 		while ((clock() - end) < (10 * CLOCKS_PER_SEC / 1000));
-
-	call	_clock
-	sub	eax, edi
-	cmp	eax, 10					; 0000000aH
-	jl	SHORT $LL2@main
-
-; 107  : 	}
-; 108  : 
-; 109  : 	for (unsigned int i = 0; i < loops; i++)
-
-	mov	edi, DWORD PTR _data$[ebp]
-	cmp	ebx, DWORD PTR _loops$[ebp]
-	jb	$LL301@main
-$LN6@main:
-
-; 124  : 	}
-; 125  : 
-; 126  : 	printf("\r                                \r");
-
-	push	OFFSET ??_C@_0CD@CEAJHNIK@?$AN?5?5?5?5?5?5?5?5?5?5?5?5?5?5?5?5?5?5?5?5?5?5?5?5?5?5?5?5?5?5?5@
-	call	_printf
-	add	esp, 4
-
-; 127  : 	f.close();
-
-	lea	ecx, DWORD PTR _f$[ebp+24]
-	call	?close@?$basic_filebuf@DU?$char_traits@D@std@@@std@@QAEPAV12@XZ ; std::basic_filebuf<char,std::char_traits<char> >::close
-	test	eax, eax
-	jne	SHORT $LN222@main
-	mov	edx, DWORD PTR _f$[ebp]
-	mov	ecx, DWORD PTR [edx+4]
-	mov	eax, DWORD PTR _f$[ebp+ecx+12]
-	lea	ecx, DWORD PTR _f$[ebp+ecx]
-	or	eax, 2
-	cmp	DWORD PTR [ecx+56], 0
-	jne	SHORT $LN224@main
-	or	eax, 4
-$LN224@main:
-	push	0
-	push	eax
-	call	?clear@ios_base@std@@QAEXH_N@Z		; std::ios_base::clear
-$LN222@main:
-
-; 128  : 	
-; 129  : 	/*
-; 130  : 	printf("  ");
-; 131  : 	for (size_t pos = 0; pos < 8; pos++)
-; 132  : 	{
-; 133  : 		printf("%08x ", *((uint32_t *) &data[pos*4]));
-; 134  : 	}
-; 135  : 	printf("\n");
-; 136  : 	*/
-; 137  : 	/*
-; 138  : 	printf("OpenCL   %ums\n", ((1000*(end-start))/CLOCKS_PER_SEC));
-; 139  : 
-; 140  : 	memset(data, 0, data_length);
-; 141  : 	for (size_t i = 0; i < data_length; data[i] = i, i++);
-; 142  : 
-; 143  : 	start = clock();
-; 144  : 	for (size_t pos = 0; pos < data_length; pos += 16)
-; 145  : 	{
-; 146  : 		rijndaelEncrypt((unsigned long *) rk, 14, data + pos, data + pos);
-; 147  : 	}
-; 148  : 	end = clock();
-; 149  : 	*/
-; 150  : 	/*
-; 151  : 	printf("  ");
-; 152  : 	for (size_t pos = 0; pos < 8; pos++)
-; 153  : 	{
-; 154  : 		printf("%08x ", *((uint32_t *) &data[pos*4]));
-; 155  : 	}
-; 156  : 	printf("\n");
-; 157  : 	*/
-; 158  : 	/*
-; 159  : 	printf("Rijndael %ums\n", ((1000*(end-start))/CLOCKS_PER_SEC));
-; 160  : 	*/
-; 161  : 	/*
-; 162  : 	for (size_t pos = 0; pos < data_length; pos += 512*16)
-; 163  : 	{
-; 164  : 		uint8_t zeros[512*8] = {0};
-; 165  : 
-; 166  : 		if (memcmp(data + pos, zeros, 512*8) != 0)
-; 167  : 		{
-; 168  : 			printf("%u\n", pos);
-; 169  : 		}
-; 170  : 	}
-; 171  : 	*/
-; 172  : 
-; 173  : 	cl_release_all();
-
-	call	?cl_release_all@@YAXXZ			; cl_release_all
-
-; 174  : 	
-; 175  : 	delete[] data;
-
-	push	edi
-	call	??_V@YAXPAX@Z				; operator delete[]
-	add	esp, 4
-
-; 176  : 
-; 177  : 	return EXIT_SUCCESS;
-
-	lea	ecx, DWORD PTR _f$[ebp+112]
-	mov	BYTE PTR __$EHRec$[ebp+8], 7
-	call	??1?$basic_fstream@DU?$char_traits@D@std@@@std@@UAE@XZ ; std::basic_fstream<char,std::char_traits<char> >::~basic_fstream<char,std::char_traits<char> >
-	lea	eax, DWORD PTR _f$[ebp+112]
-	push	eax
-	mov	DWORD PTR _f$[ebp+112], OFFSET ??_7ios_base@std@@6B@
-	call	?_Ios_base_dtor@ios_base@std@@CAXPAV12@@Z ; std::ios_base::_Ios_base_dtor
-	mov	edx, DWORD PTR _results$[ebp]
-	mov	eax, DWORD PTR [edx+4]
-	lea	ecx, DWORD PTR _results$[ebp+96]
-	add	esp, 4
-	mov	DWORD PTR $T44060[ebp], ecx
-	mov	DWORD PTR _results$[ebp+eax], OFFSET ??_7?$basic_stringstream@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@6B@
-	test	BYTE PTR _results$[ebp+88], 1
-	lea	ecx, DWORD PTR _results$[ebp+24]
-	mov	DWORD PTR __$EHRec$[ebp+8], 10		; 0000000aH
-	mov	DWORD PTR $T43991[ebp], ecx
-	mov	DWORD PTR _results$[ebp+24], OFFSET ??_7?$basic_stringbuf@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@6B@
-	je	SHORT $LN257@main
-	mov	edx, DWORD PTR _results$[ebp+40]
-	mov	eax, DWORD PTR [edx]
-	push	eax
-	call	??3@YAXPAX@Z				; operator delete
-	add	esp, 4
-$LN257@main:
-	mov	eax, DWORD PTR _results$[ebp+40]
-	mov	DWORD PTR [eax], 0
-	mov	ecx, DWORD PTR _results$[ebp+56]
-	mov	DWORD PTR [ecx], 0
-	mov	edx, DWORD PTR _results$[ebp+72]
-	mov	DWORD PTR [edx], 0
-	mov	eax, DWORD PTR _results$[ebp+44]
-	mov	DWORD PTR [eax], 0
-	mov	ecx, DWORD PTR _results$[ebp+60]
-	mov	DWORD PTR [ecx], 0
-	mov	edx, DWORD PTR _results$[ebp+76]
-	mov	DWORD PTR [edx], 0
-	and	DWORD PTR _results$[ebp+88], -2		; fffffffeH
-	mov	DWORD PTR _results$[ebp+84], 0
-	mov	DWORD PTR _results$[ebp+24], OFFSET ??_7?$basic_streambuf@DU?$char_traits@D@std@@@std@@6B@
-	mov	eax, DWORD PTR _results$[ebp+80]
-	mov	BYTE PTR __$EHRec$[ebp+8], 11		; 0000000bH
-	mov	ebx, eax
-	test	eax, eax
-	je	SHORT $LN268@main
-	mov	edi, DWORD PTR [eax]
-	test	edi, edi
-	je	SHORT $LN274@main
-	push	0
-	lea	ecx, DWORD PTR __Lock$44087[ebp]
-	call	??0_Lockit@std@@QAE@H@Z			; std::_Lockit::_Lockit
-	mov	eax, DWORD PTR [edi+4]
-	test	eax, eax
-	je	SHORT $LN276@main
-	cmp	eax, -1
-	jae	SHORT $LN276@main
-	dec	eax
-	mov	DWORD PTR [edi+4], eax
-$LN276@main:
-	mov	esi, DWORD PTR [edi+4]
-	neg	esi
-	sbb	esi, esi
-	lea	ecx, DWORD PTR __Lock$44087[ebp]
-	not	esi
-	call	??1_Lockit@std@@QAE@XZ			; std::_Lockit::~_Lockit
-	and	esi, edi
-	je	SHORT $LN274@main
-	mov	eax, DWORD PTR [esi]
-	mov	edx, DWORD PTR [eax]
-	push	1
-	mov	ecx, esi
-	call	edx
-$LN274@main:
-	push	ebx
-	call	??3@YAXPAX@Z				; operator delete
-	add	esp, 4
-$LN268@main:
-	lea	ecx, DWORD PTR _results$[ebp+28]
-	mov	BYTE PTR __$EHRec$[ebp+8], 10		; 0000000aH
-	call	??1_Mutex@std@@QAE@XZ			; std::_Mutex::~_Mutex
-	mov	eax, DWORD PTR _results$[ebp]
-	mov	ecx, DWORD PTR [eax+4]
-	mov	DWORD PTR _results$[ebp+ecx], OFFSET ??_7?$basic_iostream@DU?$char_traits@D@std@@@std@@6B@
-	mov	edx, DWORD PTR _results$[ebp+16]
-	mov	eax, DWORD PTR [edx+4]
-	mov	DWORD PTR _results$[ebp+eax+16], OFFSET ??_7?$basic_ostream@DU?$char_traits@D@std@@@std@@6B@
-	mov	ecx, DWORD PTR _results$[ebp]
-	mov	edx, DWORD PTR [ecx+4]
-	lea	eax, DWORD PTR _results$[ebp+96]
-	mov	DWORD PTR _results$[ebp+edx], OFFSET ??_7?$basic_istream@DU?$char_traits@D@std@@@std@@6B@
-	push	eax
-	mov	DWORD PTR __$EHRec$[ebp+8], -1
-	mov	DWORD PTR _results$[ebp+96], OFFSET ??_7ios_base@std@@6B@
-	call	?_Ios_base_dtor@ios_base@std@@CAXPAV12@@Z ; std::ios_base::_Ios_base_dtor
-	add	esp, 4
-	xor	eax, eax
-
-; 178  : }
-
-	mov	ecx, DWORD PTR __$EHRec$[ebp]
-	mov	DWORD PTR fs:0, ecx
-	pop	ecx
-	pop	edi
-	pop	esi
-	pop	ebx
-	mov	ecx, DWORD PTR __$ArrayPad$[ebp]
-	xor	ecx, ebp
-	call	@__security_check_cookie@4
-	mov	esp, ebp
-	pop	ebp
-	ret	0
-$LN309@main:
-	npad	2
-$LN313@main:
 	DD	$LN15@main
 	DD	$LN16@main
 	DD	$LN17@main
-$LN298@main:
+$LN40@main:
 	DB	0
 	DB	2
 	DB	1
@@ -25172,57 +24606,8 @@ $LN298@main:
 	DB	0
 	DB	2
 	DB	1
-_TEXT	ENDS
-;	COMDAT text$x
-text$x	SEGMENT
-__unwindfunclet$_main$4:
-	mov	eax, DWORD PTR $T43122[ebp]
-	and	eax, 1
-	je	$LN34@main
-	and	DWORD PTR $T43122[ebp], -2		; fffffffeH
-	lea	ecx, DWORD PTR _results$[ebp+96]
-	jmp	??1?$basic_ios@DU?$char_traits@D@std@@@std@@UAE@XZ ; std::basic_ios<char,std::char_traits<char> >::~basic_ios<char,std::char_traits<char> >
-$LN34@main:
-	ret	0
-__unwindfunclet$_main$8:
-	lea	ecx, DWORD PTR _results$[ebp+16]
-	jmp	??1?$basic_istream@DU?$char_traits@D@std@@@std@@UAE@XZ ; std::basic_istream<char,std::char_traits<char> >::~basic_istream<char,std::char_traits<char> >
-__unwindfunclet$_main$5:
-	lea	ecx, DWORD PTR _results$[ebp+24]
-	jmp	??1?$basic_iostream@DU?$char_traits@D@std@@@std@@UAE@XZ ; std::basic_iostream<char,std::char_traits<char> >::~basic_iostream<char,std::char_traits<char> >
-__unwindfunclet$_main$12:
-	mov	ecx, DWORD PTR $T43363[ebp]
-	jmp	??1?$basic_streambuf@DU?$char_traits@D@std@@@std@@UAE@XZ ; std::basic_streambuf<char,std::char_traits<char> >::~basic_streambuf<char,std::char_traits<char> >
-__unwindfunclet$_main$0:
-	lea	ecx, DWORD PTR _results$[ebp]
-	jmp	??_D?$basic_stringstream@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QAEXXZ
-__unwindfunclet$_main$1:
-	lea	ecx, DWORD PTR _f$[ebp]
-	jmp	??_D?$basic_fstream@DU?$char_traits@D@std@@@std@@QAEXXZ
-__unwindfunclet$_main$2:
-	lea	ecx, DWORD PTR $T24983[ebp]
-	jmp	??1?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QAE@XZ ; std::basic_string<char,std::char_traits<char>,std::allocator<char> >::~basic_string<char,std::char_traits<char>,std::allocator<char> >
-__unwindfunclet$_main$14:
-	mov	ecx, DWORD PTR $T44060[ebp]
-	sub	ecx, 72					; 00000048H
-	jmp	??1?$basic_iostream@DU?$char_traits@D@std@@@std@@UAE@XZ ; std::basic_iostream<char,std::char_traits<char> >::~basic_iostream<char,std::char_traits<char> >
-__unwindfunclet$_main$17:
-	mov	ecx, DWORD PTR $T43991[ebp]
-	add	ecx, 4
-	jmp	??1_Mutex@std@@QAE@XZ			; std::_Mutex::~_Mutex
-__ehhandler$_main:
-	mov	edx, DWORD PTR [esp+8]
-	lea	eax, DWORD PTR [edx+12]
-	mov	ecx, DWORD PTR [edx-692]
-	xor	ecx, eax
-	call	@__security_check_cookie@4
-	mov	ecx, DWORD PTR [edx-4]
-	xor	ecx, eax
-	call	@__security_check_cookie@4
-	mov	eax, OFFSET __ehfuncinfo$_main
-	jmp	___CxxFrameHandler3
-text$x	ENDS
 _main	ENDP
+_TEXT	ENDS
 PUBLIC	?id@?$numpunct@D@std@@2V0locale@2@A		; std::numpunct<char>::id
 PUBLIC	?id@?$codecvt@DDH@std@@2V0locale@2@A		; std::codecvt<char,char,int>::id
 PUBLIC	?id@?$num_put@DV?$ostreambuf_iterator@DU?$char_traits@D@std@@@std@@@std@@2V0locale@2@A ; std::num_put<char,std::ostreambuf_iterator<char,std::char_traits<char> > >::id

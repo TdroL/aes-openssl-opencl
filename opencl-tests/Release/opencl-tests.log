@@ -1,4 +1,4 @@
-﻿Build started 2012-05-16 18:40:33.
+﻿Build started 2012-05-21 17:18:37.
      1>Project "C:\Users\tdrol\documents\visual studio 2010\Projects\analizator\opencl-tests\opencl-tests.vcxproj" on node 2 (build target(s)).
      1>InitializeBuildStatus:
          Creating "Release\opencl-tests.unsuccessfulbuild" because "AlwaysCreate" was specified.
@@ -21,4 +21,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:00.91
+Time Elapsed 00:00:01.41

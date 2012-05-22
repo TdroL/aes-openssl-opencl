@@ -69,8 +69,9 @@ int main(int argc, char **argv)
 	cl_print_platform_info();
 #endif
 
-#ifdef PRINT_DEVICE_INFO
+#ifndef PRINT_DEVICE_INFO
 	cl_print_device_info();
+	exit(EXIT_SUCCESS);
 #endif
 
 	// find any errors in first run
@@ -120,7 +121,7 @@ int main(int argc, char **argv)
 		f.flush();
 
 		// fake sleep
-		while ((clock() - end) < (10 * CLOCKS_PER_SEC / 1000));
+		while ((clock() - end) < (50 * CLOCKS_PER_SEC / 1000));
 	}
 
 	printf("\r                                \r");

@@ -86,11 +86,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <None Include="..\Release\aes_encrypt.cl" />
+    <None Include="..\Release\aes_encrypt.cl.cached" />
     <None Include="..\Release\aes_encrypt_rijndael.cl" />
     <None Include="..\Release\aes_encrypt_rijndael_128.cl" />
     <None Include="..\Release\aes_encrypt_rijndael_192.cl" />
     <None Include="..\Release\aes_encrypt_rijndael_256.cl" />
     <None Include="..\Release\aes_encrypt_rijndael_256_local.cl" />
+    <None Include="..\Release\aes_encrypt_rijndael_256_opt.cl" />
     <None Include="..\Release\aes_encrypt_tables.cl" />
     <None Include="..\Release\aes_encrypt_vector.cl" />
     <None Include="..\Release\aes_encrypt_vector_128.cl" />

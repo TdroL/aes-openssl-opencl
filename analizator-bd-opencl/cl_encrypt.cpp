@@ -23,9 +23,9 @@ static size_t state_length;
 static size_t state_length_padded;
 static size_t roundkeys_length;
 #if defined(DEBUG) || defined(_DEBUG)
-	static char *source_path = "C:/Users/tdrol/Documents/Visual Studio 2010/Projects/analizator/Release/aes_encrypt.cl";
+	static char *source_path = "C:/Users/tdrol/Documents/Visual Studio 2010/Projects/analizator/Release/kernels/aes_encrypt.cl";
 #else
-	static char *source_path = "./aes_encrypt.cl";
+	static char *source_path = "./kernels/aes_encrypt.cl";
 #endif
 
 void cl_print_error_silent(cl_int err, const char *msg, ...) {};
@@ -62,7 +62,7 @@ void cl_print_error(cl_int err, const char *msg, ...)
 	exit(EXIT_FAILURE);
 }
 
-char * file_get_contents(const char *file_path, size_t *ret_size = nullptr)
+char * file_get_contents(const char *file_path, int *ret_size = nullptr)
 {
 	fstream f(file_path, ios::in | ios::ate);
 	f.open(file_path);
@@ -87,12 +87,13 @@ char * file_get_contents(const char *file_path, size_t *ret_size = nullptr)
 	}
 
 	char *content = new char[size];
+	memset(content, 0, size);
 
 	f.read(content, size);
 
 	if (ret_size != nullptr)
 	{
-		*ret_size = (size_t) size;
+		*ret_size = size;
 	}
 
 	return content;
@@ -164,92 +165,95 @@ bool cl_build_program(bool silent = false)
 		return false;
 	}
 
-	char *source_str = file_get_contents(source_path);
-
-	if (source_str == nullptr)
-	{
-		cl_print_error(NULL, "Error: failed to load source program from %s\n", source_path);
-	}
-
-	program = clCreateProgramWithSource(context, 1, (const char **) &source_str, NULL, &err);
-	
-	delete[] source_str;
-	
-	if ( ! program || err != CL_SUCCESS) {
-		cl_print_error(err, "Error: failed to create compute program\n");
-		return false;
-	}
-
-	size_t source_size;
-	string kernel_path;
+	int source_size = 0;
+	char *source_str = nullptr;
 	bool cache_program = true;
+	string cached_source_path = source_path;
+	cached_source_path += ".cached";
 
-	err = clGetProgramInfo(program, CL_PROGRAM_SOURCE, 0, NULL, &source_size);
-	if (err == CL_SUCCESS)
+#ifdef ENABLE_CACHING
+	source_str = file_get_contents(cached_source_path.c_str(), &source_size);
+
+	if (source_str != nullptr && source_size != 0)
 	{
-		source_str = new char[source_size];
-		err = clGetProgramInfo(program, CL_PROGRAM_SOURCE, 0, source_str, NULL);
+		program = clCreateProgramWithBinary(context, 1, &device_id, (const size_t *) &source_size, (const unsigned char **) &source_str, NULL, &err);
 
-		printf("Program source:\n%s\n", source_str);
-
-		MD5 md5;
-		md5.digestMemory((BYTE *) source_str, source_size);
-
-		delete[] source_str;
-
-		kernel_path += "cached/";
-		kernel_path += md5.digestChars;
-		kernel_path += ".bin";
-
-		size_t binary_size;
-
-		printf("Info: load cache %s\n", kernel_path);
-		source_str = file_get_contents(kernel_path.c_str(), &binary_size);
-		if (source_str != nullptr)
+		if ( ! program || err != CL_SUCCESS)
 		{
-			cl_program program_binary = clCreateProgramWithBinary(context, 1, NULL, &binary_size, (const unsigned char **) &source_str, NULL, &err);
-			if ( ! program_binary || err != CL_SUCCESS)
-			{
-				printf("Warning: failed to create compute program from binary source\n");
-			}
-			else
-			{
-				while (clReleaseProgram(program));
-
-				printf("Info: program loaded from binary cache %s\n", kernel_path);
-				program = program_binary;
-				cache_program = false;
-			}
+			printf("Warning: failed to create compute program from binary\n");
+			program = nullptr;
 		}
 		else
 		{
-			printf("info: build from source\n");
+			printf("Info: program loaded from cached binary\n");
+			cache_program = false;
 		}
 
 		delete[] source_str;
 	}
-	else
+#endif
+
+	if (program == nullptr)
 	{
-		printf("Warning: failed to retrive program source\n");
+		source_str = file_get_contents(source_path, &source_size);
+
+		if (source_str == nullptr)
+		{
+			cl_print_error(NULL, "Error: failed to load source program from %s\n", source_path);
+		}
+		
+		char footer_str[64];
+		sprintf_s(footer_str, 64, "\n// time() = %u", time(NULL));
+
+		string source_footer;
+		source_footer.reserve(source_size + 64);
+		source_footer.append(source_str).append(footer_str);
+
+		const char *source_ptr = source_footer.c_str();
+
+		program = clCreateProgramWithSource(context, 1, &source_ptr, NULL, &err);
+
+		delete[] source_str;
+	}
+	
+	if ( ! program || err != CL_SUCCESS)
+	{
+		cl_print_error(err, "Error: failed to create compute program\n");
+		return false;
 	}
 
 	const char *options = "-cl-mad-enable -cl-unsafe-math-optimizations";
 
 	err = clBuildProgram(program, 0, NULL, options, NULL, NULL);
+	size_t len;
+	char buffer[1024 * 10]; // error message buffer, 10 KiB
+	char *buffer_ptr = buffer;
+
+	clGetProgramBuildInfo(program, device_id, CL_PROGRAM_BUILD_LOG, sizeof(buffer), buffer, &len);
+
+	// trim buffer
+	while (buffer_ptr[0] == ' ' 
+		|| buffer_ptr[0] == '\n' 
+		|| buffer_ptr[0] == '\t' 
+		|| buffer_ptr[0] == '\r')
+	{
+		len--;
+		buffer_ptr += 1;
+	}
+
+	if (len > 1)
+	{
+		printf("Build log:\n%s\n", buffer_ptr);
+	}
+
 	if (err != CL_SUCCESS)
 	{
-		size_t len;
-		char buffer[1024 * 10]; // error message buffer, 10 KiB
-
-		clGetProgramBuildInfo(program, device_id, CL_PROGRAM_BUILD_LOG,
-		                      sizeof(buffer), buffer, &len);
-
-		cl_print_error(err, "Error: failed to create program executable\n%s\n",
-					   buffer);
+		cl_print_error(err, "Error: failed to create program executable\n");
 		return false;
 	}
 
-	if (kernel_path.empty() || ! cache_program)
+#ifdef ENABLE_CACHING
+	if ( ! cache_program)
 	{
 		return true;
 	}
@@ -271,9 +275,10 @@ bool cl_build_program(bool silent = false)
 		return true;
 	}
 
-	file_put_contents(kernel_path.c_str(), binary_str, binary_size);
+	file_put_contents(cached_source_path.c_str(), binary_str, binary_size);
 
     delete[] binary_str;
+#endif
 
 	return true;
 }
@@ -457,6 +462,19 @@ void cl_print_device_info()
 			unit = units[i];
 		}
 		printf("  global mem cache size    %.2f %s\n", memory, unit);
+	}
+
+	clGetDeviceInfo(device_id, CL_DEVICE_MAX_MEM_ALLOC_SIZE, sizeof(param_value), &param_value, NULL);
+	{
+		double memory = (double) param_value;
+		char units[][4] = {"B  ", "KiB", "MiB", "GiB"};
+		char *unit = units[0];
+		for (int i = 1; memory >= 1024; i++)
+		{
+			memory /= 1024;
+			unit = units[i];
+		}
+		printf("  maximum avaible mem      %.2f %s\n", memory, unit);
 	}
 
 	clGetDeviceInfo(device_id, CL_DEVICE_ADDRESS_BITS, sizeof(param_value), &param_value, NULL);

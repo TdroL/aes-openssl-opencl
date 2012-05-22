@@ -62,6 +62,12 @@
     <None Include="..\Release\aes_encrypt_vector_256_local.cl">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="..\Release\aes_encrypt.cl.cached">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Release\aes_encrypt_rijndael_256_opt.cl">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">

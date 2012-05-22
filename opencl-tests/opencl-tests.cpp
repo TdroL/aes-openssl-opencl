@@ -79,14 +79,9 @@ int main(int argc, _TCHAR* argv[])
 	}
 
 	size_t state_length = 512 * 1024 * 1024;
-
-	mem_state_pinned = clCreateBuffer(context, CL_MEM_READ_WRITE | CL_MEM_ALLOC_HOST_PTR, state_length, NULL, &err);
-	if (err != CL_SUCCESS)
-	{
-		cl_print_error(err,  "Error: failed to allocate device memory (state_pinned, size: %lu)\n", state_length);
-	}
-
-	mem_state = clCreateBuffer(context, CL_MEM_READ_WRITE, state_length, NULL, &err);
+	
+	uint8_t *data = new uint8_t[state_length];
+	mem_state = clCreateBuffer(context, CL_MEM_READ_WRITE | CL_MEM_USE_HOST_PTR, sizeof(*data) * state_length, data, &err);
 	if (err != CL_SUCCESS)
 	{
 		cl_print_error(err,  "Error: failed to allocate device memory (state, size: %lu)\n", state_length);
@@ -98,20 +93,27 @@ int main(int argc, _TCHAR* argv[])
 		cl_print_error(err, "Error: failed to bind kernel argument \"mem_state\" [#0]\n");
 	}
 
-	uint8_t *data = (uint8_t *) clEnqueueMapBuffer(queue, mem_state_pinned, CL_TRUE, CL_MAP_WRITE | CL_MAP_READ, 0, state_length, 0, NULL, NULL, &err); 
+	uint8_t *data_ptr = (uint8_t *) clEnqueueMapBuffer(queue, mem_state, CL_TRUE, CL_MAP_WRITE | CL_MAP_READ, 0, state_length, 0, NULL, NULL, &err); 
 	if (err != CL_SUCCESS) {
-		cl_print_error(err, "Error: failed map buffer (state_pinned)\n");
+		cl_print_error(err, "Error: failed map buffer (state)\n");
 	}
 
+	/*
 	for (size_t i =0; i < state_length; i++)
 	{
-		data[i] = i % 1024;
+		data_ptr[i] = i % 256;
 	}
+	*/
 
+	clEnqueueUnmapMemObject(queue, mem_state, data_ptr, 0, NULL, NULL);
+
+	clEnqueueBarrier(queue);
+	/*
 	err = clEnqueueWriteBuffer(queue, mem_state, CL_FALSE, 0, state_length, data, 0, NULL, NULL);
 	if (err != CL_SUCCESS) {
 		cl_print_error(err, "Error: failed write data to buffer (state)\n");
 	}
+	*/
 
 	size_t global = state_length / 16;
 	size_t local = 256;
@@ -121,12 +123,16 @@ int main(int argc, _TCHAR* argv[])
 		cl_print_error(err, "Error: failed to execute kernel\n");
 	}
 
+	clFinish(queue);
+
 	err = clEnqueueReadBuffer(queue, mem_state, CL_TRUE, 0, state_length, data, 0, NULL, NULL);
 	if (err != CL_SUCCESS) {
 		cl_print_error(err, "Error: failed read data from buffer (state)\n");
 	}
 
 	cl_release_all();
+
+	delete[] data;
 
 	printf("Done\n");
 	system("pause");
