@@ -65,7 +65,6 @@ void cl_print_error(cl_int err, const char *msg, ...)
 char * file_get_contents(const char *file_path, int *ret_size = nullptr)
 {
 	fstream f(file_path, ios::in | ios::ate);
-	f.open(file_path);
 	f.clear();
 
 	if (ret_size != nullptr)

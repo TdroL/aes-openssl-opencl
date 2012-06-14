@@ -3281,7 +3281,7 @@ _param_value$ = -10244					; size = 10240
 __$ArrayPad$ = -4					; size = 4
 ?cl_print_platform_info@@YAXXZ PROC			; cl_print_platform_info, COMDAT
 
-; 363  : {
+; 362  : {
 
 	push	ebp
 	mov	ebp, esp
@@ -3292,16 +3292,16 @@ __$ArrayPad$ = -4					; size = 4
 	mov	DWORD PTR __$ArrayPad$[ebp], eax
 	push	esi
 
-; 364  : 	printf("\nPlatform info:\n");
+; 363  : 	printf("\nPlatform info:\n");
 
 	push	OFFSET ??_C@_0BB@IIGAPNEL@?6Platform?5info?3?6?$AA@
 	call	_printf
 
-; 365  : 	const size_t param_value_size = 1024*10;
-; 366  : 	char param_value[param_value_size];
-; 367  : 
-; 368  : 	clGetPlatformInfo(platform_id, CL_PLATFORM_PROFILE,
-; 369  :   						param_value_size, param_value, NULL);
+; 364  : 	const size_t param_value_size = 1024*10;
+; 365  : 	char param_value[param_value_size];
+; 366  : 
+; 367  : 	clGetPlatformInfo(platform_id, CL_PLATFORM_PROFILE,
+; 368  :   						param_value_size, param_value, NULL);
 
 	mov	ecx, DWORD PTR _platform_id
 	add	esp, 4
@@ -3313,16 +3313,16 @@ __$ArrayPad$ = -4					; size = 4
 	push	ecx
 	call	_clGetPlatformInfo@20
 
-; 370  : 	printf("  platform profile     %s\n", param_value);
+; 369  : 	printf("  platform profile     %s\n", param_value);
 
 	lea	edx, DWORD PTR _param_value$[ebp]
 	push	edx
 	push	OFFSET ??_C@_0BL@KJLKBOKA@?5?5platform?5profile?5?5?5?5?5?$CFs?6?$AA@
 	call	_printf
 
-; 371  : 
-; 372  : 	clGetPlatformInfo(platform_id, CL_PLATFORM_VERSION,
-; 373  :   						param_value_size, param_value, NULL);
+; 370  : 
+; 371  : 	clGetPlatformInfo(platform_id, CL_PLATFORM_VERSION,
+; 372  :   						param_value_size, param_value, NULL);
 
 	mov	ecx, DWORD PTR _platform_id
 	add	esp, 8
@@ -3334,16 +3334,16 @@ __$ArrayPad$ = -4					; size = 4
 	push	ecx
 	call	_clGetPlatformInfo@20
 
-; 374  : 	printf("  platform version     %s\n", param_value);
+; 373  : 	printf("  platform version     %s\n", param_value);
 
 	lea	edx, DWORD PTR _param_value$[ebp]
 	push	edx
 	push	OFFSET ??_C@_0BL@DMCKCDBJ@?5?5platform?5version?5?5?5?5?5?$CFs?6?$AA@
 	call	_printf
 
-; 375  : 
-; 376  : 	clGetPlatformInfo(platform_id, CL_PLATFORM_NAME,
-; 377  :   						param_value_size, param_value, NULL);
+; 374  : 
+; 375  : 	clGetPlatformInfo(platform_id, CL_PLATFORM_NAME,
+; 376  :   						param_value_size, param_value, NULL);
 
 	mov	ecx, DWORD PTR _platform_id
 	add	esp, 8
@@ -3355,16 +3355,16 @@ __$ArrayPad$ = -4					; size = 4
 	push	ecx
 	call	_clGetPlatformInfo@20
 
-; 378  : 	printf("  platform name        %s\n", param_value);
+; 377  : 	printf("  platform name        %s\n", param_value);
 
 	lea	edx, DWORD PTR _param_value$[ebp]
 	push	edx
 	push	OFFSET ??_C@_0BL@GPKPEBGN@?5?5platform?5name?5?5?5?5?5?5?5?5?$CFs?6?$AA@
 	call	_printf
 
-; 379  : 
-; 380  : 	clGetPlatformInfo(platform_id, CL_PLATFORM_VENDOR ,
-; 381  :   						param_value_size, param_value, NULL);
+; 378  : 
+; 379  : 	clGetPlatformInfo(platform_id, CL_PLATFORM_VENDOR ,
+; 380  :   						param_value_size, param_value, NULL);
 
 	mov	ecx, DWORD PTR _platform_id
 	add	esp, 8
@@ -3376,19 +3376,19 @@ __$ArrayPad$ = -4					; size = 4
 	push	ecx
 	call	_clGetPlatformInfo@20
 
-; 382  : 	printf("  platform vendor      %s\n", param_value);
+; 381  : 	printf("  platform vendor      %s\n", param_value);
 
 	lea	edx, DWORD PTR _param_value$[ebp]
 	push	edx
 	push	OFFSET ??_C@_0BL@LDDFDFOF@?5?5platform?5vendor?5?5?5?5?5?5?$CFs?6?$AA@
 	call	_printf
 
-; 383  : 
-; 384  : 	int offset = 0;
-; 385  : 	char *pos;
-; 386  : 	size_t size;
-; 387  : 	clGetPlatformInfo(platform_id, CL_PLATFORM_EXTENSIONS,
-; 388  :   						param_value_size, param_value, &size);
+; 382  : 
+; 383  : 	int offset = 0;
+; 384  : 	char *pos;
+; 385  : 	size_t size;
+; 386  : 	clGetPlatformInfo(platform_id, CL_PLATFORM_EXTENSIONS,
+; 387  :   						param_value_size, param_value, &size);
 
 	mov	edx, DWORD PTR _platform_id
 	add	esp, 8
@@ -3401,8 +3401,8 @@ __$ArrayPad$ = -4					; size = 4
 	push	edx
 	call	_clGetPlatformInfo@20
 
-; 389  : 
-; 390  : 	pos = strstr(param_value + offset, " ");
+; 388  : 
+; 389  : 	pos = strstr(param_value + offset, " ");
 
 	lea	eax, DWORD PTR _param_value$[ebp]
 	push	OFFSET ??_C@_01CLKCMJKC@?5?$AA@
@@ -3411,17 +3411,17 @@ __$ArrayPad$ = -4					; size = 4
 	mov	esi, eax
 	add	esp, 8
 
-; 391  : 	if (pos != NULL && size > 0)
+; 390  : 	if (pos != NULL && size > 0)
 
 	test	esi, esi
 	je	$LN4@cl_print_p
 	cmp	DWORD PTR _size$[ebp], 0
 	jbe	$LN4@cl_print_p
 
-; 392  : 	{
-; 393  : 		*pos = '\0';
-; 394  : 		
-; 395  : 		printf("  platform extensions  %s\n", param_value);
+; 391  : 	{
+; 392  : 		*pos = '\0';
+; 393  : 		
+; 394  : 		printf("  platform extensions  %s\n", param_value);
 
 	push	edi
 	lea	ecx, DWORD PTR _param_value$[ebp]
@@ -3430,13 +3430,13 @@ __$ArrayPad$ = -4					; size = 4
 	mov	BYTE PTR [esi], 0
 	call	_printf
 
-; 396  : 		offset = pos - param_value + 1;
+; 395  : 		offset = pos - param_value + 1;
 
 	lea	edx, DWORD PTR _param_value$[ebp]
 	sub	esi, edx
 
-; 397  : 
-; 398  : 		while ((pos = strstr(param_value + offset, " ")) && pos < (param_value + size - 1))
+; 396  : 
+; 397  : 		while ((pos = strstr(param_value + offset, " ")) && pos < (param_value + size - 1))
 
 	lea	edi, DWORD PTR _param_value$[ebp+esi+1]
 	push	OFFSET ??_C@_01CLKCMJKC@?5?$AA@
@@ -3453,18 +3453,18 @@ $LL3@cl_print_p:
 	cmp	esi, ecx
 	jae	SHORT $LN13@cl_print_p
 
-; 399  : 		{
-; 400  : 			*pos = '\0';
-; 401  : 
-; 402  : 			printf("                       %s\n", param_value + offset);
+; 398  : 		{
+; 399  : 			*pos = '\0';
+; 400  : 
+; 401  : 			printf("                       %s\n", param_value + offset);
 
 	push	edi
 	push	OFFSET ??_C@_0BL@LDJNFPEC@?5?5?5?5?5?5?5?5?5?5?5?5?5?5?5?5?5?5?5?5?5?5?5?$CFs?6?$AA@
 	mov	BYTE PTR [esi], 0
 	call	_printf
 
-; 403  : 
-; 404  : 			offset = pos - param_value + 1;
+; 402  : 
+; 403  : 			offset = pos - param_value + 1;
 
 	lea	edx, DWORD PTR _param_value$[ebp]
 	sub	esi, edx
@@ -3480,8 +3480,8 @@ $LN13@cl_print_p:
 	pop	edi
 	pop	esi
 
-; 410  : 	}
-; 411  : }
+; 409  : 	}
+; 410  : }
 
 	mov	ecx, DWORD PTR __$ArrayPad$[ebp]
 	xor	ecx, ebp
@@ -3491,17 +3491,17 @@ $LN13@cl_print_p:
 	ret	0
 $LN4@cl_print_p:
 
-; 405  : 		}
-; 406  : 	}
-; 407  : 	else
-; 408  : 	{
-; 409  : 		printf("  platform extensions  (none)\n");
+; 404  : 		}
+; 405  : 	}
+; 406  : 	else
+; 407  : 	{
+; 408  : 		printf("  platform extensions  (none)\n");
 
 	push	OFFSET ??_C@_0BP@JLONFNKM@?5?5platform?5extensions?5?5?$CInone?$CJ?6?$AA@
 	call	_printf
 
-; 410  : 	}
-; 411  : }
+; 409  : 	}
+; 410  : }
 
 	mov	ecx, DWORD PTR __$ArrayPad$[ebp]
 	add	esp, 4
@@ -3629,7 +3629,7 @@ _units$31048 = -20					; size = 16
 __$ArrayPad$ = -4					; size = 4
 ?cl_print_device_info@@YAXXZ PROC			; cl_print_device_info, COMDAT
 
-; 414  : {
+; 413  : {
 
 	push	ebp
 	mov	ebp, esp
@@ -3641,15 +3641,15 @@ __$ArrayPad$ = -4					; size = 4
 	push	esi
 	push	edi
 
-; 415  : 	printf("\nDevice info:\n");
+; 414  : 	printf("\nDevice info:\n");
 
 	push	OFFSET ??_C@_0P@LLKCIPKG@?6Device?5info?3?6?$AA@
 	call	_printf
 
-; 416  : 	unsigned long int param_value;
-; 417  : 	char param_string[1024];
-; 418  : 
-; 419  : 	clGetDeviceInfo(device_id, CL_DEVICE_NAME, sizeof(param_string) * 1024, &param_string, NULL);
+; 415  : 	unsigned long int param_value;
+; 416  : 	char param_string[1024];
+; 417  : 
+; 418  : 	clGetDeviceInfo(device_id, CL_DEVICE_NAME, sizeof(param_string) * 1024, &param_string, NULL);
 
 	mov	ecx, DWORD PTR _device_id
 	add	esp, 4
@@ -3661,15 +3661,15 @@ __$ArrayPad$ = -4					; size = 4
 	push	ecx
 	call	_clGetDeviceInfo@20
 
-; 420  : 	printf("  device name              %s\n", param_string);
+; 419  : 	printf("  device name              %s\n", param_string);
 
 	lea	edx, DWORD PTR _param_string$[ebp]
 	push	edx
 	push	OFFSET ??_C@_0BP@GBJEKDAJ@?5?5device?5name?5?5?5?5?5?5?5?5?5?5?5?5?5?5?$CFs?6?$AA@
 	call	_printf
 
-; 421  : 
-; 422  : 	clGetDeviceInfo(device_id, CL_DEVICE_VERSION, sizeof(param_string) * 1024, &param_string, NULL);
+; 420  : 
+; 421  : 	clGetDeviceInfo(device_id, CL_DEVICE_VERSION, sizeof(param_string) * 1024, &param_string, NULL);
 
 	mov	ecx, DWORD PTR _device_id
 	add	esp, 8
@@ -3681,15 +3681,15 @@ __$ArrayPad$ = -4					; size = 4
 	push	ecx
 	call	_clGetDeviceInfo@20
 
-; 423  : 	printf("  device version           %s\n", param_string);
+; 422  : 	printf("  device version           %s\n", param_string);
 
 	lea	edx, DWORD PTR _param_string$[ebp]
 	push	edx
 	push	OFFSET ??_C@_0BP@KGKIBOBD@?5?5device?5version?5?5?5?5?5?5?5?5?5?5?5?$CFs?6?$AA@
 	call	_printf
 
-; 424  : 
-; 425  : 	clGetDeviceInfo(device_id, CL_DRIVER_VERSION, sizeof(param_string) * 1024, &param_string, NULL);
+; 423  : 
+; 424  : 	clGetDeviceInfo(device_id, CL_DRIVER_VERSION, sizeof(param_string) * 1024, &param_string, NULL);
 
 	mov	ecx, DWORD PTR _device_id
 	add	esp, 8
@@ -3701,15 +3701,15 @@ __$ArrayPad$ = -4					; size = 4
 	push	ecx
 	call	_clGetDeviceInfo@20
 
-; 426  : 	printf("  driver version           %s\n", param_string);
+; 425  : 	printf("  driver version           %s\n", param_string);
 
 	lea	edx, DWORD PTR _param_string$[ebp]
 	push	edx
 	push	OFFSET ??_C@_0BP@PFMNCOMH@?5?5driver?5version?5?5?5?5?5?5?5?5?5?5?5?$CFs?6?$AA@
 	call	_printf
 
-; 427  : 
-; 428  : 	param_value = clGetDeviceInfo(device_id, CL_DEVICE_LOCAL_MEM_SIZE, sizeof(param_value), &param_value, NULL);
+; 426  : 
+; 427  : 	param_value = clGetDeviceInfo(device_id, CL_DEVICE_LOCAL_MEM_SIZE, sizeof(param_value), &param_value, NULL);
 
 	mov	ecx, DWORD PTR _device_id
 	add	esp, 8
@@ -3721,8 +3721,8 @@ __$ArrayPad$ = -4					; size = 4
 	push	ecx
 	call	_clGetDeviceInfo@20
 
-; 429  : 	{
-; 430  : 		double memory = (double) param_value;
+; 428  : 	{
+; 429  : 		double memory = (double) param_value;
 
 	mov	DWORD PTR tv492[ebp], eax
 	fild	DWORD PTR tv492[ebp]
@@ -3732,9 +3732,9 @@ __$ArrayPad$ = -4					; size = 4
 	fadd	QWORD PTR __real@41f0000000000000
 $LN27@cl_print_d:
 
-; 431  : 		char units[][4] = {"B  ", "KiB", "MiB", "GiB"};
-; 432  : 		char *unit = units[0];
-; 433  : 		for (int i = 1; memory >= 1024; i++)
+; 430  : 		char units[][4] = {"B  ", "KiB", "MiB", "GiB"};
+; 431  : 		char *unit = units[0];
+; 432  : 		for (int i = 1; memory >= 1024; i++)
 
 	movsd	xmm1, QWORD PTR __real@4090000000000000
 	fst	QWORD PTR _memory$31046[ebp]
@@ -3754,14 +3754,14 @@ $LN27@cl_print_d:
 	lea	ecx, DWORD PTR _units$31048[ebp]
 	jb	SHORT $LN10@cl_print_d
 
-; 415  : 	printf("\nDevice info:\n");
+; 414  : 	printf("\nDevice info:\n");
 
 	lea	eax, DWORD PTR _units$31048[ebp+4]
 $LL12@cl_print_d:
 
-; 434  : 		{
-; 435  : 			memory /= 1024;
-; 436  : 			unit = units[i];
+; 433  : 		{
+; 434  : 			memory /= 1024;
+; 435  : 			unit = units[i];
 
 	mov	ecx, eax
 	mulsd	xmm0, xmm2
@@ -3770,8 +3770,8 @@ $LL12@cl_print_d:
 	jae	SHORT $LL12@cl_print_d
 $LN10@cl_print_d:
 
-; 437  : 		}
-; 438  : 		printf("  local memory size        %.2f %s\n", memory, unit);
+; 436  : 		}
+; 437  : 		printf("  local memory size        %.2f %s\n", memory, unit);
 
 	push	ecx
 	sub	esp, 8
@@ -3779,9 +3779,9 @@ $LN10@cl_print_d:
 	push	OFFSET ??_C@_0CE@CCJFOIDE@?5?5local?5memory?5size?5?5?5?5?5?5?5?5?$CF?42f?5@
 	call	_printf
 
-; 439  : 	}
-; 440  : 
-; 441  : 	clGetDeviceInfo(device_id, CL_DEVICE_GLOBAL_MEM_SIZE, sizeof(param_value), &param_value, NULL);
+; 438  : 	}
+; 439  : 
+; 440  : 	clGetDeviceInfo(device_id, CL_DEVICE_GLOBAL_MEM_SIZE, sizeof(param_value), &param_value, NULL);
 
 	mov	eax, DWORD PTR _device_id
 	add	esp, 16					; 00000010H
@@ -3793,8 +3793,8 @@ $LN10@cl_print_d:
 	push	eax
 	call	_clGetDeviceInfo@20
 
-; 442  : 	{
-; 443  : 		double memory = (double) param_value;
+; 441  : 	{
+; 442  : 		double memory = (double) param_value;
 
 	fild	DWORD PTR _param_value$[ebp]
 	mov	ecx, DWORD PTR _param_value$[ebp]
@@ -3804,12 +3804,12 @@ $LN10@cl_print_d:
 $LN28@cl_print_d:
 	fst	QWORD PTR _memory$31059[ebp]
 
-; 444  : 		char units[][4] = {"B  ", "KiB", "MiB", "GiB"};
+; 443  : 		char units[][4] = {"B  ", "KiB", "MiB", "GiB"};
 
 	mov	DWORD PTR _units$31061[ebp], 2105410	; 00202042H
 
-; 445  : 		char *unit = units[0];
-; 446  : 		for (int i = 1; memory >= 1024; i++)
+; 444  : 		char *unit = units[0];
+; 445  : 		for (int i = 1; memory >= 1024; i++)
 
 	fld	QWORD PTR __real@4090000000000000
 	movsd	xmm0, QWORD PTR _memory$31059[ebp]
@@ -3822,8 +3822,8 @@ $LN28@cl_print_d:
 	lea	ecx, DWORD PTR _units$31061[ebp]
 	jb	SHORT $LN7@cl_print_d
 
-; 437  : 		}
-; 438  : 		printf("  local memory size        %.2f %s\n", memory, unit);
+; 436  : 		}
+; 437  : 		printf("  local memory size        %.2f %s\n", memory, unit);
 
 	movsd	xmm1, QWORD PTR __real@4090000000000000
 	movsd	xmm2, QWORD PTR __real@3f50000000000000
@@ -3831,9 +3831,9 @@ $LN28@cl_print_d:
 	npad	3
 $LL9@cl_print_d:
 
-; 447  : 		{
-; 448  : 			memory /= 1024;
-; 449  : 			unit = units[i];
+; 446  : 		{
+; 447  : 			memory /= 1024;
+; 448  : 			unit = units[i];
 
 	mov	ecx, eax
 	mulsd	xmm0, xmm2
@@ -3842,8 +3842,8 @@ $LL9@cl_print_d:
 	jae	SHORT $LL9@cl_print_d
 $LN7@cl_print_d:
 
-; 450  : 		}
-; 451  : 		printf("  global memory size       %.2f %s\n", memory, unit);
+; 449  : 		}
+; 450  : 		printf("  global memory size       %.2f %s\n", memory, unit);
 
 	push	ecx
 	sub	esp, 8
@@ -3851,9 +3851,9 @@ $LN7@cl_print_d:
 	push	OFFSET ??_C@_0CE@DMBLFCEI@?5?5global?5memory?5size?5?5?5?5?5?5?5?$CF?42f?5@
 	call	_printf
 
-; 452  : 	}
-; 453  : 
-; 454  : 	clGetDeviceInfo(device_id, CL_DEVICE_GLOBAL_MEM_CACHE_SIZE, sizeof(param_value), &param_value, NULL);
+; 451  : 	}
+; 452  : 
+; 453  : 	clGetDeviceInfo(device_id, CL_DEVICE_GLOBAL_MEM_CACHE_SIZE, sizeof(param_value), &param_value, NULL);
 
 	mov	eax, DWORD PTR _device_id
 	add	esp, 16					; 00000010H
@@ -3865,8 +3865,8 @@ $LN7@cl_print_d:
 	push	eax
 	call	_clGetDeviceInfo@20
 
-; 455  : 	{
-; 456  : 		double memory = (double) param_value;
+; 454  : 	{
+; 455  : 		double memory = (double) param_value;
 
 	fild	DWORD PTR _param_value$[ebp]
 	mov	ecx, DWORD PTR _param_value$[ebp]
@@ -3876,12 +3876,12 @@ $LN7@cl_print_d:
 $LN29@cl_print_d:
 	fst	QWORD PTR _memory$31068[ebp]
 
-; 457  : 		char units[][4] = {"B  ", "KiB", "MiB", "GiB"};
+; 456  : 		char units[][4] = {"B  ", "KiB", "MiB", "GiB"};
 
 	mov	DWORD PTR _units$31070[ebp], 2105410	; 00202042H
 
-; 458  : 		char *unit = units[0];
-; 459  : 		for (int i = 1; memory >= 1024; i++)
+; 457  : 		char *unit = units[0];
+; 458  : 		for (int i = 1; memory >= 1024; i++)
 
 	fld	QWORD PTR __real@4090000000000000
 	movsd	xmm0, QWORD PTR _memory$31068[ebp]
@@ -3894,8 +3894,8 @@ $LN29@cl_print_d:
 	lea	ecx, DWORD PTR _units$31070[ebp]
 	jb	SHORT $LN4@cl_print_d
 
-; 450  : 		}
-; 451  : 		printf("  global memory size       %.2f %s\n", memory, unit);
+; 449  : 		}
+; 450  : 		printf("  global memory size       %.2f %s\n", memory, unit);
 
 	movsd	xmm1, QWORD PTR __real@4090000000000000
 	movsd	xmm2, QWORD PTR __real@3f50000000000000
@@ -3903,9 +3903,9 @@ $LN29@cl_print_d:
 	npad	8
 $LL6@cl_print_d:
 
-; 460  : 		{
-; 461  : 			memory /= 1024;
-; 462  : 			unit = units[i];
+; 459  : 		{
+; 460  : 			memory /= 1024;
+; 461  : 			unit = units[i];
 
 	mov	ecx, eax
 	mulsd	xmm0, xmm2
@@ -3914,8 +3914,8 @@ $LL6@cl_print_d:
 	jae	SHORT $LL6@cl_print_d
 $LN4@cl_print_d:
 
-; 463  : 		}
-; 464  : 		printf("  global mem cache size    %.2f %s\n", memory, unit);
+; 462  : 		}
+; 463  : 		printf("  global mem cache size    %.2f %s\n", memory, unit);
 
 	push	ecx
 	sub	esp, 8
@@ -3923,9 +3923,9 @@ $LN4@cl_print_d:
 	push	OFFSET ??_C@_0CE@CHKCHDNL@?5?5global?5mem?5cache?5size?5?5?5?5?$CF?42f?5@
 	call	_printf
 
-; 465  : 	}
-; 466  : 
-; 467  : 	clGetDeviceInfo(device_id, CL_DEVICE_MAX_MEM_ALLOC_SIZE, sizeof(param_value), &param_value, NULL);
+; 464  : 	}
+; 465  : 
+; 466  : 	clGetDeviceInfo(device_id, CL_DEVICE_MAX_MEM_ALLOC_SIZE, sizeof(param_value), &param_value, NULL);
 
 	mov	eax, DWORD PTR _device_id
 	add	esp, 16					; 00000010H
@@ -3937,8 +3937,8 @@ $LN4@cl_print_d:
 	push	eax
 	call	_clGetDeviceInfo@20
 
-; 468  : 	{
-; 469  : 		double memory = (double) param_value;
+; 467  : 	{
+; 468  : 		double memory = (double) param_value;
 
 	fild	DWORD PTR _param_value$[ebp]
 	mov	ecx, DWORD PTR _param_value$[ebp]
@@ -3948,12 +3948,12 @@ $LN4@cl_print_d:
 $LN30@cl_print_d:
 	fst	QWORD PTR _memory$31077[ebp]
 
-; 470  : 		char units[][4] = {"B  ", "KiB", "MiB", "GiB"};
+; 469  : 		char units[][4] = {"B  ", "KiB", "MiB", "GiB"};
 
 	mov	DWORD PTR _units$31079[ebp+8], edi
 
-; 471  : 		char *unit = units[0];
-; 472  : 		for (int i = 1; memory >= 1024; i++)
+; 470  : 		char *unit = units[0];
+; 471  : 		for (int i = 1; memory >= 1024; i++)
 
 	fld	QWORD PTR __real@4090000000000000
 	movsd	xmm0, QWORD PTR _memory$31077[ebp]
@@ -3969,8 +3969,8 @@ $LN30@cl_print_d:
 	pop	ebx
 	jb	SHORT $LN1@cl_print_d
 
-; 463  : 		}
-; 464  : 		printf("  global mem cache size    %.2f %s\n", memory, unit);
+; 462  : 		}
+; 463  : 		printf("  global mem cache size    %.2f %s\n", memory, unit);
 
 	movsd	xmm1, QWORD PTR __real@4090000000000000
 	movsd	xmm2, QWORD PTR __real@3f50000000000000
@@ -3978,9 +3978,9 @@ $LN30@cl_print_d:
 	npad	5
 $LL3@cl_print_d:
 
-; 473  : 		{
-; 474  : 			memory /= 1024;
-; 475  : 			unit = units[i];
+; 472  : 		{
+; 473  : 			memory /= 1024;
+; 474  : 			unit = units[i];
 
 	mov	ecx, eax
 	mulsd	xmm0, xmm2
@@ -3989,8 +3989,8 @@ $LL3@cl_print_d:
 	jae	SHORT $LL3@cl_print_d
 $LN1@cl_print_d:
 
-; 476  : 		}
-; 477  : 		printf("  maximum avaible mem      %.2f %s\n", memory, unit);
+; 475  : 		}
+; 476  : 		printf("  maximum avaible mem      %.2f %s\n", memory, unit);
 
 	push	ecx
 	sub	esp, 8
@@ -3998,9 +3998,9 @@ $LN1@cl_print_d:
 	push	OFFSET ??_C@_0CE@MLIIKEEG@?5?5maximum?5avaible?5mem?5?5?5?5?5?5?$CF?42f?5@
 	call	_printf
 
-; 478  : 	}
-; 479  : 
-; 480  : 	clGetDeviceInfo(device_id, CL_DEVICE_ADDRESS_BITS, sizeof(param_value), &param_value, NULL);
+; 477  : 	}
+; 478  : 
+; 479  : 	clGetDeviceInfo(device_id, CL_DEVICE_ADDRESS_BITS, sizeof(param_value), &param_value, NULL);
 
 	mov	eax, DWORD PTR _device_id
 	add	esp, 16					; 00000010H
@@ -4012,15 +4012,15 @@ $LN1@cl_print_d:
 	push	eax
 	call	_clGetDeviceInfo@20
 
-; 481  : 	printf("  address bits             %u\n", param_value);
+; 480  : 	printf("  address bits             %u\n", param_value);
 
 	mov	ecx, DWORD PTR _param_value$[ebp]
 	push	ecx
 	push	OFFSET ??_C@_0BP@IGFCAEIH@?5?5address?5bits?5?5?5?5?5?5?5?5?5?5?5?5?5?$CFu?6?$AA@
 	call	_printf
 
-; 482  : 
-; 483  : 	clGetDeviceInfo(device_id, CL_DEVICE_MAX_COMPUTE_UNITS, sizeof(param_value), &param_value, NULL);
+; 481  : 
+; 482  : 	clGetDeviceInfo(device_id, CL_DEVICE_MAX_COMPUTE_UNITS, sizeof(param_value), &param_value, NULL);
 
 	mov	eax, DWORD PTR _device_id
 	add	esp, 8
@@ -4032,15 +4032,15 @@ $LN1@cl_print_d:
 	push	eax
 	call	_clGetDeviceInfo@20
 
-; 484  : 	printf("  maximum compute units    %u\n", param_value);
+; 483  : 	printf("  maximum compute units    %u\n", param_value);
 
 	mov	ecx, DWORD PTR _param_value$[ebp]
 	push	ecx
 	push	OFFSET ??_C@_0BP@ECPPJEF@?5?5maximum?5compute?5units?5?5?5?5?$CFu?6?$AA@
 	call	_printf
 
-; 485  : 
-; 486  : 	clGetDeviceInfo(device_id, CL_DEVICE_MAX_WORK_GROUP_SIZE, sizeof(param_value), &param_value, NULL);
+; 484  : 
+; 485  : 	clGetDeviceInfo(device_id, CL_DEVICE_MAX_WORK_GROUP_SIZE, sizeof(param_value), &param_value, NULL);
 
 	mov	eax, DWORD PTR _device_id
 	add	esp, 8
@@ -4052,15 +4052,15 @@ $LN1@cl_print_d:
 	push	eax
 	call	_clGetDeviceInfo@20
 
-; 487  : 	printf("  maximum work-group size  %u\n", param_value);
+; 486  : 	printf("  maximum work-group size  %u\n", param_value);
 
 	mov	ecx, DWORD PTR _param_value$[ebp]
 	push	ecx
 	push	OFFSET ??_C@_0BP@DEPGPIEH@?5?5maximum?5work?9group?5size?5?5?$CFu?6?$AA@
 	call	_printf
 
-; 488  : 
-; 489  : 	clGetDeviceInfo(device_id, CL_DEVICE_MAX_WORK_ITEM_SIZES, sizeof(param_value), &param_value, NULL);
+; 487  : 
+; 488  : 	clGetDeviceInfo(device_id, CL_DEVICE_MAX_WORK_ITEM_SIZES, sizeof(param_value), &param_value, NULL);
 
 	mov	eax, DWORD PTR _device_id
 	add	esp, 8
@@ -4072,15 +4072,15 @@ $LN1@cl_print_d:
 	push	eax
 	call	_clGetDeviceInfo@20
 
-; 490  : 	printf("  maximum work-item sizes  %u\n", param_value);
+; 489  : 	printf("  maximum work-item sizes  %u\n", param_value);
 
 	mov	ecx, DWORD PTR _param_value$[ebp]
 	push	ecx
 	push	OFFSET ??_C@_0BP@NDMOHBPN@?5?5maximum?5work?9item?5sizes?5?5?$CFu?6?$AA@
 	call	_printf
 
-; 491  : 
-; 492  : 	clGetDeviceInfo(device_id, CL_DEVICE_MAX_CLOCK_FREQUENCY, sizeof(param_value), &param_value, NULL);
+; 490  : 
+; 491  : 	clGetDeviceInfo(device_id, CL_DEVICE_MAX_CLOCK_FREQUENCY, sizeof(param_value), &param_value, NULL);
 
 	mov	eax, DWORD PTR _device_id
 	add	esp, 8
@@ -4092,14 +4092,14 @@ $LN1@cl_print_d:
 	push	eax
 	call	_clGetDeviceInfo@20
 
-; 493  : 	printf("  max clock frequency      %u MHz\n", param_value);
+; 492  : 	printf("  max clock frequency      %u MHz\n", param_value);
 
 	mov	ecx, DWORD PTR _param_value$[ebp]
 	push	ecx
 	push	OFFSET ??_C@_0CD@NOOIMDDD@?5?5max?5clock?5frequency?5?5?5?5?5?5?$CFu?5MH@
 	call	_printf
 
-; 494  : }
+; 493  : }
 
 	mov	ecx, DWORD PTR __$ArrayPad$[ebp]
 	xor	ecx, ebp
@@ -4153,17 +4153,17 @@ _text$ = 8						; size = 4
 _roundkeys$ = 12					; size = 4
 ?cl_update@@YAXPAEPAI@Z PROC				; cl_update, COMDAT
 
-; 497  : {
+; 496  : {
 
 	push	ebp
 	mov	ebp, esp
 	sub	esp, 8
 
-; 498  : 	size_t local = 256;
-; 499  : 	size_t global = state_length_padded / 16;
-; 500  : 
-; 501  : 	err = clEnqueueWriteBuffer(queue, mem_roundkeys, CL_FALSE, 0, roundkeys_length, 
-; 502  : 							   roundkeys, 0, NULL, NULL);
+; 497  : 	size_t local = 256;
+; 498  : 	size_t global = state_length_padded / 16;
+; 499  : 
+; 500  : 	err = clEnqueueWriteBuffer(queue, mem_roundkeys, CL_FALSE, 0, roundkeys_length, 
+; 501  : 							   roundkeys, 0, NULL, NULL);
 
 	mov	ecx, DWORD PTR _roundkeys$[ebp]
 	mov	edx, DWORD PTR _roundkeys_length
@@ -4185,12 +4185,12 @@ _roundkeys$ = 12					; size = 4
 	call	_clEnqueueWriteBuffer@36
 	mov	DWORD PTR _err, eax
 
-; 503  : 	if (err != CL_SUCCESS) {
+; 502  : 	if (err != CL_SUCCESS) {
 
 	test	eax, eax
 	je	SHORT $LN4@cl_update
 
-; 504  : 		cl_print_error(err, "Error: failed write data to buffer (roundkeys)\n");
+; 503  : 		cl_print_error(err, "Error: failed write data to buffer (roundkeys)\n");
 
 	push	OFFSET ??_C@_0DA@DJKOFONH@Error?3?5failed?5write?5data?5to?5buff@
 	push	eax
@@ -4198,10 +4198,10 @@ _roundkeys$ = 12					; size = 4
 $LN8@cl_update:
 $LN4@cl_update:
 
-; 505  : 	}
-; 506  : 
-; 507  : 	err = clEnqueueWriteBuffer(queue, mem_state, CL_FALSE, 0, state_length, text, 
-; 508  : 							   0, NULL, NULL);
+; 504  : 	}
+; 505  : 
+; 506  : 	err = clEnqueueWriteBuffer(queue, mem_state, CL_FALSE, 0, state_length, text, 
+; 507  : 							   0, NULL, NULL);
 
 	mov	edx, DWORD PTR _state_length
 	mov	eax, DWORD PTR _mem_state
@@ -4220,12 +4220,12 @@ $LN4@cl_update:
 	call	_clEnqueueWriteBuffer@36
 	mov	DWORD PTR _err, eax
 
-; 509  : 	if (err != CL_SUCCESS) {
+; 508  : 	if (err != CL_SUCCESS) {
 
 	test	eax, eax
 	je	SHORT $LN3@cl_update
 
-; 510  : 		cl_print_error(err, "Error: failed write data to buffer (state)\n");
+; 509  : 		cl_print_error(err, "Error: failed write data to buffer (state)\n");
 
 	push	OFFSET ??_C@_0CM@BFFINMJB@Error?3?5failed?5write?5data?5to?5buff@
 	push	eax
@@ -4233,9 +4233,9 @@ $LN4@cl_update:
 $LN9@cl_update:
 $LN3@cl_update:
 
-; 511  : 	}
-; 512  : 
-; 513  : 	err = clEnqueueNDRangeKernel(queue, kernel, 1, NULL, &global, &local, 0, NULL, NULL);
+; 510  : 	}
+; 511  : 
+; 512  : 	err = clEnqueueNDRangeKernel(queue, kernel, 1, NULL, &global, &local, 0, NULL, NULL);
 
 	mov	ecx, DWORD PTR _kernel
 	push	0
@@ -4253,12 +4253,12 @@ $LN3@cl_update:
 	call	_clEnqueueNDRangeKernel@36
 	mov	DWORD PTR _err, eax
 
-; 514  : 	if (err != CL_SUCCESS) {
+; 513  : 	if (err != CL_SUCCESS) {
 
 	test	eax, eax
 	je	SHORT $LN2@cl_update
 
-; 515  : 		cl_print_error(err, "Error: failed to execute kernel\n");
+; 514  : 		cl_print_error(err, "Error: failed to execute kernel\n");
 
 	push	OFFSET ??_C@_0CB@EMODPKOD@Error?3?5failed?5to?5execute?5kernel?6@
 	push	eax
@@ -4266,10 +4266,10 @@ $LN3@cl_update:
 $LN10@cl_update:
 $LN2@cl_update:
 
-; 516  : 	}
-; 517  : 
-; 518  : 	err = clEnqueueReadBuffer(queue, mem_state, CL_TRUE, 0, state_length, text,
-; 519  : 							  0, NULL, NULL);
+; 515  : 	}
+; 516  : 
+; 517  : 	err = clEnqueueReadBuffer(queue, mem_state, CL_TRUE, 0, state_length, text,
+; 518  : 							  0, NULL, NULL);
 
 	mov	eax, DWORD PTR _state_length
 	mov	ecx, DWORD PTR _mem_state
@@ -4287,12 +4287,12 @@ $LN2@cl_update:
 	mov	DWORD PTR _err, eax
 	pop	esi
 
-; 520  : 	if (err != CL_SUCCESS) {
+; 519  : 	if (err != CL_SUCCESS) {
 
 	test	eax, eax
 	je	SHORT $LN1@cl_update
 
-; 521  : 		cl_print_error(err, "Error: failed to read from buffer\n");
+; 520  : 		cl_print_error(err, "Error: failed to read from buffer\n");
 
 	push	OFFSET ??_C@_0CD@GFCIJBIF@Error?3?5failed?5to?5read?5from?5buffe@
 	push	eax
@@ -4300,15 +4300,15 @@ $LN2@cl_update:
 $LN11@cl_update:
 $LN1@cl_update:
 
-; 522  : 	}
-; 523  : 
-; 524  : 	clFinish(queue);
+; 521  : 	}
+; 522  : 
+; 523  : 	clFinish(queue);
 
 	mov	eax, DWORD PTR _queue
 	push	eax
 	call	_clFinish@4
 
-; 525  : }
+; 524  : }
 
 	mov	esp, ebp
 	pop	ebp
@@ -4324,14 +4324,14 @@ EXTRN	_clReleaseMemObject@4:PROC
 _TEXT	SEGMENT
 ?cl_release_kernel@@YAXXZ PROC				; cl_release_kernel, COMDAT
 
-; 529  : 	if (mem_state != nullptr)
+; 528  : 	if (mem_state != nullptr)
 
 	cmp	DWORD PTR _mem_state, 0
 	je	SHORT $LN9@cl_release
 $LN8@cl_release:
 
-; 530  : 	{
-; 531  : 		while (clReleaseMemObject(mem_state));
+; 529  : 	{
+; 530  : 		while (clReleaseMemObject(mem_state));
 
 	mov	eax, DWORD PTR _mem_state
 	push	eax
@@ -4339,21 +4339,21 @@ $LN8@cl_release:
 	test	eax, eax
 	jne	SHORT $LN8@cl_release
 
-; 532  : 		mem_state = nullptr;
+; 531  : 		mem_state = nullptr;
 
 	mov	DWORD PTR _mem_state, eax
 $LN9@cl_release:
 
-; 533  : 	}
-; 534  : 	
-; 535  : 	if (mem_roundkeys != nullptr)
+; 532  : 	}
+; 533  : 	
+; 534  : 	if (mem_roundkeys != nullptr)
 
 	cmp	DWORD PTR _mem_roundkeys, 0
 	je	SHORT $LN6@cl_release
 $LN5@cl_release:
 
-; 536  : 	{
-; 537  : 		while (clReleaseMemObject(mem_roundkeys));
+; 535  : 	{
+; 536  : 		while (clReleaseMemObject(mem_roundkeys));
 
 	mov	ecx, DWORD PTR _mem_roundkeys
 	push	ecx
@@ -4361,21 +4361,21 @@ $LN5@cl_release:
 	test	eax, eax
 	jne	SHORT $LN5@cl_release
 
-; 538  : 		mem_roundkeys = nullptr;
+; 537  : 		mem_roundkeys = nullptr;
 
 	mov	DWORD PTR _mem_roundkeys, eax
 $LN6@cl_release:
 
-; 539  : 	}
-; 540  : 
-; 541  : 	if (kernel != nullptr)
+; 538  : 	}
+; 539  : 
+; 540  : 	if (kernel != nullptr)
 
 	cmp	DWORD PTR _kernel, 0
 	je	SHORT $LN3@cl_release
 $LN2@cl_release:
 
-; 542  : 	{
-; 543  : 		while (clReleaseKernel(kernel));
+; 541  : 	{
+; 542  : 		while (clReleaseKernel(kernel));
 
 	mov	edx, DWORD PTR _kernel
 	push	edx
@@ -4383,13 +4383,13 @@ $LN2@cl_release:
 	test	eax, eax
 	jne	SHORT $LN2@cl_release
 
-; 544  : 		kernel = nullptr;
+; 543  : 		kernel = nullptr;
 
 	mov	DWORD PTR _kernel, eax
 $LN3@cl_release:
 
-; 545  : 	}
-; 546  : }
+; 544  : 	}
+; 545  : }
 
 	ret	0
 ?cl_release_kernel@@YAXXZ ENDP				; cl_release_kernel
@@ -4403,19 +4403,19 @@ EXTRN	_clReleaseProgram@4:PROC
 _TEXT	SEGMENT
 ?cl_release_all@@YAXXZ PROC				; cl_release_all, COMDAT
 
-; 550  : 	cl_release_kernel();
+; 549  : 	cl_release_kernel();
 
 	call	?cl_release_kernel@@YAXXZ		; cl_release_kernel
 
-; 551  : 
-; 552  : 	if (program != nullptr)
+; 550  : 
+; 551  : 	if (program != nullptr)
 
 	cmp	DWORD PTR _program, 0
 	je	SHORT $LN9@cl_release@2
 $LN8@cl_release@2:
 
-; 553  : 	{
-; 554  : 		while (clReleaseProgram(program));
+; 552  : 	{
+; 553  : 		while (clReleaseProgram(program));
 
 	mov	eax, DWORD PTR _program
 	push	eax
@@ -4423,21 +4423,21 @@ $LN8@cl_release@2:
 	test	eax, eax
 	jne	SHORT $LN8@cl_release@2
 
-; 555  : 		program = nullptr;
+; 554  : 		program = nullptr;
 
 	mov	DWORD PTR _program, eax
 $LN9@cl_release@2:
 
-; 556  : 	}
-; 557  : 
-; 558  : 	if (queue != nullptr)
+; 555  : 	}
+; 556  : 
+; 557  : 	if (queue != nullptr)
 
 	cmp	DWORD PTR _queue, 0
 	je	SHORT $LN6@cl_release@2
 $LN5@cl_release@2:
 
-; 559  : 	{
-; 560  : 		while (clReleaseCommandQueue(queue));
+; 558  : 	{
+; 559  : 		while (clReleaseCommandQueue(queue));
 
 	mov	ecx, DWORD PTR _queue
 	push	ecx
@@ -4445,21 +4445,21 @@ $LN5@cl_release@2:
 	test	eax, eax
 	jne	SHORT $LN5@cl_release@2
 
-; 561  : 		queue = nullptr;
+; 560  : 		queue = nullptr;
 
 	mov	DWORD PTR _queue, eax
 $LN6@cl_release@2:
 
-; 562  : 	}
-; 563  : 
-; 564  : 	if (context != nullptr)
+; 561  : 	}
+; 562  : 
+; 563  : 	if (context != nullptr)
 
 	cmp	DWORD PTR _context, 0
 	je	SHORT $LN3@cl_release@2
 $LN2@cl_release@2:
 
-; 565  : 	{
-; 566  : 		while (clReleaseContext(context));
+; 564  : 	{
+; 565  : 		while (clReleaseContext(context));
 
 	mov	edx, DWORD PTR _context
 	push	edx
@@ -4467,13 +4467,13 @@ $LN2@cl_release@2:
 	test	eax, eax
 	jne	SHORT $LN2@cl_release@2
 
-; 567  : 		context = nullptr;
+; 566  : 		context = nullptr;
 
 	mov	DWORD PTR _context, eax
 $LN3@cl_release@2:
 
-; 568  : 	}
-; 569  : }
+; 567  : 	}
+; 568  : }
 
 	ret	0
 ?cl_release_all@@YAXXZ ENDP				; cl_release_all
@@ -17987,7 +17987,7 @@ _data$ = 12						; size = 4
 _size$ = 16						; size = 8
 ?file_put_contents@@YA_NPBDPAD_J@Z PROC			; file_put_contents, COMDAT
 
-; 103  : {
+; 102  : {
 
 	push	ebp
 	mov	ebp, esp
@@ -18003,7 +18003,7 @@ _size$ = 16						; size = 8
 	lea	eax, DWORD PTR __$EHRec$[ebp]
 	mov	DWORD PTR fs:0, eax
 
-; 104  : 	fstream f(file_path, ios::out | ios::trunc);
+; 103  : 	fstream f(file_path, ios::out | ios::trunc);
 
 	mov	esi, DWORD PTR _file_path$[ebp]
 	push	1
@@ -18013,7 +18013,7 @@ _size$ = 16						; size = 8
 	lea	ecx, DWORD PTR _f$[ebp]
 	call	??0?$basic_fstream@DU?$char_traits@D@std@@@std@@QAE@PBDHH@Z ; std::basic_fstream<char,std::char_traits<char> >::basic_fstream<char,std::char_traits<char> >
 
-; 105  : 	f.open(file_path);
+; 104  : 	f.open(file_path);
 
 	push	64					; 00000040H
 	push	3
@@ -18046,7 +18046,7 @@ $LN17@file_put_c:
 	push	eax
 	call	?clear@ios_base@std@@QAEXH_N@Z		; std::ios_base::clear
 
-; 106  : 	f.clear();
+; 105  : 	f.clear();
 
 	mov	edx, DWORD PTR _f$[ebp]
 	mov	ecx, DWORD PTR [edx+4]
@@ -18060,14 +18060,14 @@ $LN17@file_put_c:
 	push	eax
 	call	?clear@ios_base@std@@QAEXH_N@Z		; std::ios_base::clear
 
-; 107  : 
-; 108  : 	if ( ! f.is_open())
+; 106  : 
+; 107  : 	if ( ! f.is_open())
 
 	cmp	DWORD PTR _f$[ebp+108], 0
 	jne	SHORT $LN2@file_put_c
 
-; 109  : 	{
-; 110  : 		return false;
+; 108  : 	{
+; 109  : 		return false;
 
 	lea	ecx, DWORD PTR _f$[ebp+112]
 	mov	DWORD PTR __$EHRec$[ebp+8], -1
@@ -18079,7 +18079,7 @@ $LN17@file_put_c:
 	add	esp, 4
 	xor	al, al
 
-; 123  : }
+; 122  : }
 
 	mov	ecx, DWORD PTR __$EHRec$[ebp]
 	mov	DWORD PTR fs:0, ecx
@@ -18090,9 +18090,9 @@ $LN17@file_put_c:
 	ret	0
 $LN2@file_put_c:
 
-; 111  : 	}
-; 112  : 
-; 113  : 	if (size < streamsize(-1))
+; 110  : 	}
+; 111  : 
+; 112  : 	if (size < streamsize(-1))
 
 	mov	ecx, DWORD PTR _size$[ebp+4]
 	mov	esi, DWORD PTR _data$[ebp]
@@ -18104,8 +18104,8 @@ $LN2@file_put_c:
 	jae	SHORT $LN1@file_put_c
 $LN57@file_put_c:
 
-; 114  : 	{
-; 115  : 		size = strlen(data);
+; 113  : 	{
+; 114  : 		size = strlen(data);
 
 	mov	eax, esi
 	lea	edx, DWORD PTR [eax+1]
@@ -18121,9 +18121,9 @@ $LN59@file_put_c:
 	mov	eax, DWORD PTR _size$[ebp]
 $LN1@file_put_c:
 
-; 116  : 	}
-; 117  : 
-; 118  : 	f.write(data, size);
+; 115  : 	}
+; 116  : 
+; 117  : 	f.write(data, size);
 
 	push	ecx
 	push	eax
@@ -18131,8 +18131,8 @@ $LN1@file_put_c:
 	lea	ecx, DWORD PTR _f$[ebp+16]
 	call	?write@?$basic_ostream@DU?$char_traits@D@std@@@std@@QAEAAV12@PBD_J@Z ; std::basic_ostream<char,std::char_traits<char> >::write
 
-; 119  : 
-; 120  : 	f.close();
+; 118  : 
+; 119  : 	f.close();
 
 	lea	ecx, DWORD PTR _f$[ebp+24]
 	call	?close@?$basic_filebuf@DU?$char_traits@D@std@@@std@@QAEPAV12@XZ ; std::basic_filebuf<char,std::char_traits<char> >::close
@@ -18152,8 +18152,8 @@ $LN48@file_put_c:
 	call	?clear@ios_base@std@@QAEXH_N@Z		; std::ios_base::clear
 $LN46@file_put_c:
 
-; 121  : 
-; 122  : 	return true;
+; 120  : 
+; 121  : 	return true;
 
 	lea	ecx, DWORD PTR _f$[ebp+112]
 	mov	DWORD PTR __$EHRec$[ebp+8], -1
@@ -18165,7 +18165,7 @@ $LN46@file_put_c:
 	add	esp, 4
 	mov	al, 1
 
-; 123  : }
+; 122  : }
 
 	mov	ecx, DWORD PTR __$EHRec$[ebp]
 	mov	DWORD PTR fs:0, ecx
@@ -18267,96 +18267,64 @@ _ret_size$ = 12						; size = 4
 
 ; 67   : 	fstream f(file_path, ios::in | ios::ate);
 
-	mov	esi, DWORD PTR _file_path$[ebp]
+	mov	eax, DWORD PTR _file_path$[ebp]
 	push	1
 	push	64					; 00000040H
 	push	5
-	push	esi
+	push	eax
 	lea	ecx, DWORD PTR _f$[ebp]
 	call	??0?$basic_fstream@DU?$char_traits@D@std@@@std@@QAE@PBDHH@Z ; std::basic_fstream<char,std::char_traits<char> >::basic_fstream<char,std::char_traits<char> >
 
-; 68   : 	f.open(file_path);
+; 68   : 	f.clear();
 
-	push	64					; 00000040H
-	push	3
-	xor	edi, edi
-	push	esi
-	lea	ecx, DWORD PTR _f$[ebp+24]
-	mov	DWORD PTR __$EHRec$[ebp+8], edi
-	call	?open@?$basic_filebuf@DU?$char_traits@D@std@@@std@@QAEPAV12@PBDHH@Z ; std::basic_filebuf<char,std::char_traits<char> >::open
-	test	eax, eax
-	jne	SHORT $LN9@file_get_c
-	mov	eax, DWORD PTR _f$[ebp]
-	mov	ecx, DWORD PTR [eax+4]
-	mov	eax, DWORD PTR _f$[ebp+ecx+12]
-	lea	ecx, DWORD PTR _f$[ebp+ecx]
-	or	eax, 2
-	cmp	DWORD PTR [ecx+56], edi
-	jne	SHORT $LN19@file_get_c
-	or	eax, 4
-	jmp	SHORT $LN19@file_get_c
-$LN9@file_get_c:
 	mov	ecx, DWORD PTR _f$[ebp]
 	mov	ecx, DWORD PTR [ecx+4]
 	mov	eax, DWORD PTR _f$[ebp+ecx+56]
 	lea	ecx, DWORD PTR _f$[ebp+ecx]
-	neg	eax
-	sbb	eax, eax
-	and	eax, -4					; fffffffcH
-	add	eax, 4
-$LN19@file_get_c:
-	push	edi
-	push	eax
-	call	?clear@ios_base@std@@QAEXH_N@Z		; std::ios_base::clear
-
-; 69   : 	f.clear();
-
-	mov	edx, DWORD PTR _f$[ebp]
-	mov	ecx, DWORD PTR [edx+4]
-	mov	eax, DWORD PTR _f$[ebp+ecx+56]
-	lea	ecx, DWORD PTR _f$[ebp+ecx]
+	xor	edi, edi
 	neg	eax
 	sbb	eax, eax
 	and	eax, -4					; fffffffcH
 	add	eax, 4
 	push	edi
 	push	eax
+	mov	DWORD PTR __$EHRec$[ebp+8], edi
 	call	?clear@ios_base@std@@QAEXH_N@Z		; std::ios_base::clear
 
-; 70   : 
-; 71   : 	if (ret_size != nullptr)
+; 69   : 
+; 70   : 	if (ret_size != nullptr)
 
 	mov	ebx, DWORD PTR _ret_size$[ebp]
 	cmp	ebx, edi
 	je	SHORT $LN4@file_get_c
 
-; 72   : 	{
-; 73   : 		*ret_size = 0;
+; 71   : 	{
+; 72   : 		*ret_size = 0;
 
 	mov	DWORD PTR [ebx], edi
 $LN4@file_get_c:
 
-; 74   : 	}
-; 75   : 
-; 76   : 	if ( ! f.is_open())
+; 73   : 	}
+; 74   : 
+; 75   : 	if ( ! f.is_open())
 
 	cmp	DWORD PTR _f$[ebp+108], edi
 	jne	SHORT $LN3@file_get_c
 
-; 77   : 	{
-; 78   : 		return nullptr;
+; 76   : 	{
+; 77   : 		return nullptr;
 
 	lea	ecx, DWORD PTR _f$[ebp+112]
 	mov	DWORD PTR __$EHRec$[ebp+8], -1
 	call	??1?$basic_fstream@DU?$char_traits@D@std@@@std@@UAE@XZ ; std::basic_fstream<char,std::char_traits<char> >::~basic_fstream<char,std::char_traits<char> >
-	lea	eax, DWORD PTR _f$[ebp+112]
-	push	eax
+	lea	edx, DWORD PTR _f$[ebp+112]
+	push	edx
 	mov	DWORD PTR _f$[ebp+112], OFFSET ??_7ios_base@std@@6B@
 	call	?_Ios_base_dtor@ios_base@std@@CAXPAV12@@Z ; std::ios_base::_Ios_base_dtor
 	add	esp, 4
 	xor	eax, eax
 
-; 100  : }
+; 99   : }
 
 	mov	ecx, DWORD PTR __$EHRec$[ebp]
 	mov	DWORD PTR fs:0, ecx
@@ -18369,14 +18337,14 @@ $LN4@file_get_c:
 	ret	0
 $LN3@file_get_c:
 
-; 79   : 	}
-; 80   : 
-; 81   : 	int size = (int) f.tellg();
+; 78   : 	}
+; 79   : 
+; 80   : 	int size = (int) f.tellg();
 
-	mov	ecx, DWORD PTR _f$[ebp]
-	mov	eax, DWORD PTR [ecx+4]
+	mov	eax, DWORD PTR _f$[ebp]
+	mov	eax, DWORD PTR [eax+4]
 	test	BYTE PTR _f$[ebp+eax+12], 6
-	jne	SHORT $LN41@file_get_c
+	jne	SHORT $LN24@file_get_c
 	mov	ecx, DWORD PTR _f$[ebp+eax+56]
 	mov	edx, DWORD PTR [ecx]
 	mov	edx, DWORD PTR [edx+40]
@@ -18387,8 +18355,8 @@ $LN3@file_get_c:
 	lea	eax, DWORD PTR $T43753[ebp]
 	push	eax
 	call	edx
-	jmp	SHORT $LN40@file_get_c
-$LN41@file_get_c:
+	jmp	SHORT $LN23@file_get_c
+$LN24@file_get_c:
 	mov	eax, DWORD PTR ?_BADOFF@std@@3_JB
 	mov	ecx, DWORD PTR ?_BADOFF@std@@3_JB+4
 	xorpd	xmm0, xmm0
@@ -18396,11 +18364,11 @@ $LN41@file_get_c:
 	mov	DWORD PTR $T43753[ebp+4], ecx
 	movlpd	QWORD PTR $T43753[ebp+8], xmm0
 	mov	DWORD PTR $T43753[ebp+16], edi
-$LN40@file_get_c:
+$LN23@file_get_c:
 	mov	esi, DWORD PTR $T43753[ebp]
 	add	esi, DWORD PTR $T43753[ebp+8]
 
-; 82   : 	f.seekg (0, ios::beg);
+; 81   : 	f.seekg (0, ios::beg);
 
 	push	edi
 	push	edi
@@ -18408,14 +18376,14 @@ $LN40@file_get_c:
 	lea	ecx, DWORD PTR _f$[ebp]
 	call	?seekg@?$basic_istream@DU?$char_traits@D@std@@@std@@QAEAAV12@_JH@Z ; std::basic_istream<char,std::char_traits<char> >::seekg
 
-; 83   : 
-; 84   : 	if (size <= 0)
+; 82   : 
+; 83   : 	if (size <= 0)
 
 	cmp	esi, edi
 	jg	SHORT $LN2@file_get_c
 
-; 85   : 	{
-; 86   : 		return nullptr;
+; 84   : 	{
+; 85   : 		return nullptr;
 
 	lea	ecx, DWORD PTR _f$[ebp+112]
 	mov	DWORD PTR __$EHRec$[ebp+8], -1
@@ -18427,7 +18395,7 @@ $LN40@file_get_c:
 	add	esp, 4
 	xor	eax, eax
 
-; 100  : }
+; 99   : }
 
 	mov	ecx, DWORD PTR __$EHRec$[ebp]
 	mov	DWORD PTR fs:0, ecx
@@ -18440,14 +18408,14 @@ $LN40@file_get_c:
 	ret	0
 $LN2@file_get_c:
 
-; 87   : 	}
-; 88   : 
-; 89   : 	char *content = new char[size];
+; 86   : 	}
+; 87   : 
+; 88   : 	char *content = new char[size];
 
 	push	esi
 	call	??_U@YAPAXI@Z				; operator new[]
 
-; 90   : 	memset(content, 0, size);
+; 89   : 	memset(content, 0, size);
 
 	push	esi
 	mov	edi, eax
@@ -18456,8 +18424,8 @@ $LN2@file_get_c:
 	call	_memset
 	add	esp, 16					; 00000010H
 
-; 91   : 
-; 92   : 	f.read(content, size);
+; 90   : 
+; 91   : 	f.read(content, size);
 
 	mov	eax, esi
 	cdq
@@ -18467,21 +18435,21 @@ $LN2@file_get_c:
 	lea	ecx, DWORD PTR _f$[ebp]
 	call	?read@?$basic_istream@DU?$char_traits@D@std@@@std@@QAEAAV12@PAD_J@Z ; std::basic_istream<char,std::char_traits<char> >::read
 
-; 93   : 
-; 94   : 	if (ret_size != nullptr)
+; 92   : 
+; 93   : 	if (ret_size != nullptr)
 
 	test	ebx, ebx
 	je	SHORT $LN1@file_get_c
 
-; 95   : 	{
-; 96   : 		*ret_size = size;
+; 94   : 	{
+; 95   : 		*ret_size = size;
 
 	mov	DWORD PTR [ebx], esi
 $LN1@file_get_c:
 
-; 97   : 	}
-; 98   : 
-; 99   : 	return content;
+; 96   : 	}
+; 97   : 
+; 98   : 	return content;
 
 	lea	ecx, DWORD PTR _f$[ebp+112]
 	mov	DWORD PTR __$EHRec$[ebp+8], -1
@@ -18493,7 +18461,7 @@ $LN1@file_get_c:
 	add	esp, 4
 	mov	eax, edi
 
-; 100  : }
+; 99   : }
 
 	mov	ecx, DWORD PTR __$EHRec$[ebp]
 	mov	DWORD PTR fs:0, ecx
@@ -18632,7 +18600,7 @@ __$EHRec$ = -12						; size = 12
 _silent$ = 8						; size = 1
 ?cl_build_program@@YA_N_N@Z PROC			; cl_build_program, COMDAT
 
-; 126  : {
+; 125  : {
 
 	push	ebp
 	mov	ebp, esp
@@ -18652,23 +18620,23 @@ _silent$ = 8						; size = 1
 	lea	eax, DWORD PTR __$EHRec$[ebp]
 	mov	DWORD PTR fs:0, eax
 
-; 127  : 	auto cl_print_error = ::cl_print_error;
-; 128  : 	if (silent)
+; 126  : 	auto cl_print_error = ::cl_print_error;
+; 127  : 	if (silent)
 
 	xor	ebx, ebx
 	mov	edi, OFFSET ?cl_print_error@@YAXHPBDZZ	; cl_print_error
 	cmp	BYTE PTR _silent$[ebp], bl
 	je	SHORT $LN17@cl_build_p
 
-; 129  : 	{
-; 130  : 		cl_print_error = cl_print_error_silent;
+; 128  : 	{
+; 129  : 		cl_print_error = cl_print_error_silent;
 
 	mov	edi, OFFSET ?cl_print_error_silent@@YAXHPBDZZ ; cl_print_error_silent
 $LN17@cl_build_p:
 
-; 131  : 	}
-; 132  : 
-; 133  : 	err = clGetPlatformIDs(1, &platform_id, NULL);
+; 130  : 	}
+; 131  : 
+; 132  : 	err = clGetPlatformIDs(1, &platform_id, NULL);
 
 	push	ebx
 	push	OFFSET _platform_id
@@ -18676,25 +18644,25 @@ $LN17@cl_build_p:
 	call	_clGetPlatformIDs@12
 	mov	DWORD PTR _err, eax
 
-; 134  : 	if (err != CL_SUCCESS) {
+; 133  : 	if (err != CL_SUCCESS) {
 
 	cmp	eax, ebx
 	je	SHORT $LN16@cl_build_p
 
-; 135  : 		cl_print_error(err, "Error: could not connect to compute device\n");
+; 134  : 		cl_print_error(err, "Error: could not connect to compute device\n");
 
 	push	OFFSET ??_C@_0CM@DGFADCLC@Error?3?5could?5not?5connect?5to?5comp@
 	push	eax
 
-; 136  : 		return false;
+; 135  : 		return false;
 
 	jmp	$LN66@cl_build_p
 $LN16@cl_build_p:
 
-; 137  : 	}
-; 138  : 
-; 139  : 	// Get a device of the appropriate type
-; 140  : 	err = clGetDeviceIDs(platform_id, CL_DEVICE_TYPE_GPU, 1, &device_id, NULL);
+; 136  : 	}
+; 137  : 
+; 138  : 	// Get a device of the appropriate type
+; 139  : 	err = clGetDeviceIDs(platform_id, CL_DEVICE_TYPE_GPU, 1, &device_id, NULL);
 
 	mov	eax, DWORD PTR _platform_id
 	push	ebx
@@ -18706,20 +18674,20 @@ $LN16@cl_build_p:
 	call	_clGetDeviceIDs@24
 	mov	DWORD PTR _err, eax
 
-; 141  : 
-; 142  : 	if (err != CL_SUCCESS) {
+; 140  : 
+; 141  : 	if (err != CL_SUCCESS) {
 
 	cmp	eax, ebx
 	je	SHORT $LN15@cl_build_p
 
-; 143  : 		printf("Warning: no GPU support, falling back to CPU\n");
+; 142  : 		printf("Warning: no GPU support, falling back to CPU\n");
 
 	push	OFFSET ??_C@_0CO@IBFBJMIF@Warning?3?5no?5GPU?5support?0?5falling@
 	call	_printf
 
-; 144  : 
-; 145  : 		err = clGetDeviceIDs(platform_id, CL_DEVICE_TYPE_CPU, 1, &device_id,
-; 146  : 		                     NULL);
+; 143  : 
+; 144  : 		err = clGetDeviceIDs(platform_id, CL_DEVICE_TYPE_CPU, 1, &device_id,
+; 145  : 		                     NULL);
 
 	mov	ecx, DWORD PTR _platform_id
 	add	esp, 4
@@ -18733,27 +18701,27 @@ $LN16@cl_build_p:
 	mov	DWORD PTR _err, eax
 $LN15@cl_build_p:
 
-; 147  : 	}
-; 148  : 
-; 149  : 	if ( ! device_id) {
+; 146  : 	}
+; 147  : 
+; 148  : 	if ( ! device_id) {
 
 	cmp	DWORD PTR _device_id, ebx
 	jne	SHORT $LN14@cl_build_p
 
-; 150  : 		cl_print_error(err, "Error: could not get device id\n");
+; 149  : 		cl_print_error(err, "Error: could not get device id\n");
 
 	push	OFFSET ??_C@_0CA@JGBMOJJG@Error?3?5could?5not?5get?5device?5id?6?$AA@
 	push	eax
 
-; 151  : 		return false;
+; 150  : 		return false;
 
 	jmp	$LN66@cl_build_p
 $LN14@cl_build_p:
 
-; 152  : 	}
-; 153  : 
-; 154  : 	// Create a compute context
-; 155  : 	context = clCreateContext(0, 1, &device_id, NULL, NULL, &err);
+; 151  : 	}
+; 152  : 
+; 153  : 	// Create a compute context
+; 154  : 	context = clCreateContext(0, 1, &device_id, NULL, NULL, &err);
 
 	push	OFFSET _err
 	push	ebx
@@ -18763,7 +18731,7 @@ $LN14@cl_build_p:
 	push	ebx
 	call	_clCreateContext@24
 
-; 156  : 	if ( ! context || err != CL_SUCCESS) {
+; 155  : 	if ( ! context || err != CL_SUCCESS) {
 
 	mov	ecx, DWORD PTR _err
 	mov	DWORD PTR _context, eax
@@ -18772,10 +18740,10 @@ $LN14@cl_build_p:
 	cmp	ecx, ebx
 	jne	$LN12@cl_build_p
 
-; 159  : 	}
-; 160  : 
-; 161  : 	// Create a command queue
-; 162  : 	queue = clCreateCommandQueue(context, device_id, 0, &err);
+; 158  : 	}
+; 159  : 
+; 160  : 	// Create a command queue
+; 161  : 	queue = clCreateCommandQueue(context, device_id, 0, &err);
 
 	mov	edx, DWORD PTR _device_id
 	push	OFFSET _err
@@ -18786,7 +18754,7 @@ $LN14@cl_build_p:
 	call	_clCreateCommandQueue@20
 	mov	DWORD PTR _queue, eax
 
-; 163  : 	if ( ! queue || err != CL_SUCCESS) {
+; 162  : 	if ( ! queue || err != CL_SUCCESS) {
 
 	cmp	eax, ebx
 	mov	eax, DWORD PTR _err
@@ -18794,12 +18762,12 @@ $LN14@cl_build_p:
 	cmp	eax, ebx
 	jne	$LN10@cl_build_p
 
-; 166  : 	}
-; 167  : 
-; 168  : 	int source_size = 0;
-; 169  : 	char *source_str = nullptr;
-; 170  : 	bool cache_program = true;
-; 171  : 	string cached_source_path = source_path;
+; 165  : 	}
+; 166  : 
+; 167  : 	int source_size = 0;
+; 168  : 	char *source_str = nullptr;
+; 169  : 	bool cache_program = true;
+; 170  : 	string cached_source_path = source_path;
 
 	mov	eax, DWORD PTR _source_path
 	push	eax
@@ -18807,7 +18775,7 @@ $LN14@cl_build_p:
 	mov	DWORD PTR _source_size$[ebp], ebx
 	call	??0?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QAE@PBD@Z ; std::basic_string<char,std::char_traits<char>,std::allocator<char> >::basic_string<char,std::char_traits<char>,std::allocator<char> >
 
-; 172  : 	cached_source_path += ".cached";
+; 171  : 	cached_source_path += ".cached";
 
 	push	7
 	push	OFFSET ??_C@_07GAFKKPGM@?4cached?$AA@
@@ -18815,37 +18783,37 @@ $LN14@cl_build_p:
 	mov	DWORD PTR __$EHRec$[ebp+8], ebx
 	call	?append@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QAEAAV12@PBDI@Z ; std::basic_string<char,std::char_traits<char>,std::allocator<char> >::append
 
-; 173  : 
-; 174  : #ifdef ENABLE_CACHING
-; 175  : 	source_str = file_get_contents(cached_source_path.c_str(), &source_size);
-; 176  : 
-; 177  : 	if (source_str != nullptr && source_size != 0)
-; 178  : 	{
-; 179  : 		program = clCreateProgramWithBinary(context, 1, &device_id, (const size_t *) &source_size, (const unsigned char **) &source_str, NULL, &err);
-; 180  : 
-; 181  : 		if ( ! program || err != CL_SUCCESS)
-; 182  : 		{
-; 183  : 			printf("Warning: failed to create compute program from binary\n");
-; 184  : 			program = nullptr;
-; 185  : 		}
-; 186  : 		else
-; 187  : 		{
-; 188  : 			printf("Info: program loaded from cached binary\n");
-; 189  : 			cache_program = false;
-; 190  : 		}
-; 191  : 
-; 192  : 		delete[] source_str;
-; 193  : 	}
-; 194  : #endif
-; 195  : 
-; 196  : 	if (program == nullptr)
+; 172  : 
+; 173  : #ifdef ENABLE_CACHING
+; 174  : 	source_str = file_get_contents(cached_source_path.c_str(), &source_size);
+; 175  : 
+; 176  : 	if (source_str != nullptr && source_size != 0)
+; 177  : 	{
+; 178  : 		program = clCreateProgramWithBinary(context, 1, &device_id, (const size_t *) &source_size, (const unsigned char **) &source_str, NULL, &err);
+; 179  : 
+; 180  : 		if ( ! program || err != CL_SUCCESS)
+; 181  : 		{
+; 182  : 			printf("Warning: failed to create compute program from binary\n");
+; 183  : 			program = nullptr;
+; 184  : 		}
+; 185  : 		else
+; 186  : 		{
+; 187  : 			printf("Info: program loaded from cached binary\n");
+; 188  : 			cache_program = false;
+; 189  : 		}
+; 190  : 
+; 191  : 		delete[] source_str;
+; 192  : 	}
+; 193  : #endif
+; 194  : 
+; 195  : 	if (program == nullptr)
 
 	mov	eax, DWORD PTR _program
 	cmp	eax, ebx
 	jne	$LN63@cl_build_p
 
-; 197  : 	{
-; 198  : 		source_str = file_get_contents(source_path, &source_size);
+; 196  : 	{
+; 197  : 		source_str = file_get_contents(source_path, &source_size);
 
 	mov	edx, DWORD PTR _source_path
 	lea	ecx, DWORD PTR _source_size$[ebp]
@@ -18855,14 +18823,14 @@ $LN14@cl_build_p:
 	mov	esi, eax
 	add	esp, 8
 
-; 199  : 
-; 200  : 		if (source_str == nullptr)
+; 198  : 
+; 199  : 		if (source_str == nullptr)
 
 	cmp	esi, ebx
 	jne	SHORT $LN8@cl_build_p
 
-; 201  : 		{
-; 202  : 			cl_print_error(NULL, "Error: failed to load source program from %s\n", source_path);
+; 200  : 		{
+; 201  : 			cl_print_error(NULL, "Error: failed to load source program from %s\n", source_path);
 
 	mov	eax, DWORD PTR _source_path
 	push	eax
@@ -18872,10 +18840,10 @@ $LN14@cl_build_p:
 	add	esp, 12					; 0000000cH
 $LN8@cl_build_p:
 
-; 203  : 		}
-; 204  : 		
-; 205  : 		char footer_str[64];
-; 206  : 		sprintf_s(footer_str, 64, "\n// time() = %u", time(NULL));
+; 202  : 		}
+; 203  : 		
+; 204  : 		char footer_str[64];
+; 205  : 		sprintf_s(footer_str, 64, "\n// time() = %u", time(NULL));
 
 	push	ebx
 	call	__time64
@@ -18888,14 +18856,14 @@ $LN8@cl_build_p:
 	call	_sprintf_s
 	add	esp, 24					; 00000018H
 
-; 207  : 
-; 208  : 		string source_footer;
+; 206  : 
+; 207  : 		string source_footer;
 
 	mov	DWORD PTR _source_footer$30967[ebp+20], 15 ; 0000000fH
 	mov	DWORD PTR _source_footer$30967[ebp+16], ebx
 	mov	BYTE PTR _source_footer$30967[ebp], bl
 
-; 209  : 		source_footer.reserve(source_size + 64);
+; 208  : 		source_footer.reserve(source_size + 64);
 
 	mov	edx, DWORD PTR _source_size$[ebp]
 	add	edx, 64					; 00000040H
@@ -18904,7 +18872,7 @@ $LN8@cl_build_p:
 	mov	BYTE PTR __$EHRec$[ebp+8], 1
 	call	?reserve@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QAEXI@Z ; std::basic_string<char,std::char_traits<char>,std::allocator<char> >::reserve
 
-; 210  : 		source_footer.append(source_str).append(footer_str);
+; 209  : 		source_footer.append(source_str).append(footer_str);
 
 	lea	eax, DWORD PTR _footer_str$30965[ebp]
 	push	eax
@@ -18914,8 +18882,8 @@ $LN8@cl_build_p:
 	mov	ecx, eax
 	call	?append@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QAEAAV12@PBD@Z ; std::basic_string<char,std::char_traits<char>,std::allocator<char> >::append
 
-; 211  : 
-; 212  : 		const char *source_ptr = source_footer.c_str();
+; 210  : 
+; 211  : 		const char *source_ptr = source_footer.c_str();
 
 	cmp	DWORD PTR _source_footer$30967[ebp+20], 16 ; 00000010H
 	jb	SHORT $LN60@cl_build_p
@@ -18927,8 +18895,8 @@ $LN60@cl_build_p:
 	mov	DWORD PTR _source_ptr$30968[ebp], edx
 $LN61@cl_build_p:
 
-; 213  : 
-; 214  : 		program = clCreateProgramWithSource(context, 1, &source_ptr, NULL, &err);
+; 212  : 
+; 213  : 		program = clCreateProgramWithSource(context, 1, &source_ptr, NULL, &err);
 
 	mov	ecx, DWORD PTR _context
 	push	OFFSET _err
@@ -18939,22 +18907,22 @@ $LN61@cl_build_p:
 	push	ecx
 	call	_clCreateProgramWithSource@20
 
-; 215  : 
-; 216  : 		delete[] source_str;
+; 214  : 
+; 215  : 		delete[] source_str;
 
 	push	esi
 	mov	DWORD PTR _program, eax
 	call	??_V@YAXPAX@Z				; operator delete[]
 	add	esp, 4
 
-; 217  : 	}
+; 216  : 	}
 
 	lea	ecx, DWORD PTR _source_footer$30967[ebp]
 	mov	BYTE PTR __$EHRec$[ebp+8], bl
 	call	??1?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QAE@XZ ; std::basic_string<char,std::char_traits<char>,std::allocator<char> >::~basic_string<char,std::char_traits<char>,std::allocator<char> >
 
-; 218  : 	
-; 219  : 	if ( ! program || err != CL_SUCCESS)
+; 217  : 	
+; 218  : 	if ( ! program || err != CL_SUCCESS)
 
 	mov	eax, DWORD PTR _program
 	cmp	eax, ebx
@@ -18963,11 +18931,11 @@ $LN63@cl_build_p:
 	cmp	DWORD PTR _err, ebx
 	jne	$LN6@cl_build_p
 
-; 223  : 	}
-; 224  : 
-; 225  : 	const char *options = "-cl-mad-enable -cl-unsafe-math-optimizations";
-; 226  : 
-; 227  : 	err = clBuildProgram(program, 0, NULL, options, NULL, NULL);
+; 222  : 	}
+; 223  : 
+; 224  : 	const char *options = "-cl-mad-enable -cl-unsafe-math-optimizations";
+; 225  : 
+; 226  : 	err = clBuildProgram(program, 0, NULL, options, NULL, NULL);
 
 	push	ebx
 	push	ebx
@@ -18977,11 +18945,11 @@ $LN63@cl_build_p:
 	push	eax
 	call	_clBuildProgram@24
 
-; 228  : 	size_t len;
-; 229  : 	char buffer[1024 * 10]; // error message buffer, 10 KiB
-; 230  : 	char *buffer_ptr = buffer;
-; 231  : 
-; 232  : 	clGetProgramBuildInfo(program, device_id, CL_PROGRAM_BUILD_LOG, sizeof(buffer), buffer, &len);
+; 227  : 	size_t len;
+; 228  : 	char buffer[1024 * 10]; // error message buffer, 10 KiB
+; 229  : 	char *buffer_ptr = buffer;
+; 230  : 
+; 231  : 	clGetProgramBuildInfo(program, device_id, CL_PROGRAM_BUILD_LOG, sizeof(buffer), buffer, &len);
 
 	mov	ecx, DWORD PTR _device_id
 	lea	edx, DWORD PTR _len$[ebp]
@@ -19000,12 +18968,12 @@ $LN63@cl_build_p:
 	npad	3
 $LL5@cl_build_p:
 
-; 233  : 
-; 234  : 	// trim buffer
-; 235  : 	while (buffer_ptr[0] == ' ' 
-; 236  : 		|| buffer_ptr[0] == '\n' 
-; 237  : 		|| buffer_ptr[0] == '\t' 
-; 238  : 		|| buffer_ptr[0] == '\r')
+; 232  : 
+; 233  : 	// trim buffer
+; 234  : 	while (buffer_ptr[0] == ' ' 
+; 235  : 		|| buffer_ptr[0] == '\n' 
+; 236  : 		|| buffer_ptr[0] == '\t' 
+; 237  : 		|| buffer_ptr[0] == '\r')
 
 	mov	al, BYTE PTR [esi]
 	cmp	al, 32					; 00000020H
@@ -19018,33 +18986,33 @@ $LL5@cl_build_p:
 	jne	SHORT $LN4@cl_build_p
 $LN3@cl_build_p:
 
-; 239  : 	{
-; 240  : 		len--;
+; 238  : 	{
+; 239  : 		len--;
 
 	dec	ecx
 
-; 241  : 		buffer_ptr += 1;
+; 240  : 		buffer_ptr += 1;
 
 	inc	esi
 
-; 242  : 	}
+; 241  : 	}
 
 	jmp	SHORT $LL5@cl_build_p
 $LN4@cl_build_p:
 
-; 239  : 	{
-; 240  : 		len--;
+; 238  : 	{
+; 239  : 		len--;
 
 	mov	DWORD PTR _len$[ebp], ecx
 
-; 243  : 
-; 244  : 	if (len > 1)
+; 242  : 
+; 243  : 	if (len > 1)
 
 	cmp	ecx, 1
 	jbe	SHORT $LN2@cl_build_p
 
-; 245  : 	{
-; 246  : 		printf("Build log:\n%s\n", buffer_ptr);
+; 244  : 	{
+; 245  : 		printf("Build log:\n%s\n", buffer_ptr);
 
 	push	esi
 	push	OFFSET ??_C@_0P@GJLBDKA@Build?5log?3?6?$CFs?6?$AA@
@@ -19052,60 +19020,60 @@ $LN4@cl_build_p:
 	add	esp, 8
 $LN2@cl_build_p:
 
-; 247  : 	}
-; 248  : 
-; 249  : 	if (err != CL_SUCCESS)
+; 246  : 	}
+; 247  : 
+; 248  : 	if (err != CL_SUCCESS)
 
 	mov	eax, DWORD PTR _err
 	cmp	eax, ebx
 	je	SHORT $LN1@cl_build_p
 
-; 250  : 	{
-; 251  : 		cl_print_error(err, "Error: failed to create program executable\n");
+; 249  : 	{
+; 250  : 		cl_print_error(err, "Error: failed to create program executable\n");
 
 	push	OFFSET ??_C@_0CM@DELDPDPF@Error?3?5failed?5to?5create?5program?5@
 	push	eax
 	call	edi
 	add	esp, 8
 
-; 252  : 		return false;
+; 251  : 		return false;
 
 	lea	ecx, DWORD PTR _cached_source_path$[ebp]
 	call	??1?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QAE@XZ ; std::basic_string<char,std::char_traits<char>,std::allocator<char> >::~basic_string<char,std::char_traits<char>,std::allocator<char> >
 	jmp	SHORT $LN67@cl_build_p
 $LN1@cl_build_p:
 
-; 253  : 	}
-; 254  : 
-; 255  : #ifdef ENABLE_CACHING
-; 256  : 	if ( ! cache_program)
-; 257  : 	{
-; 258  : 		return true;
-; 259  : 	}
-; 260  : 
-; 261  : 	size_t binary_size;
-; 262  : 	err = clGetProgramInfo(program, CL_PROGRAM_BINARY_SIZES, sizeof(binary_size), &binary_size, NULL);
-; 263  : 	if (err != CL_SUCCESS)
-; 264  : 	{
-; 265  : 		printf("Warning: failed to retrive binary size\n");
-; 266  : 		return true;
-; 267  : 	}
-; 268  : 
-; 269  : 	char *binary_str = new char[binary_size];
-; 270  : 	memset(binary_str, 0, binary_size);
-; 271  : 	err = clGetProgramInfo(program, CL_PROGRAM_BINARIES, sizeof(size_t), &binary_str, NULL);
-; 272  : 	if (err != CL_SUCCESS)
-; 273  : 	{
-; 274  : 		printf("Warning: failed to retrive binaries\n");
-; 275  : 		return true;
-; 276  : 	}
-; 277  : 
-; 278  : 	file_put_contents(cached_source_path.c_str(), binary_str, binary_size);
-; 279  : 
-; 280  :     delete[] binary_str;
-; 281  : #endif
-; 282  : 
-; 283  : 	return true;
+; 252  : 	}
+; 253  : 
+; 254  : #ifdef ENABLE_CACHING
+; 255  : 	if ( ! cache_program)
+; 256  : 	{
+; 257  : 		return true;
+; 258  : 	}
+; 259  : 
+; 260  : 	size_t binary_size;
+; 261  : 	err = clGetProgramInfo(program, CL_PROGRAM_BINARY_SIZES, sizeof(binary_size), &binary_size, NULL);
+; 262  : 	if (err != CL_SUCCESS)
+; 263  : 	{
+; 264  : 		printf("Warning: failed to retrive binary size\n");
+; 265  : 		return true;
+; 266  : 	}
+; 267  : 
+; 268  : 	char *binary_str = new char[binary_size];
+; 269  : 	memset(binary_str, 0, binary_size);
+; 270  : 	err = clGetProgramInfo(program, CL_PROGRAM_BINARIES, sizeof(size_t), &binary_str, NULL);
+; 271  : 	if (err != CL_SUCCESS)
+; 272  : 	{
+; 273  : 		printf("Warning: failed to retrive binaries\n");
+; 274  : 		return true;
+; 275  : 	}
+; 276  : 
+; 277  : 	file_put_contents(cached_source_path.c_str(), binary_str, binary_size);
+; 278  : 
+; 279  :     delete[] binary_str;
+; 280  : #endif
+; 281  : 
+; 282  : 	return true;
 
 	lea	ecx, DWORD PTR _cached_source_path$[ebp]
 	call	??1?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QAE@XZ ; std::basic_string<char,std::char_traits<char>,std::allocator<char> >::~basic_string<char,std::char_traits<char>,std::allocator<char> >
@@ -19113,8 +19081,8 @@ $LN1@cl_build_p:
 	jmp	SHORT $LN18@cl_build_p
 $LN6@cl_build_p:
 
-; 220  : 	{
-; 221  : 		cl_print_error(err, "Error: failed to create compute program\n");
+; 219  : 	{
+; 220  : 		cl_print_error(err, "Error: failed to create compute program\n");
 
 	mov	eax, DWORD PTR _err
 	push	OFFSET ??_C@_0CJ@FJBOGDEN@Error?3?5failed?5to?5create?5compute?5@
@@ -19122,24 +19090,24 @@ $LN6@cl_build_p:
 	call	edi
 	add	esp, 8
 
-; 222  : 		return false;
+; 221  : 		return false;
 
 	lea	ecx, DWORD PTR _cached_source_path$[ebp]
 	call	??1?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QAE@XZ ; std::basic_string<char,std::char_traits<char>,std::allocator<char> >::~basic_string<char,std::char_traits<char>,std::allocator<char> >
 	jmp	SHORT $LN67@cl_build_p
 $LN10@cl_build_p:
 
-; 164  : 		cl_print_error(err, "Error: failed to create a command queue\n");
+; 163  : 		cl_print_error(err, "Error: failed to create a command queue\n");
 
 	push	OFFSET ??_C@_0CJ@CDIEGNMJ@Error?3?5failed?5to?5create?5a?5comman@
 	push	eax
 
-; 165  : 		return false;
+; 164  : 		return false;
 
 	jmp	SHORT $LN66@cl_build_p
 $LN12@cl_build_p:
 
-; 157  : 		cl_print_error(err, "Error: failed to create a compute context\n");
+; 156  : 		cl_print_error(err, "Error: failed to create a compute context\n");
 
 	push	OFFSET ??_C@_0CL@GFFLIIBK@Error?3?5failed?5to?5create?5a?5comput@
 	push	ecx
@@ -19148,12 +19116,12 @@ $LN66@cl_build_p:
 	add	esp, 8
 $LN67@cl_build_p:
 
-; 158  : 		return false;
+; 157  : 		return false;
 
 	xor	al, al
 $LN18@cl_build_p:
 
-; 284  : }
+; 283  : }
 
 	mov	ecx, DWORD PTR __$EHRec$[ebp]
 	mov	DWORD PTR fs:0, ecx
@@ -19239,20 +19207,20 @@ _roundkeys_length$ = 16					; size = 4
 _silent$ = 20						; size = 1
 ?cl_init@@YA_NPADII_N@Z PROC				; cl_init, COMDAT
 
-; 287  : {
+; 286  : {
 
 	push	ebp
 	mov	ebp, esp
 
-; 288  : 	if (program == nullptr)
+; 287  : 	if (program == nullptr)
 
 	cmp	DWORD PTR _program, 0
 	push	ebx
 	mov	ebx, DWORD PTR _silent$[ebp]
 	jne	SHORT $LN11@cl_init
 
-; 289  : 	{
-; 290  : 		if ( ! cl_build_program(silent))
+; 288  : 	{
+; 289  : 		if ( ! cl_build_program(silent))
 
 	push	ebx
 	call	?cl_build_program@@YA_N_N@Z		; cl_build_program
@@ -19261,45 +19229,45 @@ _silent$ = 20						; size = 1
 	jne	SHORT $LN9@cl_init
 	pop	ebx
 
-; 360  : }
+; 359  : }
 
 	pop	ebp
 	ret	0
 $LN11@cl_init:
 
-; 291  : 		{
-; 292  : 			return false;
-; 293  : 		}
-; 294  : 	}
-; 295  : 	else
-; 296  : 	{
-; 297  : 		cl_release_kernel();
+; 290  : 		{
+; 291  : 			return false;
+; 292  : 		}
+; 293  : 	}
+; 294  : 	else
+; 295  : 	{
+; 296  : 		cl_release_kernel();
 
 	call	?cl_release_kernel@@YAXXZ		; cl_release_kernel
 $LN9@cl_init:
 	push	edi
 
-; 298  : 	}
-; 299  : 
-; 300  : 	auto cl_print_error = ::cl_print_error;
+; 297  : 	}
+; 298  : 
+; 299  : 	auto cl_print_error = ::cl_print_error;
 
 	mov	edi, OFFSET ?cl_print_error@@YAXHPBDZZ	; cl_print_error
 
-; 301  : 	if (silent)
+; 300  : 	if (silent)
 
 	test	bl, bl
 	je	SHORT $LN8@cl_init
 
-; 302  : 	{
-; 303  : 		cl_print_error = cl_print_error_silent;
+; 301  : 	{
+; 302  : 		cl_print_error = cl_print_error_silent;
 
 	mov	edi, OFFSET ?cl_print_error_silent@@YAXHPBDZZ ; cl_print_error_silent
 $LN8@cl_init:
 
-; 304  : 	}
-; 305  : 
-; 306  : 	// Create the compute kernel in the program
-; 307  : 	kernel = clCreateKernel(program, kernel_name, &err);
+; 303  : 	}
+; 304  : 
+; 305  : 	// Create the compute kernel in the program
+; 306  : 	kernel = clCreateKernel(program, kernel_name, &err);
 
 	mov	eax, DWORD PTR _program
 	push	esi
@@ -19310,7 +19278,7 @@ $LN8@cl_init:
 	call	_clCreateKernel@12
 	mov	DWORD PTR _kernel, eax
 
-; 308  : 	if ( ! kernel || err != CL_SUCCESS) {
+; 307  : 	if ( ! kernel || err != CL_SUCCESS) {
 
 	test	eax, eax
 	mov	eax, DWORD PTR _err
@@ -19318,17 +19286,17 @@ $LN8@cl_init:
 	test	eax, eax
 	jne	$LN6@cl_init
 
-; 311  : 	}
-; 312  : 
-; 313  : 	// Create buffers
-; 314  : 	if (state_length < 16) // 128 bit / 8 = 16 bytes
+; 310  : 	}
+; 311  : 
+; 312  : 	// Create buffers
+; 313  : 	if (state_length < 16) // 128 bit / 8 = 16 bytes
 
 	mov	esi, DWORD PTR _state_length$[ebp]
 	cmp	esi, 16					; 00000010H
 	jae	SHORT $LN5@cl_init
 
-; 315  : 	{
-; 316  : 		cl_print_error(err, "Error: state length too small, must be at least 16 bytes (128 bits) long\n");
+; 314  : 	{
+; 315  : 		cl_print_error(err, "Error: state length too small, must be at least 16 bytes (128 bits) long\n");
 
 	push	OFFSET ??_C@_0EK@CNFBLKHA@Error?3?5state?5length?5too?5small?0?5m@
 	push	eax
@@ -19339,19 +19307,19 @@ $LN8@cl_init:
 	xor	al, al
 	pop	ebx
 
-; 360  : }
+; 359  : }
 
 	pop	ebp
 	ret	0
 $LN5@cl_init:
 
-; 317  : 		return false;
-; 318  : 	}
-; 319  : 
-; 320  : 	state_length_padded = ((size_t) (state_length / 16 + 256 - 1) / 256) * 256 * 16;
-; 321  : 
-; 322  : 	mem_state = clCreateBuffer(context, CL_MEM_READ_WRITE | CL_MEM_ALLOC_HOST_PTR, 
-; 323  : 							   state_length_padded, NULL, &err);
+; 316  : 		return false;
+; 317  : 	}
+; 318  : 
+; 319  : 	state_length_padded = ((size_t) (state_length / 16 + 256 - 1) / 256) * 256 * 16;
+; 320  : 
+; 321  : 	mem_state = clCreateBuffer(context, CL_MEM_READ_WRITE | CL_MEM_ALLOC_HOST_PTR, 
+; 322  : 							   state_length_padded, NULL, &err);
 
 	mov	ecx, DWORD PTR _context
 	mov	eax, esi
@@ -19369,15 +19337,15 @@ $LN5@cl_init:
 	call	_clCreateBuffer@24
 	mov	DWORD PTR _mem_state, eax
 
-; 324  : 	if (err != CL_SUCCESS)
+; 323  : 	if (err != CL_SUCCESS)
 
 	mov	eax, DWORD PTR _err
 	test	eax, eax
 	je	SHORT $LN4@cl_init
 
-; 325  : 	{
-; 326  : 		cl_print_error(err,  "Error: failed to allocate device memory " \
-; 327  : 					   "(state, size: %lu)\n", state_length);
+; 324  : 	{
+; 325  : 		cl_print_error(err,  "Error: failed to allocate device memory " \
+; 326  : 					   "(state, size: %lu)\n", state_length);
 
 	push	esi
 	push	OFFSET ??_C@_0DM@EFGFDLFN@Error?3?5failed?5to?5allocate?5device@
@@ -19389,18 +19357,18 @@ $LN5@cl_init:
 	xor	al, al
 	pop	ebx
 
-; 360  : }
+; 359  : }
 
 	pop	ebp
 	ret	0
 $LN4@cl_init:
 
-; 328  : 		return false;
-; 329  : 	}
-; 330  : 	::state_length = state_length;
-; 331  : 
-; 332  : 	mem_roundkeys = clCreateBuffer(context, CL_MEM_READ_ONLY, roundkeys_length,
-; 333  : 								   NULL, &err);
+; 327  : 		return false;
+; 328  : 	}
+; 329  : 	::state_length = state_length;
+; 330  : 
+; 331  : 	mem_roundkeys = clCreateBuffer(context, CL_MEM_READ_ONLY, roundkeys_length,
+; 332  : 								   NULL, &err);
 
 	mov	edx, DWORD PTR _context
 	push	OFFSET _err
@@ -19414,15 +19382,15 @@ $LN4@cl_init:
 	call	_clCreateBuffer@24
 	mov	DWORD PTR _mem_roundkeys, eax
 
-; 334  : 	if (err != CL_SUCCESS)
+; 333  : 	if (err != CL_SUCCESS)
 
 	mov	eax, DWORD PTR _err
 	test	eax, eax
 	je	SHORT $LN3@cl_init
 
-; 335  : 	{
-; 336  : 		cl_print_error(err, "Error: failed to allocate device memory " \
-; 337  : 					   "(roundkeys, size: %lu)\n", roundkeys_length);
+; 334  : 	{
+; 335  : 		cl_print_error(err, "Error: failed to allocate device memory " \
+; 336  : 					   "(roundkeys, size: %lu)\n", roundkeys_length);
 
 	push	esi
 	push	OFFSET ??_C@_0EA@GEPEPEEL@Error?3?5failed?5to?5allocate?5device@
@@ -19434,18 +19402,18 @@ $LN4@cl_init:
 	xor	al, al
 	pop	ebx
 
-; 360  : }
+; 359  : }
 
 	pop	ebp
 	ret	0
 $LN3@cl_init:
 
-; 338  : 		return false;
-; 339  : 	}
-; 340  : 	::roundkeys_length = roundkeys_length;
-; 341  : 
-; 342  : 	// Bind buffers
-; 343  : 	err = clSetKernelArg(kernel, 0, sizeof(cl_mem), &mem_state);
+; 337  : 		return false;
+; 338  : 	}
+; 339  : 	::roundkeys_length = roundkeys_length;
+; 340  : 
+; 341  : 	// Bind buffers
+; 342  : 	err = clSetKernelArg(kernel, 0, sizeof(cl_mem), &mem_state);
 
 	mov	eax, DWORD PTR _kernel
 	push	OFFSET _mem_state
@@ -19456,14 +19424,14 @@ $LN3@cl_init:
 	call	_clSetKernelArg@16
 	mov	DWORD PTR _err, eax
 
-; 344  : 	if (err != CL_SUCCESS)
+; 343  : 	if (err != CL_SUCCESS)
 
 	test	eax, eax
 	je	SHORT $LN2@cl_init
 
-; 345  : 	{
-; 346  : 		cl_print_error(err, "Error: failed to bind kernel argument " \
-; 347  : 					   "\"mem_state\" [#0]\n");
+; 344  : 	{
+; 345  : 		cl_print_error(err, "Error: failed to bind kernel argument " \
+; 346  : 					   "\"mem_state\" [#0]\n");
 
 	push	OFFSET ??_C@_0DI@CHLJPCCN@Error?3?5failed?5to?5bind?5kernel?5arg@
 	push	eax
@@ -19474,16 +19442,16 @@ $LN3@cl_init:
 	xor	al, al
 	pop	ebx
 
-; 360  : }
+; 359  : }
 
 	pop	ebp
 	ret	0
 $LN2@cl_init:
 
-; 348  : 		return false;
-; 349  : 	}
-; 350  : 
-; 351  : 	err = clSetKernelArg(kernel, 1, sizeof(cl_mem), &mem_roundkeys);
+; 347  : 		return false;
+; 348  : 	}
+; 349  : 
+; 350  : 	err = clSetKernelArg(kernel, 1, sizeof(cl_mem), &mem_roundkeys);
 
 	mov	ecx, DWORD PTR _kernel
 	push	OFFSET _mem_roundkeys
@@ -19493,14 +19461,14 @@ $LN2@cl_init:
 	call	_clSetKernelArg@16
 	mov	DWORD PTR _err, eax
 
-; 352  : 	if (err != CL_SUCCESS)
+; 351  : 	if (err != CL_SUCCESS)
 
 	test	eax, eax
 	je	SHORT $LN1@cl_init
 
-; 353  : 	{
-; 354  : 		cl_print_error(err, "Error: failed to bind kernel argument " \
-; 355  : 					   "\"mem_roundkeys\" [#1]\n");
+; 352  : 	{
+; 353  : 		cl_print_error(err, "Error: failed to bind kernel argument " \
+; 354  : 					   "\"mem_roundkeys\" [#1]\n");
 
 	push	OFFSET ??_C@_0DM@PPODACDI@Error?3?5failed?5to?5bind?5kernel?5arg@
 	push	eax
@@ -19511,7 +19479,7 @@ $LN2@cl_init:
 	xor	al, al
 	pop	ebx
 
-; 360  : }
+; 359  : }
 
 	pop	ebp
 	ret	0
@@ -19519,21 +19487,21 @@ $LN1@cl_init:
 	pop	esi
 	pop	edi
 
-; 356  : 		return false;
-; 357  : 	}
-; 358  : 
-; 359  : 	return true;
+; 355  : 		return false;
+; 356  : 	}
+; 357  : 
+; 358  : 	return true;
 
 	mov	al, 1
 	pop	ebx
 
-; 360  : }
+; 359  : }
 
 	pop	ebp
 	ret	0
 $LN6@cl_init:
 
-; 309  : 		cl_print_error(err, "Error: failed to create compute kernel (%s)\n", kernel_name);
+; 308  : 		cl_print_error(err, "Error: failed to create compute kernel (%s)\n", kernel_name);
 
 	push	esi
 	push	OFFSET ??_C@_0CN@NGOECMBE@Error?3?5failed?5to?5create?5compute?5@
@@ -19543,12 +19511,12 @@ $LN6@cl_init:
 	pop	esi
 	pop	edi
 
-; 310  : 		return false;
+; 309  : 		return false;
 
 	xor	al, al
 	pop	ebx
 
-; 360  : }
+; 359  : }
 
 	pop	ebp
 	ret	0
