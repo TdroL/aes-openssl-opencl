@@ -13,11 +13,17 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Header Files\utils">
-      <UniqueIdentifier>{b1304097-6d93-44a0-bb27-c11f32e224d9}</UniqueIdentifier>
+    <Filter Include="Source Files\bench">
+      <UniqueIdentifier>{053f13b1-7149-44a7-9d8d-2c87041d0893}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\utils">
-      <UniqueIdentifier>{1886e722-f4e9-442b-b226-e30d7f883031}</UniqueIdentifier>
+    <Filter Include="Header Files\bench">
+      <UniqueIdentifier>{28b9b8af-cc9d-42c4-a89a-323de6c5dfc0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\bench\aes">
+      <UniqueIdentifier>{af5d452d-1847-4a6f-9fed-374f87b5ca11}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\bench\aes">
+      <UniqueIdentifier>{cec9d323-5d12-4f82-978a-c84cafdbb830}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -33,22 +39,37 @@
     <ClInclude Include="benchmark.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="apiprofiler.hpp">
-      <Filter>Header Files\utils</Filter>
-    </ClInclude>
-    <ClInclude Include="bench.h">
+    <ClInclude Include="writer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="bench_aes_cpu.h">
+    <ClInclude Include="writer_console.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="writer_file.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="reader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="reader_random.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="reader_file.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="bench\aes\cpu.h">
+      <Filter>Header Files\bench\aes</Filter>
+    </ClInclude>
+    <ClInclude Include="bench\aes\gpu.h">
+      <Filter>Header Files\bench\aes</Filter>
+    </ClInclude>
+    <ClInclude Include="bench\base.h">
+      <Filter>Header Files\bench</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="apiprofiler.cpp">
-      <Filter>Source Files\utils</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
@@ -56,11 +77,32 @@
     <ClCompile Include="benchmark.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="bench.cpp">
+    <ClCompile Include="writer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="bench_aes_cpu.cpp">
+    <ClCompile Include="writer_console.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="writer_file.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="reader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="reader_random.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="reader_file.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="bench\aes\gpu.cpp">
+      <Filter>Source Files\bench\aes</Filter>
+    </ClCompile>
+    <ClCompile Include="bench\aes\cpu.cpp">
+      <Filter>Source Files\bench\aes</Filter>
+    </ClCompile>
+    <ClCompile Include="bench\base.cpp">
+      <Filter>Source Files\bench</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

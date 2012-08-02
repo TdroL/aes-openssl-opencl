@@ -1,4 +1,4 @@
-﻿Build started 2012-05-06 17:42:37.
+﻿Build started 2012-07-25 22:09:03.
      1>Project "C:\Users\tdrol\documents\visual studio 2010\Projects\analizator\analizator-sd-openssl\analizator-sd-openssl.vcxproj" on node 3 (build target(s)).
      1>InitializeBuildStatus:
          Touching "Debug\analizator-sd-openssl.unsuccessfulbuild".
@@ -28,4 +28,4 @@
 
 Build FAILED.
 
-Time Elapsed 00:00:01.33
+Time Elapsed 00:00:01.42
