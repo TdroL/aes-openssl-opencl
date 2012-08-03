@@ -1,20 +1,19 @@
 #include "stdafx.h"
 #include "writer.h"
-#include "writer_console.h"
-#include "writer_file.h"
+
+namespace Writer
+{
 
 using namespace std;
 
-unique_ptr<Writer> Writer::factory(std::string &target)
+unique_ptr<Base> factory(string &target)
 {
 	if ( ! target.empty())
 	{
-		return unique_ptr<Writer>(new Writer_File(target));
+		return unique_ptr<Base>(new File(target));
 	}
 
-	return unique_ptr<Writer>(new Writer_Console);
+	return unique_ptr<Base>(new Console);
 }
 
-Writer::~Writer()
-{
 }

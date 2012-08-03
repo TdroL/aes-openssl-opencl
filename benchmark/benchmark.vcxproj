@@ -50,6 +50,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>C:\Users\tdrol\lib\boost\boost_1_50_0;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <ObjectFileName>$(IntDir)/%(RelativeDir)/</ObjectFileName>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -66,6 +67,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>C:\Users\tdrol\lib\boost\boost_1_50_0;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <ObjectFileName>$(IntDir)/%(RelativeDir)/</ObjectFileName>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -79,18 +81,21 @@
     <None Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="bench.h" />
     <ClInclude Include="benchmark.h" />
     <ClInclude Include="bench\aes\cpu.h" />
     <ClInclude Include="bench\aes\gpu.h" />
     <ClInclude Include="bench\base.h" />
     <ClInclude Include="reader.h" />
-    <ClInclude Include="reader_file.h" />
-    <ClInclude Include="reader_random.h" />
+    <ClInclude Include="reader\base.h" />
+    <ClInclude Include="reader\dummy.h" />
+    <ClInclude Include="reader\file.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="writer.h" />
-    <ClInclude Include="writer_console.h" />
-    <ClInclude Include="writer_file.h" />
+    <ClInclude Include="writer\base.h" />
+    <ClInclude Include="writer\console.h" />
+    <ClInclude Include="writer\file.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="benchmark.cpp" />
@@ -99,15 +104,17 @@
     <ClCompile Include="bench\base.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="reader.cpp" />
-    <ClCompile Include="reader_file.cpp" />
-    <ClCompile Include="reader_random.cpp" />
+    <ClCompile Include="reader\base.cpp" />
+    <ClCompile Include="reader\dummy.cpp" />
+    <ClCompile Include="reader\file.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="writer.cpp" />
-    <ClCompile Include="writer_console.cpp" />
-    <ClCompile Include="writer_file.cpp" />
+    <ClCompile Include="writer\base.cpp" />
+    <ClCompile Include="writer\console.cpp" />
+    <ClCompile Include="writer\file.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

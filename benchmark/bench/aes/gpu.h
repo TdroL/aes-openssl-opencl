@@ -1,5 +1,5 @@
-#ifndef BENCH_AES_GPU
-#define BENCH_AES_GPU
+#ifndef BENCH_AES_GPU_H
+#define BENCH_AES_GPU_H
 
 #include "../base.h"
 

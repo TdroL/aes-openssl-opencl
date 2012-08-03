@@ -1,20 +1,14 @@
 #ifndef READER_H
 #define READER_H
 
-#include <string>
-#include "bench/base.h"
+#include "reader/file.h"
+#include "reader/dummy.h"
 
-class Reader
+namespace Reader
 {
-public:
-	std::string desc;
 
-	static std::unique_ptr<Reader> factory(std::string &target);
+std::unique_ptr<Base> factory(std::string &target);
 
-	virtual bool ready() = 0;
-	virtual std::unique_ptr<Bench::Base::data_type> read(size_t length) = 0;
-
-	virtual ~Reader();
-};
+}
 
 #endif

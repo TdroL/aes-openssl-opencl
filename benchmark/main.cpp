@@ -1,10 +1,9 @@
 #include "stdafx.h"
 #include "benchmark.h"
 #include "boost/program_options.hpp"
-#include "bench/aes/cpu.h"
-#include "bench/aes/gpu.h"
-#include "writer.h"
+#include "bench.h"
 #include "reader.h"
+#include "writer.h"
 
 using namespace std;
 typedef unsigned int uint;
@@ -15,8 +14,8 @@ int main(int argc, char* argv[])
 {
 	
 	Benchmark bm;
-	bm.registerBench("aes-cpu", unique_ptr<Bench::Base>(new Bench::Aes::Cpu));
-	bm.registerBench("aes-gpu", unique_ptr<Bench::Base>(new Bench::Aes::Gpu));
+	bm.registerBench("aes-cpu", Bench::factory<Bench::Aes::Cpu>());
+	bm.registerBench("aes-gpu", Bench::factory<Bench::Aes::Gpu>());
 
 	po::options_description desc("Options");
 	po::positional_options_description p;
@@ -52,15 +51,14 @@ int main(int argc, char* argv[])
 	uint loops = vm["loops"].as<uint>();
 	size_t sampleSize = vm["samples-size"].as<uint>();
 
-	unique_ptr<Reader> reader(Reader::factory(file));
-	assert(reader != nullptr);
+
+	auto reader = Reader::factory(file);
 	if ( ! reader->ready())
 	{
 		cerr << "Cannot open input file" << endl;
 	}
 
-	unique_ptr<Writer> writer(Writer::factory(output));
-	assert(writer != nullptr);
+	auto writer = Writer::factory(output);
 	if ( ! writer->ready())
 	{
 		cerr << "Cannot open or create output file" << endl;

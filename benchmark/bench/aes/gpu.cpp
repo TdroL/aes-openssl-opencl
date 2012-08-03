@@ -36,4 +36,10 @@ Gpu::~Gpu()
 }
 
 }
+
+std::unique_ptr<Aes::Gpu> factory()
+{
+	return std::unique_ptr<Aes::Gpu>(new Aes::Gpu);
+}
+
 }

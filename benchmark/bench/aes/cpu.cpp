@@ -36,4 +36,10 @@ Cpu::~Cpu()
 }
 
 }
+
+std::unique_ptr<Aes::Cpu> factory()
+{
+	return std::unique_ptr<Aes::Cpu>(new Aes::Cpu);
+}
+
 }

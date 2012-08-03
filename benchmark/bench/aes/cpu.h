@@ -1,5 +1,5 @@
-#ifndef BENCH_AES_CPU
-#define BENCH_AES_CPU
+#ifndef BENCH_AES_CPU_H
+#define BENCH_AES_CPU_H
 
 #include "../base.h"
 
@@ -19,6 +19,7 @@ public:
 };
 
 }
+
 }
 
 #endif

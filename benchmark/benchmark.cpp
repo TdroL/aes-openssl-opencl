@@ -8,7 +8,7 @@ void Benchmark::registerBench(string name, unique_ptr<Bench::Base> &&bench)
 	benchs.insert(name, bench.release());
 }
 
-bool Benchmark::run(Reader &reader, Writer &writer, string benchName, unsigned int loops, size_t sampleSize)
+bool Benchmark::run(Reader::Base &reader, Writer::Base &writer, string benchName, unsigned int loops, size_t sampleSize)
 {
 	auto pairFound = benchs.find(benchName);
 

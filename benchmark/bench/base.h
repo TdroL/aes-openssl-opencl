@@ -1,6 +1,8 @@
 #ifndef BENCH_BASE_H
 #define BENCH_BASE_H
 
+#include "../bench/base.h"
+
 namespace Bench
 {
 
@@ -15,6 +17,9 @@ public:
 
 	virtual ~Base();
 };
+
+template<class T>
+std::unique_ptr<T> factory();
 
 }
 

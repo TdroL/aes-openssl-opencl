@@ -1,21 +1,19 @@
-#include "StdAfx.h"
+#include "stdafx.h"
 #include "reader.h"
-#include "reader_file.h"
-#include "reader_random.h"
+
+namespace Reader
+{
 
 using namespace std;
 
-unique_ptr<Reader> Reader::factory(std::string &target)
+unique_ptr<Base> factory(string &target)
 {
 	if ( ! target.empty())
 	{
-		return unique_ptr<Reader>(new Reader_File(target));
+		return unique_ptr<Base>(new File(target));
 	}
 
-	return unique_ptr<Reader>(new Reader_Random);
+	return unique_ptr<Base>(new Dummy);
 }
 
-
-Reader::~Reader()
-{
 }
