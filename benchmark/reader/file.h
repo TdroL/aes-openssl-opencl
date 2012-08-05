@@ -15,7 +15,7 @@ public:
 	File(std::string target);
 
 	bool ready();
-	std::unique_ptr<Bench::Base::data_type> read(size_t length);
+	std::unique_ptr<Bench::Container> read(size_t length);
 
 	~File();
 };

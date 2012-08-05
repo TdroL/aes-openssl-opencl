@@ -16,7 +16,7 @@ bool Gpu::init()
 	return true;
 }
 
-int64_t Gpu::run(Bench::Base::data_type data, size_t size)
+int64_t Gpu::run(Bench::Container &sample)
 {
 	auto start = hrc::now();
 

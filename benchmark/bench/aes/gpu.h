@@ -12,7 +12,7 @@ class Gpu : public Bench::Base
 {
 public:
 	bool init();
-	int64_t run(Bench::Base::data_type data, size_t size);
+	int64_t run(Bench::Container &sample);
 	bool release();
 
 	~Gpu();

@@ -18,11 +18,14 @@ bool File::ready()
 	return file.is_open();
 }
 
-unique_ptr<Bench::Base::data_type> File::read(size_t length)
+unique_ptr<Bench::Container> File::read(size_t length)
 {
-	unique_ptr<Bench::Base::data_type> data(new Bench::Base::data_type[length]);
+	length += length % 128;
 
-	return data;
+	Bench::Container *sample = new Bench::Container(length);
+	memset(sample->data, 1, length * sizeof(*(sample->data)));
+
+	return unique_ptr<Bench::Container>(sample);
 }
 
 File::~File()

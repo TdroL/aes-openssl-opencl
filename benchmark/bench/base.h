@@ -6,13 +6,20 @@
 namespace Bench
 {
 
+struct Container
+{
+	unsigned char *data;
+	size_t length;
+
+	Container(size_t length_);
+	~Container();
+};
+
 class Base
 {
 public:
-	typedef uint8_t* data_type;
-
 	virtual bool init() = 0;
-	virtual int64_t run(Base::data_type data, size_t size) = 0;
+	virtual int64_t run(Bench::Container &sample) = 0;
 	virtual bool release() = 0;
 
 	virtual ~Base();

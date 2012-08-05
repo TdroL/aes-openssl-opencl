@@ -1,9 +1,21 @@
 #include "stdafx.h"
+
+#define MEMORY_LEAK_DETECTOR
+#if defined(MEMORY_LEAK_DETECTOR) && defined(_DEBUG) && defined(WIN32)
+	#define _CRTDBG_MAP_ALLOC 1
+	#include <stdlib.h>
+	#include <crtdbg.h>
+
+    #define DBG_NEW new (_NORMAL_BLOCK, __FILE__, __LINE__)
+    #define new DBG_NEW
+#endif
+
 #include "benchmark.h"
 #include "boost/program_options.hpp"
 #include "bench.h"
 #include "reader.h"
 #include "writer.h"
+#include <sstream>
 
 using namespace std;
 typedef unsigned int uint;
@@ -12,7 +24,12 @@ namespace po = boost::program_options;
 
 int main(int argc, char* argv[])
 {
-	
+#if defined(MEMORY_LEAK_DETECTOR) && defined(_DEBUG) && defined(WIN32)
+	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+#endif
+
+	int *test = new int[100];
+
 	Benchmark bm;
 	bm.registerBench("aes-cpu", Bench::factory<Bench::Aes::Cpu>());
 	bm.registerBench("aes-gpu", Bench::factory<Bench::Aes::Gpu>());
@@ -31,8 +48,8 @@ int main(int argc, char* argv[])
 		                    ->default_value("aes-cpu"), "benchmark to run")
 		("loops,l",        po::value<uint>()
 		                    ->default_value(256),       "loops count")
-		("samples-size,s", po::value<uint>()
-		                    ->default_value(1024),      "samples size (used only if input file not provided)")
+		("sample-size,s",  po::value<string>()
+		                    ->default_value("1024"),    "sample size [none,K,M] (used only if input file not provided)")
 		;
 
 	po::variables_map vm;
@@ -49,8 +66,27 @@ int main(int argc, char* argv[])
 	string output = vm["output"].as<string>();
 	string benchName = vm["benchmark"].as<string>();
 	uint loops = vm["loops"].as<uint>();
-	size_t sampleSize = vm["samples-size"].as<uint>();
+	uint sampleSize = 0;
+	string sampleSizeString = vm["sample-size"].as<string>();
 
+	if (sampleSizeString.size() > 0)
+	{
+		char suffix = sampleSizeString[sampleSizeString.length() - 1];
+
+		istringstream iss(sampleSizeString);
+
+		iss >> sampleSize;
+
+		switch (suffix)
+		{
+		case 'M':
+		case 'm':
+			sampleSize *= 1024;
+		case 'K':
+		case 'k':
+			sampleSize *= 1024;
+		}
+	}
 
 	auto reader = Reader::factory(file);
 	if ( ! reader->ready())

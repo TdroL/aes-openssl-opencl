@@ -1,33 +1,64 @@
 #include "stdafx.h"
 #include "cpu.h"
 #include "boost/chrono.hpp"
-#include "boost/thread.hpp"
+
+#ifdef _DEBUG
+#include <iostream>
+#endif
 
 namespace Bench
 {
 namespace Aes
 {
 
+using namespace std;
 namespace ch = boost::chrono;
 typedef ch::high_resolution_clock hrc;
 
 bool Cpu::init()
 {
-	return true;
+	//unsigned char iv[] = { 1,2,3,4,5,6,7,8 };
+	unsigned char key[] = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16};
+
+	EVP_CIPHER_CTX_init(&ctx);
+	return EVP_EncryptInit_ex(&ctx, EVP_aes_256_ecb(), nullptr, key, nullptr) != 0;
 }
 
-int64_t Cpu::run(Bench::Base::data_type data, size_t size)
+int64_t Cpu::run(Bench::Container &sample)
 {
+#ifdef _DEBUG
+#endif
+
+	assert(sample.data != nullptr);
+
+	unsigned char *inBuffer = sample.data;
+	int inSize = static_cast<int>(sample.length);
+	unsigned char *outBuffer = new unsigned char[sample.length * sizeof(*sample.data)];
+	int outSize = static_cast<int>(sample.length);
+
+	assert(inBuffer != nullptr);
+	assert(outBuffer != nullptr);
+
 	auto start = hrc::now();
 
-	boost::this_thread::sleep(boost::posix_time::milliseconds(10)); 
+	int status = EVP_EncryptUpdate(&ctx, outBuffer, &outSize, inBuffer, inSize);
 
 	auto end = hrc::now();
-	return ch::duration_cast<ch::milliseconds>(end - start).count();
+
+	delete[] outBuffer;
+
+	if (status)
+	{
+		return ch::duration_cast<ch::microseconds>(end - start).count();
+	}
+	
+	return -1;
 }
 
 bool Cpu::release()
 {
+	EVP_CIPHER_CTX_cleanup(&ctx);
+
 	return true;
 }
 

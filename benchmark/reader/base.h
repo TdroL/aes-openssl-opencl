@@ -13,7 +13,7 @@ public:
 	std::string desc;
 
 	virtual bool ready() = 0;
-	virtual std::unique_ptr<Bench::Base::data_type> read(size_t length) = 0;
+	virtual std::unique_ptr<Bench::Container> read(size_t length) = 0;
 
 	virtual ~Base();
 };
