@@ -14,7 +14,7 @@ class Cpu : public Bench::Base
 public:
 	EVP_CIPHER_CTX ctx;
 
-	bool init();
+	bool init(size_t sample_length);
 	int64_t run(Bench::Container &sample);
 	bool release();
 

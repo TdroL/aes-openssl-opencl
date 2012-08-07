@@ -35,36 +35,55 @@ bool Benchmark::run(Reader::Base &reader, Writer::Base &writer, string benchName
 	     << benchName << endl;
 	cout << "Loops count: " 
 	     << loops << endl;
-	cout << "Samples size: " 
+	cout << "Sample size: " 
 	     << sampleSize << endl;
 
-	if ( ! bench->init())
+	unique_ptr<Bench::Container> sample(reader.read(sampleSize));
+	assert(sample != nullptr);
+	assert(sample->data != nullptr);
+	assert(sample->length % Bench::Base::stateSize == 0);
+
+	
+	if ( ! bench->init(sample->length))
 	{
 		cerr << "Bench(" <<  pairFound->first << ")#init failed" << endl;
+		if ( ! bench->errMsg.empty())
+		{
+			cerr << "Message: " << bench->errMsg << endl;
+		}
+
+		bench->release();
 		return false;
 	}
 
+	bool status = true;
 	for (size_t i = 0; i < loops; i++)
 	{
-		unique_ptr<Bench::Container> data(reader.read(sampleSize));
-		assert(data != nullptr);
-
-		int64_t dt = bench->run(*data);
+		int64_t dt = bench->run(*sample);
 
 		writer.write(dt, i, loops-1);
 
 		if (dt < 0)
 		{
-			cerr << "Bench(" <<  pairFound->first << ")#run(data["<< sampleSize <<"]) failed" << endl;
-			return false;
+			cerr << "Bench(" <<  pairFound->first << ")#run(sample["<< sampleSize <<"]) failed" << endl;
+			if ( ! bench->errMsg.empty())
+			{
+				cerr << "Message: " << bench->errMsg << endl;
+			}
+			status = false;
+			break;
 		}
 	}
 
 	if ( ! bench->release())
 	{
 		cerr << "Bench(" <<  pairFound->first << ")#release failed" << endl;
+		if ( ! bench->errMsg.empty())
+		{
+			cerr << "Message: " << bench->errMsg << endl;
+		}
 		return false;
 	}
 
-	return true;
+	return status;
 }

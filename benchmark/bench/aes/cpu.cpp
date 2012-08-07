@@ -15,7 +15,8 @@ using namespace std;
 namespace ch = boost::chrono;
 typedef ch::high_resolution_clock hrc;
 
-bool Cpu::init()
+
+bool Cpu::init(size_t sample_length)
 {
 	//unsigned char iv[] = { 1,2,3,4,5,6,7,8 };
 	unsigned char key[] = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16};
@@ -70,7 +71,7 @@ Cpu::~Cpu()
 
 std::unique_ptr<Aes::Cpu> factory()
 {
-	return std::unique_ptr<Aes::Cpu>(new Aes::Cpu);
+	return std::unique_ptr<Aes::Cpu>(new Aes::Cpu());
 }
 
 }

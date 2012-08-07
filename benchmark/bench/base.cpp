@@ -18,6 +18,10 @@ Container::~Container()
 	}
 }
 
+const size_t Base::stateSize = 16;
+boost::program_options::options_description *Base::desc = nullptr;
+boost::program_options::variables_map *Base::vm = nullptr;
+
 Base::~Base()
 {
 }

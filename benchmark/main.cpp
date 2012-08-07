@@ -26,16 +26,15 @@ int main(int argc, char* argv[])
 {
 #if defined(MEMORY_LEAK_DETECTOR) && defined(_DEBUG) && defined(WIN32)
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+	_CrtSetReportMode(_CRT_WARN, _CRTDBG_MODE_DEBUG | _CRTDBG_MODE_FILE);
+	_CrtSetReportFile(_CRT_WARN, _CRTDBG_FILE_STDERR);
+
+	int *testMemLeak = new int[256];
 #endif
-
-	int *test = new int[100];
-
-	Benchmark bm;
-	bm.registerBench("aes-cpu", Bench::factory<Bench::Aes::Cpu>());
-	bm.registerBench("aes-gpu", Bench::factory<Bench::Aes::Gpu>());
 
 	po::options_description desc("Options");
 	po::positional_options_description p;
+	po::variables_map vm;
 	p.add("file", -1);
 
 	desc.add_options()
@@ -47,12 +46,18 @@ int main(int argc, char* argv[])
 		("benchmark,b",    po::value<string>()
 		                    ->default_value("aes-cpu"), "benchmark to run")
 		("loops,l",        po::value<uint>()
-		                    ->default_value(256),       "loops count")
+		                    ->default_value(256),       "number of loops")
 		("sample-size,s",  po::value<string>()
-		                    ->default_value("1024"),    "sample size [none,K,M] (used only if input file not provided)")
+		                    ->default_value("1024"),    "sample size [none,K,M]")
 		;
+	
+	Bench::Base::desc = &desc;
+	Bench::Base::vm = &vm;
 
-	po::variables_map vm;
+	Benchmark bm;
+	bm.registerBench("aes-cpu", Bench::factory<Bench::Aes::Cpu>());
+	bm.registerBench("aes-gpu", Bench::factory<Bench::Aes::Gpu>());
+
 	po::store(po::command_line_parser(argc, argv).
 			  options(desc).positional(p).run(), vm);
 	po::notify(vm);   

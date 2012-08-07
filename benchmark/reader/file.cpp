@@ -20,9 +20,13 @@ bool File::ready()
 
 unique_ptr<Bench::Container> File::read(size_t length)
 {
-	length += length % 128;
+	if (length % Bench::Base::stateSize != 0)
+	{
+		length += Bench::Base::stateSize - length % Bench::Base::stateSize;
+	}
 
 	Bench::Container *sample = new Bench::Container(length);
+	assert(sample->data != nullptr);
 	memset(sample->data, 1, length * sizeof(*(sample->data)));
 
 	return unique_ptr<Bench::Container>(sample);
