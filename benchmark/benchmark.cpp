@@ -36,7 +36,7 @@ bool Benchmark::run(Reader::Base &reader, Writer::Base &writer, string benchName
 	cout << "Loops count: " 
 	     << loops << endl;
 	cout << "Sample size: " 
-	     << sampleSize << endl;
+	     << sampleSize << " bytes" << endl;
 
 	unique_ptr<Bench::Container> sample(reader.read(sampleSize));
 	assert(sample != nullptr);
@@ -61,7 +61,7 @@ bool Benchmark::run(Reader::Base &reader, Writer::Base &writer, string benchName
 	{
 		int64_t dt = bench->run(*sample);
 
-		writer.write(dt, i, loops-1);
+		writer.write(dt, i, loops);
 
 		if (dt < 0)
 		{

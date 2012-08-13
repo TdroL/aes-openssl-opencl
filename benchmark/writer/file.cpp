@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "file.h"
+#include <iomanip>
 
 #include <iostream>
 
@@ -22,23 +23,16 @@ bool File::ready()
 
 void File::write(int64_t duration, unsigned int step, unsigned int total)
 {
-	if (step > 0)
-	{
-		if (step % 50 == 0)
-		{
-			cout << "  " << (step*100/total) << "%" << endl;
-		}
-		else if (step % 10 == 0)
-		{
-			cout << " ";
-		}
-	}
-
 	cout << ".";
 
-	if (step == total)
+	step++;
+	if (step % 50 == 0 || step == total)
 	{
-		cout << endl;
+		cout << "  " << (step * 100 / total) << "%" << endl;
+	}
+	else if (step % 10 == 0)
+	{
+		cout << " ";
 	}
 
 	file << duration << endl;

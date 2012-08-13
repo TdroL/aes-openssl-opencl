@@ -20,6 +20,10 @@
 *.sdf
 *.opensdf
 *.unsuccessfulbuild
+bug/vc100.idb
+*.idb
+*.pdb
+*.tlog
 ipch/
 obj/
 [Bb]in

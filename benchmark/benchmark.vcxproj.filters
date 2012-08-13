@@ -40,6 +40,66 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="ReadMe.txt" />
+    <None Include="..\Release\kernels\aes_encrypt.cl">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Release\kernels\aes_encrypt.cl.cached">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Release\kernels\aes_encrypt_rijndael.cl">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Release\kernels\aes_encrypt_rijndael_128.cl">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Release\kernels\aes_encrypt_rijndael_192.cl">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Release\kernels\aes_encrypt_rijndael_256.cl">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Release\kernels\aes_encrypt_rijndael_256_constant_roundkeys.cl">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Release\kernels\aes_encrypt_rijndael_256_local.cl">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Release\kernels\aes_encrypt_rijndael_256_local_roundkeys.cl">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Release\kernels\aes_encrypt_rijndael_256_opt.cl">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Release\kernels\aes_encrypt_rijndael_256_opt_constant_roundkeys.cl">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Release\kernels\aes_encrypt_rijndael_256_opt_local_roundkeys.cl">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Release\kernels\aes_encrypt_tables.cl">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Release\kernels\aes_encrypt_vector.cl">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Release\kernels\aes_encrypt_vector_128.cl">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Release\kernels\aes_encrypt_vector_128_local.cl">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Release\kernels\aes_encrypt_vector_192.cl">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Release\kernels\aes_encrypt_vector_192_local.cl">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Release\kernels\aes_encrypt_vector_256.cl">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Release\kernels\aes_encrypt_vector_256_local.cl">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">

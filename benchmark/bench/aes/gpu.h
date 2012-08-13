@@ -21,14 +21,15 @@ public:
 	cl_command_queue queue;
 	cl_program program;
 	cl_kernel kernel;
-	cl_mem mem_state;
-	cl_mem mem_roundkeys;
+	cl_mem memState;
+	cl_mem memRoundKeys;
 	size_t sampleLengthPadded;
-	unsigned char *roundkeys[240];
+	size_t keyLength;
+	std::unique_ptr<uint32_t> roundKeys;
 
 	Gpu();
 
-	bool init(size_t sample_length);
+	bool init(size_t sampleLength);
 	int64_t run(Bench::Container &sample);
 	bool release();
 

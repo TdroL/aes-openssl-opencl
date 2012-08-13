@@ -9,6 +9,16 @@
 #include <sstream>
 #include "../../rijndael.h"
 
+#ifndef KEYLENGTH
+	#define KEYLENGTH(keybits) ((keybits)/8)
+#endif
+#ifndef RKLENGTH
+	#define RKLENGTH(keybits)  ((keybits)/8+28)
+#endif
+#ifndef NROUNDS
+	#define NROUNDS(keybits)   ((keybits)/32+6)
+#endif
+
 namespace Bench
 {
 namespace Aes
@@ -19,6 +29,30 @@ namespace ch = boost::chrono;
 namespace po = boost::program_options;
 typedef ch::high_resolution_clock hrc;
 
+struct KernelData
+{
+	string name;
+	size_t keyLength;
+};
+
+const array<KernelData, 15> kernels = {{
+	{ "aes_encrypt_rijndael_128", 128 },
+	{ "aes_encrypt_rijndael_192", 192 },
+	{ "aes_encrypt_rijndael_256", 256 },
+	{ "aes_encrypt_rijndael_256_constant_roundkeys", 256 },
+	{ "aes_encrypt_rijndael_256_local", 256 },
+	{ "aes_encrypt_rijndael_256_local_roundkeys", 256 },
+	{ "aes_encrypt_rijndael_256_opt", 256 },
+	{ "aes_encrypt_rijndael_256_opt_constant_roundkeys", 256 },
+	{ "aes_encrypt_rijndael_256_opt_local_roundkeys", 256 },
+	{ "aes_encrypt_vector_128", 128 },
+	{ "aes_encrypt_vector_128_local", 128 },
+	{ "aes_encrypt_vector_192", 192 },
+	{ "aes_encrypt_vector_192_local", 192 },
+	{ "aes_encrypt_vector_256", 256 },
+	{ "aes_encrypt_vector_256_local", 256 },
+}};
+
 Gpu::Gpu()
 	: err(0),
 	  platformId(nullptr),
@@ -27,27 +61,35 @@ Gpu::Gpu()
 	  queue(nullptr),
 	  program(nullptr),
 	  kernel(nullptr),
-	  mem_state(nullptr),
-	  mem_roundkeys(nullptr)
+	  memState(nullptr),
+	  memRoundKeys(nullptr),
+	  roundKeys(nullptr)
 {
-	string kernels = "aes_encrypt_rijndael_256, " \
-					 "aes_encrypt_rijndael_256_constant_roundkeys, " \
-					 "aes_encrypt_rijndael_256_local_roundkeys, " \
-					 "aes_encrypt_rijndael_256_opt, " \
-					 "aes_encrypt_rijndael_256_opt_constant_roundkeys, " \
-					 "aes_encrypt_rijndael_256_opt_local_roundkeys, " \
-					 "aes_encrypt_rijndael_256_local, " \
-					 "aes_encrypt_vector_256, " \
-					 "aes_encrypt_vector_256_local";
+	string kernelsList;
+
+	if ( ! kernels.empty())
+	{
+		for (size_t i = 0, l =  kernels.size() - 1; i < l; i++)
+		{
+			kernelsList += kernels[i].name;
+			kernelsList += ", ";
+		}
+
+		kernelsList += kernels[kernels.size() - 1].name;
+	}
+	else
+	{
+		kernelsList = "none";
+	}
 
 	assert(desc != nullptr);
 	desc->add_options()
 		("kernel-name,k", po::value<string>()->default_value("aes_encrypt_rijndael_256_opt_local_roundkeys"),
-						  ("kernel name (aes-gpu only), avaible: " + kernels).c_str())
+						  ("kernel name (aes-gpu only), avaible: " + kernelsList).c_str())
 		;
 }
 
-bool Gpu::init(size_t sample_length)
+bool Gpu::init(size_t sampleLength)
 {
 	err = clGetPlatformIDs(1, &platformId, NULL);
 	if (err != CL_SUCCESS) {
@@ -102,12 +144,12 @@ bool Gpu::init(size_t sample_length)
 	const char options[] = "-cl-mad-enable -cl-unsafe-math-optimizations";
 	err = clBuildProgram(program, 0, NULL, options, NULL, NULL);
 	size_t len;
-	char errorBuffer[1024 * 10]; // error message buffer, 10 KiB
+	array<char, 1024 * 10> errorBuffer; // error message buffer, 10 KiB
 
-	clGetProgramBuildInfo(program, deviceId, CL_PROGRAM_BUILD_LOG, sizeof(errorBuffer), errorBuffer, &len);
+	clGetProgramBuildInfo(program, deviceId, CL_PROGRAM_BUILD_LOG, errorBuffer.size(), errorBuffer.data(), &len);
 
 	// trim buffer
-	errMsg = errorBuffer;
+	errMsg = errorBuffer.data();
 	boost::algorithm::trim(errMsg);
 
 	if ( ! errMsg.empty())
@@ -115,52 +157,82 @@ bool Gpu::init(size_t sample_length)
 		return false;
 	}
 
-	kernel = clCreateKernel(program, (*vm)["kernel-name"].as<string>().c_str(), &err);
-	if ( ! kernel || err != CL_SUCCESS) {
-		errMsg = "Failed to create compute kernel";
+	string kernelName = (*vm)["kernel-name"].as<string>();
+	auto kernelId = find_if(kernels.begin(), kernels.end(), [&kernelName] (const KernelData &data) -> bool {
+		return  (data.name == kernelName);
+	});
+
+	if (kernelId == kernels.end())
+	{
+		errMsg = "Unknown kernel name";
 		return false;
 	}
 
-	if (sample_length < 16) // 128 bit / 8 = 16 bytes
+	keyLength = kernelId->keyLength;
+	cout << "Kernel name: " << kernelName << endl;
+	cout << "Key length: " << keyLength << " bits" << endl;
+
+	kernel = clCreateKernel(program, kernelId->name.c_str(), &err);
+	if ( ! kernel || err != CL_SUCCESS) {
+		errMsg = (boost::format("Failed to create compute kernel (%1)") % kernelId->name).str();
+		return false;
+	}
+
+	if (sampleLength < 16) // 128 bit / 8 = 16 bytes
 	{
 		errMsg = "State length too small, must be at least 16 bytes (128 bits) long";
 		return false;
 	}
 
-	sampleLengthPadded = ((sample_length / 16 + 256 - 1) / 256) * 256 * 16;
+	/* *
+	 * Number of work-items in work-group: 256
+	 * State size: 128 bits (16 bytes)
+	 * Smallest posible sample: 256 * 16 bytes = 4096 bytes
+	 *
+	 * sampleLengthPadded = ((sampleLength / 16 + 256 - 1) / 256) * 256 * 16;
+	 */
+	sampleLengthPadded = sampleLength;
 
-	mem_state = clCreateBuffer(context, CL_MEM_READ_WRITE | CL_MEM_ALLOC_HOST_PTR, 
+	if (sampleLengthPadded % 4096 != 0)
+	{
+		sampleLengthPadded += 4096 - sampleLengthPadded % 4096;
+	}
+
+	cout << "Sample size padded: " << sampleLengthPadded << " bytes" << endl;
+
+	memState = clCreateBuffer(context, CL_MEM_READ_WRITE | CL_MEM_ALLOC_HOST_PTR, 
 							   sampleLengthPadded, NULL, &err);
 	if (err != CL_SUCCESS)
 	{
-		errMsg = (boost::format("Failed to allocate device memory (state, size: %1)") % sample_length).str();
+		errMsg = (boost::format("Failed to allocate device memory (state, size: %1)") % sampleLength).str();
 		return false;
 	}
 
-	mem_roundkeys = clCreateBuffer(context, CL_MEM_READ_ONLY, 240, NULL, &err);
+	memRoundKeys = clCreateBuffer(context, CL_MEM_READ_ONLY, RKLENGTH(keyLength), NULL, &err);
 	if (err != CL_SUCCESS)
 	{
-		errMsg = "Failed to allocate device memory (roundkeys, size: 240)";
+		errMsg = (boost::format("Failed to allocate device memory (roundkeys, size: %1)") % RKLENGTH(keyLength)).str();
 		return false;
 	}
 
-	err = clSetKernelArg(kernel, 0, sizeof(cl_mem), &mem_state);
+	err = clSetKernelArg(kernel, 0, sizeof(cl_mem), &memState);
 	if (err != CL_SUCCESS)
 	{
 		errMsg = "Failed to bind kernel argument \"mem_state\" [#0]";
 		return false;
 	}
 
-	err = clSetKernelArg(kernel, 1, sizeof(cl_mem), &mem_roundkeys);
+	err = clSetKernelArg(kernel, 1, sizeof(cl_mem), &memRoundKeys);
 	if (err != CL_SUCCESS)
 	{
 		errMsg = "Failed to bind kernel argument \"mem_state\" [#1]";
 		return false;
 	}
 
-	const unsigned char *key = reinterpret_cast<const unsigned char *>("tajny klucz");
+	char key[KEYLENGTH(256)] = "tajny klucz";
+	roundKeys.reset(new uint32_t[RKLENGTH(keyLength)]);
 
-	rijndaelSetupEncrypt(reinterpret_cast<unsigned long *>(roundkeys), key, 256);
+	rijndaelSetupEncrypt(reinterpret_cast<unsigned long *>(roundKeys.get()), reinterpret_cast<const uint8_t *>(key), keyLength);
 
 	return true;
 }
@@ -174,14 +246,14 @@ int64_t Gpu::run(Bench::Container &sample)
 	size_t local = 256;
 	size_t global = sampleLengthPadded / 16;
 
-	err = clEnqueueWriteBuffer(queue, mem_roundkeys, CL_FALSE, 0, 240, 
-							   roundkeys, 0, NULL, NULL);
+	err = clEnqueueWriteBuffer(queue, memRoundKeys, CL_FALSE, 0, RKLENGTH(keyLength), 
+							   roundKeys.get(), 0, NULL, NULL);
 	if (err != CL_SUCCESS) {
 		errMsg = "Failed write data to buffer (roundkeys)";
 		return -1;
 	}
 
-	err = clEnqueueWriteBuffer(queue, mem_state, CL_FALSE, 0, sample.length, sample.data, 
+	err = clEnqueueWriteBuffer(queue, memState, CL_FALSE, 0, sample.length, sample.data, 
 							   0, NULL, NULL);
 	if (err != CL_SUCCESS) {
 		errMsg = "Failed write data to buffer (state)";
@@ -194,7 +266,7 @@ int64_t Gpu::run(Bench::Container &sample)
 		return -1;
 	}
 
-	err = clEnqueueReadBuffer(queue, mem_state, CL_FALSE, 0, sample.length, sample.data,
+	err = clEnqueueReadBuffer(queue, memState, CL_FALSE, 0, sample.length, sample.data,
 							  0, NULL, NULL);
 	if (err != CL_SUCCESS) {
 		errMsg = "Failed to read from buffer";
@@ -209,16 +281,16 @@ int64_t Gpu::run(Bench::Container &sample)
 
 bool Gpu::release()
 {
-	if (mem_state != nullptr)
+	if (memState != nullptr)
 	{
-		while (clReleaseMemObject(mem_state));
-		mem_state = nullptr;
+		while (clReleaseMemObject(memState));
+		memState = nullptr;
 	}
 	
-	if (mem_roundkeys != nullptr)
+	if (memRoundKeys != nullptr)
 	{
-		while (clReleaseMemObject(mem_roundkeys));
-		mem_roundkeys = nullptr;
+		while (clReleaseMemObject(memRoundKeys));
+		memRoundKeys = nullptr;
 	}
 
 	if (kernel != nullptr)
