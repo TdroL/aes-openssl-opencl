@@ -19,7 +19,7 @@ namespace ch = boost::chrono;
 namespace po = boost::program_options;
 typedef ch::high_resolution_clock hrc;
 
-const array<const string, 12> kernels = {{
+const array<const string, 14> kernels = {{
 	"aes",
 	"aes_local_tables",
 	"aes_local_roundkeys",
@@ -30,7 +30,9 @@ const array<const string, 12> kernels = {{
 	"aes_vector",
 	"aes_vector_local_tables",
 	"aes_vector_local_roundkeys",
+	"aes_vector_constant_roundkeys",
 	"aes_vector_unroll_local_tables",
+	"aes_vector_unroll_local_roundkeys",
 	"aes_vector_opt",
 }};
 
@@ -169,7 +171,7 @@ bool Gpu::init(size_t sampleLength, size_t keyLength_)
 	// trim buffer
 	errMsg = logBuffer.data();
 	boost::algorithm::trim(errMsg);
-	
+
 	if (err != CL_SUCCESS)
 	{
 		return false;
@@ -208,7 +210,7 @@ bool Gpu::init(size_t sampleLength, size_t keyLength_)
 
 	cout << "Sample size padded: " << sampleLengthPadded << " bytes" << endl;
 
-	memState = clCreateBuffer(context, CL_MEM_READ_WRITE | CL_MEM_ALLOC_HOST_PTR, 
+	memState = clCreateBuffer(context, CL_MEM_READ_WRITE | CL_MEM_ALLOC_HOST_PTR,
 							   sampleLengthPadded, NULL, &err);
 	if (err != CL_SUCCESS)
 	{
@@ -216,10 +218,10 @@ bool Gpu::init(size_t sampleLength, size_t keyLength_)
 		return false;
 	}
 
-	memRoundKeys = clCreateBuffer(context, CL_MEM_READ_ONLY, RKLENGTH(keyLength), NULL, &err);
+	memRoundKeys = clCreateBuffer(context, CL_MEM_READ_ONLY, RKLENGTH(256), NULL, &err);
 	if (err != CL_SUCCESS)
 	{
-		errMsg = (boost::format("Failed to allocate device memory (roundkeys, size: %1)") % RKLENGTH(keyLength)).str();
+		errMsg = (boost::format("Failed to allocate device memory (roundkeys, size: %1)") % RKLENGTH(256)).str();
 		return false;
 	}
 
@@ -242,6 +244,13 @@ bool Gpu::init(size_t sampleLength, size_t keyLength_)
 
 	rijndaelSetupEncrypt(reinterpret_cast<unsigned long *>(roundKeys.get()), key, keyLength);
 
+	err = clEnqueueWriteBuffer(queue, memRoundKeys, CL_TRUE, 0, RKLENGTH(keyLength),
+							   roundKeys.get(), 0, NULL, NULL);
+	if (err != CL_SUCCESS) {
+		errMsg = "Failed write data to buffer (roundkeys)";
+		return false;
+	}
+
 	return true;
 }
 
@@ -257,14 +266,7 @@ int64_t Gpu::run(Bench::Container &sample)
 
 	assert(nrounds == 10 || nrounds == 12 || nrounds == 14);
 
-	err = clEnqueueWriteBuffer(queue, memRoundKeys, CL_FALSE, 0, RKLENGTH(keyLength), 
-							   roundKeys.get(), 0, NULL, NULL);
-	if (err != CL_SUCCESS) {
-		errMsg = "Failed write data to buffer (roundkeys)";
-		return -1;
-	}
-
-	err = clEnqueueWriteBuffer(queue, memState, CL_FALSE, 0, sample.length, sample.data, 
+	err = clEnqueueWriteBuffer(queue, memState, CL_FALSE, 0, sample.length, sample.data,
 							   0, NULL, NULL);
 	if (err != CL_SUCCESS) {
 		errMsg = "Failed write data to buffer (state)";
@@ -301,7 +303,7 @@ bool Gpu::release()
 		while (clReleaseMemObject(memState));
 		memState = nullptr;
 	}
-	
+
 	if (memRoundKeys != nullptr)
 	{
 		while (clReleaseMemObject(memRoundKeys));
