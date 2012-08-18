@@ -1,17 +1,18 @@
-#ifndef BENCH_AES_GPU_H
-#define BENCH_AES_GPU_H
+#ifndef BENCH_PERF_GPULOOP_H
+#define BENCH_PERF_GPULOOP_H
 
 #include "../base.h"
 #include <CL/cl.h>
 
 namespace Bench
 {
-namespace Aes
+
+namespace Perf
 {
 
 static const char includePath[] = "./kernels/";
 
-class Gpu : public Bench::Base
+class GpuLoop : public Bench::Base
 {
 public:
 	cl_int err;
@@ -27,16 +28,17 @@ public:
 	size_t keyLength;
 	std::unique_ptr<uint32_t> roundKeys;
 
-	Gpu();
+	GpuLoop();
 
 	bool init(size_t sampleLength, size_t keyLength);
 	int64_t run(Bench::Container &sample);
 	bool release();
 
-	~Gpu();
+	~GpuLoop();
 };
 
 }
+
 }
 
 #endif

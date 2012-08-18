@@ -1,17 +1,18 @@
 #include "stdafx.h"
-#include "gpu.h"
+#include "gpuloop.h"
 #include "boost/algorithm/string.hpp"
 #include "boost/format.hpp"
 #include "boost/chrono.hpp"
 #include "boost/thread.hpp"
 #include <iostream>
-#include <sstream>
 #include <fstream>
+#include <sstream>
 #include "../../rijndael.h"
 
 namespace Bench
 {
-namespace Aes
+
+namespace Perf
 {
 
 using namespace std;
@@ -19,22 +20,11 @@ namespace ch = boost::chrono;
 namespace po = boost::program_options;
 typedef ch::high_resolution_clock hrc;
 
-const array<const string, 12> kernels = {{
-	"aes",
-	"aes_local_tables",
-	"aes_local_roundkeys",
-	"aes_constant_roundkeys",
-	"aes_opt_local_tables",
-	"aes_opt_local_roundkeys",
-	"aes_opt_constant_roundkeys",
-	"aes_vector",
-	"aes_vector_local_tables",
-	"aes_vector_local_roundkeys",
-	"aes_vector_unroll_local_tables",
-	"aes_vector_opt",
+const array<const string, 1> kernels = {{
+	"aes_loop_test"
 }};
 
-Gpu::Gpu()
+GpuLoop::GpuLoop()
 	: err(0),
 	  platformId(nullptr),
 	  deviceId(nullptr),
@@ -46,31 +36,15 @@ Gpu::Gpu()
 	  memRoundKeys(nullptr),
 	  roundKeys(nullptr)
 {
-	string kernelsList;
-
-	if ( ! kernels.empty())
-	{
-		for (size_t i = 0, l =  kernels.size() - 1; i < l; i++)
-		{
-			kernelsList += kernels[i];
-			kernelsList += ", ";
-		}
-
-		kernelsList += kernels[kernels.size() - 1];
-	}
-	else
-	{
-		kernelsList = "none";
-	}
 
 	assert(desc != nullptr);
 	desc->add_options()
-		("kernel-name,n", po::value<string>()->default_value("aes"),
-						  ("kernel name (aes-gpu only), avaible:\n" + kernelsList).c_str())
+		("loop-type,t", po::value<string>()->default_value("macro"),
+						  "loop type (perf-gpuloop only), avaible:\nmacro, variable")
 		;
 }
 
-bool Gpu::init(size_t sampleLength, size_t keyLength_)
+bool GpuLoop::init(size_t sampleLength, size_t keyLength_)
 {
 	err = clGetPlatformIDs(1, &platformId, NULL);
 	if (err != CL_SUCCESS) {
@@ -96,7 +70,68 @@ bool Gpu::init(size_t sampleLength, size_t keyLength_)
 		return false;
 	}
 
-	string kernelName = (*vm)["kernel-name"].as<string>();
+	stringstream sourceBuffer;
+	sourceBuffer << "__constant uint timestamp = " << time(nullptr) << ";" << endl; // prevent caching\
+	// for required headers
+	{
+		fstream fs(string(includePath) + "aes_encrypt_tables.cl");
+		sourceBuffer << fs.rdbuf() << endl;
+	}
+	for (auto it = kernels.begin(); it != kernels.end(); ++it)
+	{
+		//sourceBuffer << "#include \"" << includePath << *it << ".cl\"" << endl;
+
+		fstream fs(includePath + *it + ".cl");
+		sourceBuffer << fs.rdbuf() << endl;
+	}
+
+	string sourceString = sourceBuffer.str();
+	const char *sourceCStr = sourceString.c_str();
+
+	program = clCreateProgramWithSource(context, 1, &sourceCStr, NULL, &err);
+	if ( ! program || err != CL_SUCCESS)
+	{
+		errMsg = "Failed to create compute program";
+		return false;
+	}
+
+	stringstream options;
+	string loopType = (*vm)["loop-type"].as<string>();
+
+	if (loopType == "macro")
+	{
+		options << " -D NROUNDS=" << NROUNDS(keyLength_);
+	}
+
+	options << " -cl-nv-verbose";
+
+#ifdef OPENCL_UNSAFE_OPTIMIZATIONS
+	options << " -cl-mad-enable -cl-unsafe-math-optimizations";
+#endif
+
+	cout << "Build options: " << options.str() << endl;
+
+	err = clBuildProgram(program, 0, NULL, options.str().c_str(), NULL, NULL);
+	size_t len;
+	array<char, 1024 * 10> logBuffer; // error message buffer, 10 KiB
+
+	err = clGetProgramBuildInfo(program, deviceId, CL_PROGRAM_BUILD_LOG, logBuffer.size(), logBuffer.data(), &len);
+
+	// trim buffer
+	errMsg = logBuffer.data();
+	boost::algorithm::trim(errMsg);
+	
+	if (err != CL_SUCCESS)
+	{
+		return false;
+	}
+
+	if (errMsg.size() > 0)
+	{
+		cout << "Build log:" << endl << errMsg << endl;
+	}
+
+	string kernelName = "aes_loop_test";
 	auto kernelId = find(kernels.begin(), kernels.end(), kernelName);
 
 	if (kernelId == kernels.end())
@@ -127,59 +162,6 @@ bool Gpu::init(size_t sampleLength, size_t keyLength_)
 	cout << "Kernel name: " << kernelName << endl;
 	cout << "Key length: " << keyLength << " bits" << endl;
 
-	stringstream sourceBuffer;
-	sourceBuffer << "__constant uint timestamp = " << time(nullptr) << ";" << endl; // prevent caching
-	// for required headers
-	{
-		fstream fs(string(includePath) + "aes_encrypt_tables.cl");
-		sourceBuffer << fs.rdbuf() << endl;
-	}
-	//for (auto it = kernels.begin(); it != kernels.end(); ++it)
-	// load requested kernel
-	{
-		fstream fs(includePath + kernelName + ".cl");
-		sourceBuffer << fs.rdbuf() << endl;
-	}
-
-	string sourceString = sourceBuffer.str();
-	const char *sourceCStr = sourceString.c_str(); // wierd bug (?) with sourceBuffer.str().c_str()
-
-	program = clCreateProgramWithSource(context, 1, &sourceCStr, NULL, &err);
-	if ( ! program || err != CL_SUCCESS)
-	{
-		errMsg = "Failed to create compute program";
-		return false;
-	}
-
-	stringstream options;
-	options << "-D NROUNDS=" << NROUNDS(keyLength_) << " -cl-nv-verbose";
-
-#ifdef OPENCL_UNSAFE_OPTIMIZATIONS
-	options << " -cl-mad-enable -cl-unsafe-math-optimizations";
-#endif
-
-	cout << "Build options: " << options.str() << endl;
-
-	err = clBuildProgram(program, 0, NULL, options.str().c_str(), NULL, NULL);
-	size_t len;
-	array<char, 1024 * 10> logBuffer; // error message buffer, 10 KiB
-
-	err = clGetProgramBuildInfo(program, deviceId, CL_PROGRAM_BUILD_LOG, logBuffer.size(), logBuffer.data(), &len);
-
-	// trim buffer
-	errMsg = logBuffer.data();
-	boost::algorithm::trim(errMsg);
-	
-	if (err != CL_SUCCESS)
-	{
-		return false;
-	}
-
-	if (errMsg.size() > 0)
-	{
-		cout << "Build log:" << endl << errMsg << endl;
-	}
-
 	kernel = clCreateKernel(program, kernelName.c_str(), &err);
 	if ( ! kernel || err != CL_SUCCESS) {
 		errMsg = (boost::format("Failed to create compute kernel (%1)") % kernelName).str();
@@ -208,7 +190,7 @@ bool Gpu::init(size_t sampleLength, size_t keyLength_)
 
 	cout << "Sample size padded: " << sampleLengthPadded << " bytes" << endl;
 
-	memState = clCreateBuffer(context, CL_MEM_READ_WRITE | CL_MEM_ALLOC_HOST_PTR, 
+	memState = clCreateBuffer(context, CL_MEM_READ_WRITE | CL_MEM_ALLOC_HOST_PTR,
 							   sampleLengthPadded, NULL, &err);
 	if (err != CL_SUCCESS)
 	{
@@ -237,6 +219,14 @@ bool Gpu::init(size_t sampleLength, size_t keyLength_)
 		return false;
 	}
 
+	cl_uint nrounds = NROUNDS(keyLength_);
+	err = clSetKernelArg(kernel, 2, sizeof(nrounds), &nrounds);
+	if (err != CL_SUCCESS)
+	{
+		errMsg = "Failed to bind kernel argument \"nrounds\"";
+		return false;
+	}	
+
 	unsigned char key[] = { 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16 };
 	roundKeys.reset(new uint32_t[RKLENGTH(keyLength)]);
 
@@ -245,7 +235,7 @@ bool Gpu::init(size_t sampleLength, size_t keyLength_)
 	return true;
 }
 
-int64_t Gpu::run(Bench::Container &sample)
+int64_t GpuLoop::run(Bench::Container &sample)
 {
 	unique_ptr<unsigned char> outBuffer(new unsigned char[sample.length * sizeof(sample.data[0])]);
 
@@ -257,14 +247,14 @@ int64_t Gpu::run(Bench::Container &sample)
 
 	assert(nrounds == 10 || nrounds == 12 || nrounds == 14);
 
-	err = clEnqueueWriteBuffer(queue, memRoundKeys, CL_FALSE, 0, RKLENGTH(keyLength), 
+	err = clEnqueueWriteBuffer(queue, memRoundKeys, CL_FALSE, 0, RKLENGTH(keyLength),
 							   roundKeys.get(), 0, NULL, NULL);
 	if (err != CL_SUCCESS) {
 		errMsg = "Failed write data to buffer (roundkeys)";
 		return -1;
 	}
 
-	err = clEnqueueWriteBuffer(queue, memState, CL_FALSE, 0, sample.length, sample.data, 
+	err = clEnqueueWriteBuffer(queue, memState, CL_FALSE, 0, sample.length, sample.data,
 							   0, NULL, NULL);
 	if (err != CL_SUCCESS) {
 		errMsg = "Failed write data to buffer (state)";
@@ -294,14 +284,14 @@ int64_t Gpu::run(Bench::Container &sample)
 	return ch::duration_cast<ch::microseconds>(end - start).count();
 }
 
-bool Gpu::release()
+bool GpuLoop::release()
 {
 	if (memState != nullptr)
 	{
 		while (clReleaseMemObject(memState));
 		memState = nullptr;
 	}
-	
+
 	if (memRoundKeys != nullptr)
 	{
 		while (clReleaseMemObject(memRoundKeys));
@@ -335,15 +325,15 @@ bool Gpu::release()
 	return true;
 }
 
-Gpu::~Gpu()
+GpuLoop::~GpuLoop()
 {
 }
 
 }
 
-std::unique_ptr<Aes::Gpu> factory()
+std::unique_ptr<Perf::GpuLoop> factory()
 {
-	return std::unique_ptr<Aes::Gpu>(new Aes::Gpu());
+	return std::unique_ptr<Perf::GpuLoop>(new Perf::GpuLoop());
 }
 
 }

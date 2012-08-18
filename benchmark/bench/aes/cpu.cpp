@@ -16,13 +16,23 @@ namespace ch = boost::chrono;
 typedef ch::high_resolution_clock hrc;
 
 
-bool Cpu::init(size_t sample_length)
+bool Cpu::init(size_t sampleLength, size_t keyLength)
 {
-	//unsigned char iv[] = { 1,2,3,4,5,6,7,8 };
-	unsigned char key[] = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16};
+	unsigned char key[] = { 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16 };
 
 	EVP_CIPHER_CTX_init(&ctx);
-	return EVP_EncryptInit_ex(&ctx, EVP_aes_256_ecb(), nullptr, key, nullptr) != 0;
+
+	switch (keyLength)
+	{
+	case 128:
+		return EVP_EncryptInit_ex(&ctx, EVP_aes_128_ecb(), nullptr, key, nullptr) != 0;
+	case 192:
+		return EVP_EncryptInit_ex(&ctx, EVP_aes_192_ecb(), nullptr, key, nullptr) != 0;
+	case 256:
+		return EVP_EncryptInit_ex(&ctx, EVP_aes_256_ecb(), nullptr, key, nullptr) != 0;
+	default:
+		return false;
+	}
 }
 
 int64_t Cpu::run(Bench::Container &sample)

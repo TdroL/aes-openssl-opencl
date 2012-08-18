@@ -8,7 +8,7 @@ void Benchmark::registerBench(string name, unique_ptr<Bench::Base> &&bench)
 	benchs.insert(name, bench.release());
 }
 
-bool Benchmark::run(Reader::Base &reader, Writer::Base &writer, string benchName, unsigned int loops, size_t sampleSize)
+bool Benchmark::run(Reader::Base &reader, Writer::Base &writer, string &benchName, unsigned int loops, size_t sampleSize, unsigned int keyLength)
 {
 	auto pairFound = benchs.find(benchName);
 
@@ -43,8 +43,7 @@ bool Benchmark::run(Reader::Base &reader, Writer::Base &writer, string benchName
 	assert(sample->data != nullptr);
 	assert(sample->length % Bench::Base::stateSize == 0);
 
-	
-	if ( ! bench->init(sample->length))
+	if ( ! bench->init(sample->length, static_cast<size_t>(keyLength)))
 	{
 		cerr << "Bench(" <<  pairFound->first << ")#init failed" << endl;
 		if ( ! bench->errMsg.empty())
@@ -61,8 +60,6 @@ bool Benchmark::run(Reader::Base &reader, Writer::Base &writer, string benchName
 	{
 		int64_t dt = bench->run(*sample);
 
-		writer.write(dt, i, loops);
-
 		if (dt < 0)
 		{
 			cerr << "Bench(" <<  pairFound->first << ")#run(sample["<< sampleSize <<"]) failed" << endl;
@@ -73,6 +70,8 @@ bool Benchmark::run(Reader::Base &reader, Writer::Base &writer, string benchName
 			status = false;
 			break;
 		}
+
+		writer.write(dt, i, loops);
 	}
 
 	if ( ! bench->release())

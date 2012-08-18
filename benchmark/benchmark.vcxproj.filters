@@ -37,69 +37,15 @@
     <Filter Include="Source Files\reader">
       <UniqueIdentifier>{54a1ef07-2174-4bd2-b7d8-8b5799b6750c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\bench\perf">
+      <UniqueIdentifier>{6a7a85bf-404a-49e3-8c70-addbbf9d9695}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\bench\perf">
+      <UniqueIdentifier>{b2657594-44ef-49a1-8272-78c6390d976e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="ReadMe.txt" />
-    <None Include="..\Release\kernels\aes_encrypt.cl">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="..\Release\kernels\aes_encrypt.cl.cached">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="..\Release\kernels\aes_encrypt_rijndael.cl">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="..\Release\kernels\aes_encrypt_rijndael_128.cl">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="..\Release\kernels\aes_encrypt_rijndael_192.cl">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="..\Release\kernels\aes_encrypt_rijndael_256.cl">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="..\Release\kernels\aes_encrypt_rijndael_256_constant_roundkeys.cl">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="..\Release\kernels\aes_encrypt_rijndael_256_local.cl">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="..\Release\kernels\aes_encrypt_rijndael_256_local_roundkeys.cl">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="..\Release\kernels\aes_encrypt_rijndael_256_opt.cl">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="..\Release\kernels\aes_encrypt_rijndael_256_opt_constant_roundkeys.cl">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="..\Release\kernels\aes_encrypt_rijndael_256_opt_local_roundkeys.cl">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="..\Release\kernels\aes_encrypt_tables.cl">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="..\Release\kernels\aes_encrypt_vector.cl">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="..\Release\kernels\aes_encrypt_vector_128.cl">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="..\Release\kernels\aes_encrypt_vector_128_local.cl">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="..\Release\kernels\aes_encrypt_vector_192.cl">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="..\Release\kernels\aes_encrypt_vector_192_local.cl">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="..\Release\kernels\aes_encrypt_vector_256.cl">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="..\Release\kernels\aes_encrypt_vector_256_local.cl">
-      <Filter>Resource Files</Filter>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -150,6 +96,9 @@
     <ClInclude Include="rijndael.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="bench\perf\gpuloop.h">
+      <Filter>Header Files\bench\perf</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -196,6 +145,9 @@
     </ClCompile>
     <ClCompile Include="rijndael.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="bench\perf\gpuloop.cpp">
+      <Filter>Source Files\bench\perf</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

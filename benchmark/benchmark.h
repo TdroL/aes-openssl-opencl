@@ -12,7 +12,7 @@ class Benchmark
 public:
 	boost::ptr_map<std::string, Bench::Base> benchs;
 
-	bool run(Reader::Base &reader, Writer::Base &writer, std::string benchName, unsigned int loops, size_t sampleSize);
+	bool run(Reader::Base &reader, Writer::Base &writer, std::string &benchName, unsigned int loops, size_t sampleSize, unsigned int keyLength);
 	void registerBench(std::string name, std::unique_ptr<Bench::Base> &&bench);
 };
 

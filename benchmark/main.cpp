@@ -1,6 +1,8 @@
 #include "stdafx.h"
 
-#define MEMORY_LEAK_DETECTOR
+#define OPENCL_UNSAFE_OPTIMIZATIONS
+
+//#define MEMORY_LEAK_DETECTOR
 #if defined(MEMORY_LEAK_DETECTOR) && defined(_DEBUG) && defined(WIN32)
 	#define _CRTDBG_MAP_ALLOC 1
 	#include <stdlib.h>
@@ -28,8 +30,6 @@ int main(int argc, char* argv[])
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 	_CrtSetReportMode(_CRT_WARN, _CRTDBG_MODE_DEBUG | _CRTDBG_MODE_FILE);
 	_CrtSetReportFile(_CRT_WARN, _CRTDBG_FILE_STDERR);
-
-	int *testMemLeak = new int[256];
 #endif
 
 	po::options_description desc("Options");
@@ -44,19 +44,23 @@ int main(int argc, char* argv[])
 		("output,o",       po::value<string>()
 							->default_value(""),        "output file")
 		("benchmark,b",    po::value<string>()
-		                    ->default_value("aes-cpu"), "benchmark to run")
+		                    ->default_value("aes-gpu"), "benchmark to run")
 		("loops,l",        po::value<uint>()
-		                    ->default_value(256),       "number of loops")
+		                    ->default_value(250),       "number of loops")
 		("sample-size,s",  po::value<string>()
-		                    ->default_value("1024"),    "sample size [none,K,M]")
+		                    ->default_value("1024"),    "sample size [sufix: none,K,M]")
+		("key-length,k",  po::value<uint>()
+		                    ->default_value(256),       "key length [128,192,256]")
 		;
 	
 	Bench::Base::desc = &desc;
 	Bench::Base::vm = &vm;
+	Bench::Base::path = argv[0];
 
 	Benchmark bm;
 	bm.registerBench("aes-cpu", Bench::factory<Bench::Aes::Cpu>());
 	bm.registerBench("aes-gpu", Bench::factory<Bench::Aes::Gpu>());
+	bm.registerBench("perf-gpuloop", Bench::factory<Bench::Perf::GpuLoop>());
 
 	po::store(po::command_line_parser(argc, argv).
 			  options(desc).positional(p).run(), vm);
@@ -73,6 +77,7 @@ int main(int argc, char* argv[])
 	uint loops = vm["loops"].as<uint>();
 	uint sampleSize = 0;
 	string sampleSizeString = vm["sample-size"].as<string>();
+	uint keyLength = vm["key-length"].as<uint>();
 
 	if (sampleSizeString.size() > 0)
 	{
@@ -97,15 +102,23 @@ int main(int argc, char* argv[])
 	if ( ! reader->ready())
 	{
 		cerr << "Cannot open input file" << endl;
+		return EXIT_FAILURE;
 	}
 
 	auto writer = Writer::factory(output);
 	if ( ! writer->ready())
 	{
 		cerr << "Cannot open or create output file" << endl;
+		return EXIT_FAILURE;
 	}
 
-	if ( ! bm.run(*reader, *writer, benchName, loops, sampleSize))
+	if (keyLength != 128 && keyLength != 192 && keyLength != 256)
+	{
+		cerr << "Invalid key length" << endl;
+		return EXIT_FAILURE;
+	}
+
+	if ( ! bm.run(*reader, *writer, benchName, loops, sampleSize, keyLength))
 	{
 		return EXIT_FAILURE;
 	}
