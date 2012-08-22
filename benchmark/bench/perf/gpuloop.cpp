@@ -20,78 +20,33 @@ namespace ch = boost::chrono;
 namespace po = boost::program_options;
 typedef ch::high_resolution_clock hrc;
 
-const array<const string, 1> kernels = {{
-	"aes_loop_test"
-}};
-
 GpuLoop::GpuLoop()
-	: err(0),
-	  platformId(nullptr),
-	  deviceId(nullptr),
-	  context(nullptr),
-	  queue(nullptr),
-	  program(nullptr),
-	  kernel(nullptr),
-	  memState(nullptr),
-	  memRoundKeys(nullptr),
-	  roundKeys(nullptr)
 {
+}
 
-	assert(desc != nullptr);
+void GpuLoop::add_options()
+{
 	desc->add_options()
 		("loop-type,t", po::value<string>()->default_value("macro"),
-						  "loop type (perf-gpuloop only), avaible:\nmacro, variable")
+							"loop type (perf-gpuloop only), avaible:\nmacro, variable")
 		;
 }
 
 bool GpuLoop::init(size_t sampleLength, size_t keyLength_)
 {
-	err = clGetPlatformIDs(1, &platformId, NULL);
-	if (err != CL_SUCCESS) {
-		errMsg = "Could not connect to compute device";
-		return false;
-	}
-
-	err = clGetDeviceIDs(platformId, CL_DEVICE_TYPE_GPU, 1, &deviceId, NULL);
-	if (err != CL_SUCCESS) {
-		errMsg = "Could not get device id";
-		return false;
-	}
-
-	context = clCreateContext(0, 1, &deviceId, NULL, NULL, &err);
-	if ( ! context || err != CL_SUCCESS) {
-		errMsg = "Failed to create a compute context";
-		return false;
-	}
-
-	queue = clCreateCommandQueue(context, deviceId, 0, &err);
-	if ( ! queue || err != CL_SUCCESS) {
-		errMsg = "Failed to create a command queue";
-		return false;
-	}
-
-	stringstream sourceBuffer;
-	sourceBuffer << "__constant uint timestamp = " << time(nullptr) << ";" << endl; // prevent caching\
-	// for required headers
+	if ( ! opencl_init())
 	{
-		fstream fs(string(includePath) + "aes_encrypt_tables.cl");
-		sourceBuffer << fs.rdbuf() << endl;
-	}
-	for (auto it = kernels.begin(); it != kernels.end(); ++it)
-	{
-		//sourceBuffer << "#include \"" << includePath << *it << ".cl\"" << endl;
-
-		fstream fs(includePath + *it + ".cl");
-		sourceBuffer << fs.rdbuf() << endl;
+		return false;
 	}
 
-	string sourceString = sourceBuffer.str();
-	const char *sourceCStr = sourceString.c_str();
+	string kernelName = "aes_loop_test";
 
-	program = clCreateProgramWithSource(context, 1, &sourceCStr, NULL, &err);
-	if ( ! program || err != CL_SUCCESS)
+	keyLength = keyLength_;
+	cout << "Kernel name: " << kernelName << endl;
+	cout << "Key length: " << keyLength << " bits" << endl;
+
+	if ( ! opencl_load_source(kernelName))
 	{
-		errMsg = "Failed to create compute program";
 		return false;
 	}
 
@@ -109,62 +64,8 @@ bool GpuLoop::init(size_t sampleLength, size_t keyLength_)
 	options << " -cl-mad-enable -cl-unsafe-math-optimizations";
 #endif
 
-	cout << "Build options: " << options.str() << endl;
-
-	err = clBuildProgram(program, 0, NULL, options.str().c_str(), NULL, NULL);
-	size_t len;
-	array<char, 1024 * 10> logBuffer; // error message buffer, 10 KiB
-
-	err = clGetProgramBuildInfo(program, deviceId, CL_PROGRAM_BUILD_LOG, logBuffer.size(), logBuffer.data(), &len);
-
-	// trim buffer
-	errMsg = logBuffer.data();
-	boost::algorithm::trim(errMsg);
-	
-	if (err != CL_SUCCESS)
+	if ( ! opencl_build(kernelName, options.str()))
 	{
-		return false;
-	}
-
-	if (errMsg.size() > 0)
-	{
-		cout << "Build log:" << endl << errMsg << endl;
-	}
-
-	string kernelName = "aes_loop_test";
-	auto kernelId = find(kernels.begin(), kernels.end(), kernelName);
-
-	if (kernelId == kernels.end())
-	{
-		errMsg = "Unknown kernel name";
-
-		string kernelsList;
-		if ( ! kernels.empty())
-		{
-			for (size_t i = 0, l =  kernels.size() - 1; i < l; i++)
-			{
-				kernelsList += kernels[i];
-				kernelsList += ", ";
-			}
-
-			kernelsList += kernels[kernels.size() - 1];
-		}
-		else
-		{
-			kernelsList = "none";
-		}
-
-		errMsg += "\nAvaible kernels: " + kernelsList;
-		return false;
-	}
-
-	keyLength = keyLength_;
-	cout << "Kernel name: " << kernelName << endl;
-	cout << "Key length: " << keyLength << " bits" << endl;
-
-	kernel = clCreateKernel(program, kernelName.c_str(), &err);
-	if ( ! kernel || err != CL_SUCCESS) {
-		errMsg = (boost::format("Failed to create compute kernel (%1)") % kernelName).str();
 		return false;
 	}
 
@@ -333,6 +234,15 @@ GpuLoop::~GpuLoop()
 
 std::unique_ptr<Perf::GpuLoop> factory()
 {
+	static bool added = false;
+
+	if ( ! added)
+	{
+		assert(Base::desc != nullptr);
+		Perf::GpuLoop::add_options();
+		added = true;
+	}
+
 	return std::unique_ptr<Perf::GpuLoop>(new Perf::GpuLoop());
 }
 

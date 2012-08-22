@@ -1,21 +1,24 @@
-#ifndef _AES_ENCRYPT_VECTOR_CL
-#define _AES_ENCRYPT_VECTOR_CL
+#ifndef _AES_LOOP_TEST_CL
+#define _AES_LOOP_TEST_CL
 
-#include "aes_encrypt_tables.cl"
 
-__kernel void aes_encrypt_vector(
+
+__kernel void aes_loop_test(
 	__global uint4 *state,
 	__constant uint4 *roundkeys,
 	const uint nrounds
 ) {
+	#ifdef NROUNDS
+	uint r = NROUNDS;
+	#else
+	uint r = nrounds;
+	#endif
+
 	const uint id = get_global_id(0);
 
 	uint4 s, t, o0, o1, o2, o3;
-	uint r = nrounds;
 
 	s = SWITCH_ORDER(state[id]) ^ roundkeys[0];
-
-#ifdef FULL_UNROLL
 
 	AES_ROUND(s, t,  1);
 	AES_ROUND(t, s,  2);
@@ -26,28 +29,28 @@ __kernel void aes_encrypt_vector(
 	AES_ROUND(s, t,  7);
 	AES_ROUND(t, s,  8);
 	AES_ROUND(s, t,  9);
-	AES_ROUND(t, s, 10);
-	AES_ROUND(s, t, 11);
-	AES_ROUND(t, s, 12);
-	AES_ROUND(s, t, 13);
+// #ifdef NROUNDS
+// 	#if NROUNDS > 10
+// 	AES_ROUND(t, s, 10);
+// 	AES_ROUND(s, t, 11);
+// 	#endif
+// 	#if NROUNDS > 12
+// 	AES_ROUND(t, s, 12);
+// 	AES_ROUND(s, t, 13);
+// 	#endif
+// #else
+	if (nrounds > 10)
+	{
+		AES_ROUND(t, s, 10);
+		AES_ROUND(s, t, 11);
 
-	roundkeys += r;
-
-#else
-
-	r /= 2;
-	for (;;) {
-		AES_ROUND(s, t, 1);
-
-		roundkeys += 2;
-		if (--r == 0) {
-			break;
+		if (nrounds > 12)
+		{
+			AES_ROUND(t, s, 12);
+			AES_ROUND(s, t, 13);
 		}
-
-		AES_ROUND(t, s, 0);
 	}
-
-#endif
+// #endif
 
 	// final round
 	GET_OFFSETS(t);
@@ -55,7 +58,7 @@ __kernel void aes_encrypt_vector(
 	    (uint4) (Te4[o2.y] & 0x00ff0000, Te4[o2.z] & 0x00ff0000, Te4[o2.w] & 0x00ff0000, Te4[o2.x] & 0x00ff0000) ^
 	    (uint4) (Te4[o1.z] & 0x0000ff00, Te4[o1.w] & 0x0000ff00, Te4[o1.x] & 0x0000ff00, Te4[o1.y] & 0x0000ff00) ^
 	    (uint4) (Te4[o0.w] & 0x000000ff, Te4[o0.x] & 0x000000ff, Te4[o0.y] & 0x000000ff, Te4[o0.z] & 0x000000ff) ^
-	    roundkeys[0];
+	    roundkeys[r];
 
 	state[id] = SWITCH_ORDER(s);
 }

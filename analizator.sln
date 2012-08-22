@@ -1,16 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual C++ Express 2010
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "analizator-bd-openssl", "analizator-bd-openssl\analizator-bd-openssl.vcxproj", "{62421B6A-4ADA-4C39-9E19-9DCBEB7065D2}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "analizator-sd-openssl", "analizator-sd-openssl\analizator-sd-openssl.vcxproj", "{2D23446E-9F10-4310-9114-75FF2088E970}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "analizator-bd-opencl", "analizator-bd-opencl\analizator-bd-opencl.vcxproj", "{1C619ABD-BEC7-4B0F-96B0-9FD18101C3ED}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "rijndael-aes", "rijndael-aes\rijndael-aes.vcxproj", "{D98FA826-3A81-4A4C-AC19-9B49142B4C3A}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "opencl-tests", "opencl-tests\opencl-tests.vcxproj", "{55A2BED8-FB6B-430D-BE60-81E9496B6C32}"
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "benchmark", "benchmark\benchmark.vcxproj", "{D620955E-1990-4C1A-AE9D-128A2723F046}"
 EndProject
 Global
@@ -20,36 +10,6 @@ Global
 		Release|Win32 = Release|Win32
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{62421B6A-4ADA-4C39-9E19-9DCBEB7065D2}.Debug|Win32.ActiveCfg = Debug|Win32
-		{62421B6A-4ADA-4C39-9E19-9DCBEB7065D2}.Debug|Win32.Build.0 = Debug|Win32
-		{62421B6A-4ADA-4C39-9E19-9DCBEB7065D2}.Debug2|Win32.ActiveCfg = Debug|Win32
-		{62421B6A-4ADA-4C39-9E19-9DCBEB7065D2}.Debug2|Win32.Build.0 = Debug|Win32
-		{62421B6A-4ADA-4C39-9E19-9DCBEB7065D2}.Release|Win32.ActiveCfg = Release|Win32
-		{62421B6A-4ADA-4C39-9E19-9DCBEB7065D2}.Release|Win32.Build.0 = Release|Win32
-		{2D23446E-9F10-4310-9114-75FF2088E970}.Debug|Win32.ActiveCfg = Debug|Win32
-		{2D23446E-9F10-4310-9114-75FF2088E970}.Debug|Win32.Build.0 = Debug|Win32
-		{2D23446E-9F10-4310-9114-75FF2088E970}.Debug2|Win32.ActiveCfg = Debug|Win32
-		{2D23446E-9F10-4310-9114-75FF2088E970}.Debug2|Win32.Build.0 = Debug|Win32
-		{2D23446E-9F10-4310-9114-75FF2088E970}.Release|Win32.ActiveCfg = Release|Win32
-		{2D23446E-9F10-4310-9114-75FF2088E970}.Release|Win32.Build.0 = Release|Win32
-		{1C619ABD-BEC7-4B0F-96B0-9FD18101C3ED}.Debug|Win32.ActiveCfg = Debug|Win32
-		{1C619ABD-BEC7-4B0F-96B0-9FD18101C3ED}.Debug|Win32.Build.0 = Debug|Win32
-		{1C619ABD-BEC7-4B0F-96B0-9FD18101C3ED}.Debug2|Win32.ActiveCfg = Release|Win32
-		{1C619ABD-BEC7-4B0F-96B0-9FD18101C3ED}.Debug2|Win32.Build.0 = Release|Win32
-		{1C619ABD-BEC7-4B0F-96B0-9FD18101C3ED}.Release|Win32.ActiveCfg = Release|Win32
-		{1C619ABD-BEC7-4B0F-96B0-9FD18101C3ED}.Release|Win32.Build.0 = Release|Win32
-		{D98FA826-3A81-4A4C-AC19-9B49142B4C3A}.Debug|Win32.ActiveCfg = Debug|Win32
-		{D98FA826-3A81-4A4C-AC19-9B49142B4C3A}.Debug|Win32.Build.0 = Debug|Win32
-		{D98FA826-3A81-4A4C-AC19-9B49142B4C3A}.Debug2|Win32.ActiveCfg = Debug|Win32
-		{D98FA826-3A81-4A4C-AC19-9B49142B4C3A}.Debug2|Win32.Build.0 = Debug|Win32
-		{D98FA826-3A81-4A4C-AC19-9B49142B4C3A}.Release|Win32.ActiveCfg = Release|Win32
-		{D98FA826-3A81-4A4C-AC19-9B49142B4C3A}.Release|Win32.Build.0 = Release|Win32
-		{55A2BED8-FB6B-430D-BE60-81E9496B6C32}.Debug|Win32.ActiveCfg = Debug|Win32
-		{55A2BED8-FB6B-430D-BE60-81E9496B6C32}.Debug|Win32.Build.0 = Debug|Win32
-		{55A2BED8-FB6B-430D-BE60-81E9496B6C32}.Debug2|Win32.ActiveCfg = Debug|Win32
-		{55A2BED8-FB6B-430D-BE60-81E9496B6C32}.Debug2|Win32.Build.0 = Debug|Win32
-		{55A2BED8-FB6B-430D-BE60-81E9496B6C32}.Release|Win32.ActiveCfg = Release|Win32
-		{55A2BED8-FB6B-430D-BE60-81E9496B6C32}.Release|Win32.Build.0 = Release|Win32
 		{D620955E-1990-4C1A-AE9D-128A2723F046}.Debug|Win32.ActiveCfg = Debug|Win32
 		{D620955E-1990-4C1A-AE9D-128A2723F046}.Debug|Win32.Build.0 = Debug|Win32
 		{D620955E-1990-4C1A-AE9D-128A2723F046}.Debug2|Win32.ActiveCfg = Debug|Win32

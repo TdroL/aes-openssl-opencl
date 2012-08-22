@@ -49,10 +49,10 @@ int main(int argc, char* argv[])
 		                    ->default_value(250),       "number of loops")
 		("sample-size,s",  po::value<string>()
 		                    ->default_value("1024"),    "sample size [sufix: none,K,M]")
-		("key-length,k",  po::value<uint>()
-		                    ->default_value(256),       "key length [128,192,256]")
+		("key-length,k",   po::value<uint>()
+		                     ->default_value(256),      "key length [128,192,256]")
 		;
-	
+
 	Bench::Base::desc = &desc;
 	Bench::Base::vm = &vm;
 	Bench::Base::path = argv[0];
@@ -64,7 +64,7 @@ int main(int argc, char* argv[])
 
 	po::store(po::command_line_parser(argc, argv).
 			  options(desc).positional(p).run(), vm);
-	po::notify(vm);   
+	po::notify(vm);
 
 	if (vm.count("help")) {
 		cout << desc << endl;

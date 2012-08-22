@@ -36,6 +36,8 @@ public:
 	std::string errMsg;
 	static const size_t stateSize;
 
+	static void add_options();
+
 	virtual bool init(size_t sampleLength, size_t keyLength) = 0;
 	virtual int64_t run(Bench::Container &sample) = 0;
 	virtual bool release() = 0;

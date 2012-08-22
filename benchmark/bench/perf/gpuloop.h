@@ -1,7 +1,7 @@
 #ifndef BENCH_PERF_GPULOOP_H
 #define BENCH_PERF_GPULOOP_H
 
-#include "../base.h"
+#include "../aes/gpu.h"
 #include <CL/cl.h>
 
 namespace Bench
@@ -10,9 +10,9 @@ namespace Bench
 namespace Perf
 {
 
-static const char includePath[] = "./kernels/";
+static const std::string includePath = "./kernels/";
 
-class GpuLoop : public Bench::Base
+class GpuLoop : public Bench::Aes::Gpu
 {
 public:
 	cl_int err;
@@ -29,6 +29,8 @@ public:
 	std::unique_ptr<uint32_t> roundKeys;
 
 	GpuLoop();
+
+	static void add_options();
 
 	bool init(size_t sampleLength, size_t keyLength);
 	int64_t run(Bench::Container &sample);

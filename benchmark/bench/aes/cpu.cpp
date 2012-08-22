@@ -15,6 +15,9 @@ using namespace std;
 namespace ch = boost::chrono;
 typedef ch::high_resolution_clock hrc;
 
+void Cpu::add_options()
+{
+}
 
 bool Cpu::init(size_t sampleLength, size_t keyLength)
 {
@@ -81,6 +84,15 @@ Cpu::~Cpu()
 
 std::unique_ptr<Aes::Cpu> factory()
 {
+	static bool added = false;
+
+	if ( ! added)
+	{
+		assert(Base::desc != nullptr);
+		Aes::Cpu::add_options();
+		added = true;
+	}
+
 	return std::unique_ptr<Aes::Cpu>(new Aes::Cpu());
 }
 

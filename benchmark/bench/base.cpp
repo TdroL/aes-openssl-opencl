@@ -23,6 +23,10 @@ boost::program_options::options_description *Base::desc = nullptr;
 boost::program_options::variables_map *Base::vm = nullptr;
 boost::filesystem::path Base::path;
 
+void Base::add_options()
+{
+}
+
 Base::~Base()
 {
 }

@@ -3,14 +3,23 @@
 #include <iomanip>
 
 #include <iostream>
+#include "boost/filesystem.hpp"
 
 namespace Writer
 {
 
 using namespace std;
+namespace fs = boost::filesystem;
 
 File::File(string &target)
 {
+	fs::path parent_path = fs::path(target).parent_path();
+
+	if ( ! fs::is_directory(parent_path))
+	{
+		fs::create_directory(parent_path);
+	}
+
 	file.open(target, fstream::out | fstream::trunc);
 
 	desc = "file (" + target + ")";
