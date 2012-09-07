@@ -3,6 +3,7 @@
 
 #include "../base.h"
 #include <CL/cl.h>
+#include "../../rijndael.h"
 
 namespace Bench
 {
@@ -25,7 +26,7 @@ public:
 	cl_mem memRoundKeys;
 	size_t sampleLengthPadded;
 	size_t keyLength;
-	std::unique_ptr<uint32_t> roundKeys;
+	uint32_t roundKeys[RKLENGTH(256)];
 	size_t local, global;
 
 	Gpu();
@@ -34,13 +35,25 @@ public:
 
 	virtual bool opencl_init();
 	virtual bool opencl_load_source(std::string &file);
+	virtual bool opencl_load_ptx(std::string &file);
+	virtual bool opencl_save_ptx(std::string &file);
 	virtual bool opencl_build(std::string &kernelName, std::string &options = std::string(""));
 
 	bool init(size_t sampleLength, size_t keyLength);
-	int64_t run(Bench::Container &sample);
+	std::string run(Bench::Container &sample);
 	bool release();
 
-	std::string perror(cl_int err);
+	template <typename T>
+	void get_device_info(cl_device_info deviceInfo, T &value);
+
+	template <typename T>
+	void get_device_info(cl_device_info deviceInfo, T* values, size_t count);
+
+	template <>
+	void get_device_info(cl_device_info deviceInfo, std::string &value);
+
+	std::string pparam_name(cl_device_info paramName, bool trim = true);
+	std::string perror(cl_int err, bool trim = true);
 
 	~Gpu();
 };

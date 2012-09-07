@@ -15,7 +15,7 @@ File::File(string &target)
 {
 	fs::path parent_path = fs::path(target).parent_path();
 
-	if ( ! fs::is_directory(parent_path))
+	if ( ! parent_path.empty() && ! fs::is_directory(parent_path))
 	{
 		fs::create_directory(parent_path);
 	}
@@ -30,7 +30,7 @@ bool File::ready()
 	return file.is_open();
 }
 
-void File::write(int64_t duration, unsigned int step, unsigned int total)
+void File::write(string &duration, unsigned int step, unsigned int total)
 {
 	cout << ".";
 

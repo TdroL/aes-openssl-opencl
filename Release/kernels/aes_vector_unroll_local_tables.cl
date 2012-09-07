@@ -26,7 +26,7 @@ __kernel void aes_vector_unroll_local_tables(
 	#define Te3 lTe3
 	#define Te4 lTe4
 
-	uint4 s, t, o0, o1, o2, o3, s0, s1, s2, s3;
+	uint4 s, t, o0, o1, o2, o3;
 
 	s = SWITCH_ORDER(state[id]) ^ roundkeys[0];
 

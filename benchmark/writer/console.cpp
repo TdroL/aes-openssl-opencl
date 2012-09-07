@@ -17,7 +17,7 @@ bool Console::ready()
 	return true;
 }
 
-void Console::write(int64_t duration, unsigned int step, unsigned int total)
+void Console::write(string &duration, unsigned int step, unsigned int total)
 {
 	cout << duration << endl;
 }

@@ -49,14 +49,15 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\Users\tdrol\lib\openssl\include;C:\Users\tdrol\lib\boost\boost_1_50_0;$(CUDA_INC_PATH);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\tdrol\lib\openssl-1.0.1c\include;C:\Users\tdrol\lib\boost\boost_1_51_0;$(AMDAPPSDKROOT)include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <ObjectFileName>$(IntDir)/%(RelativeDir)/</ObjectFileName>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\Users\tdrol\lib\openssl\lib;C:\Users\tdrol\lib\boost\boost_1_50_0\stage\lib;$(CUDA_LIB_PATH);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Users\tdrol\lib\openssl-1.0.1c\lib;C:\Users\tdrol\lib\boost\boost_1_51_0\stage\lib;$(AMDAPPSDKROOT)lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>libeay32.lib;ssleay32.lib;opencl.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <TargetMachine>MachineX86</TargetMachine>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -67,16 +68,18 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\Users\tdrol\lib\openssl\include;C:\Users\tdrol\lib\boost\boost_1_50_0;$(CUDA_INC_PATH);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\tdrol\lib\openssl-1.0.1c\include;C:\Users\tdrol\lib\boost\boost_1_51_0;$(AMDAPPSDKROOT)include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <ObjectFileName>$(IntDir)/%(RelativeDir)/</ObjectFileName>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>C:\Users\tdrol\lib\openssl\lib;C:\Users\tdrol\lib\boost\boost_1_50_0\stage\lib;$(CUDA_LIB_PATH);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Users\tdrol\lib\openssl-1.0.1c\lib;C:\Users\tdrol\lib\boost\boost_1_51_0\stage\lib;$(AMDAPPSDKROOT)lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>libeay32.lib;ssleay32.lib;opencl.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <TargetMachine>MachineX86</TargetMachine>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -87,8 +90,8 @@
     <ClInclude Include="benchmark.h" />
     <ClInclude Include="bench\aes\cpu.h" />
     <ClInclude Include="bench\aes\gpu.h" />
+    <ClInclude Include="bench\aes\p.h" />
     <ClInclude Include="bench\base.h" />
-    <ClInclude Include="bench\perf\gpuloop.h" />
     <ClInclude Include="reader.h" />
     <ClInclude Include="reader\base.h" />
     <ClInclude Include="reader\dummy.h" />
@@ -105,8 +108,8 @@
     <ClCompile Include="benchmark.cpp" />
     <ClCompile Include="bench\aes\cpu.cpp" />
     <ClCompile Include="bench\aes\gpu.cpp" />
+    <ClCompile Include="bench\aes\p.cpp" />
     <ClCompile Include="bench\base.cpp" />
-    <ClCompile Include="bench\perf\gpuloop.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="reader.cpp" />
     <ClCompile Include="reader\base.cpp" />

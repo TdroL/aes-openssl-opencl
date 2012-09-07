@@ -17,7 +17,7 @@ public:
 	static void add_options();
 
 	bool init(size_t sampleLength, size_t keyLength);
-	int64_t run(Bench::Container &sample);
+	std::string run(Bench::Container &sample);
 	bool release();
 
 	~Cpu();

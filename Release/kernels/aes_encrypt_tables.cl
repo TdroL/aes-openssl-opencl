@@ -346,6 +346,13 @@ __constant uint Te4[256] = {
 								 (ciphertext)[2] = (uchar)((st) >>  8); \
 								 (ciphertext)[3] = (uchar)((st)      ); }
 
+
+#define VECTOR_SWITCH_ORDER(vs) \
+	{ \
+		uint4 tmp = (s0, s1, s2, s3); \
+		vs = (tmp << 24) | ((tmp <<  8) & 0x00ff0000) | ((tmp >>  8) & 0x0000ff00) | (tmp >> 24); \
+	}
+
 #define SWITCH_ORDER(s)           \
 	((((s) << 24) & 0xff000000) ^ \
 	 (((s) <<  8) & 0x00ff0000) ^ \

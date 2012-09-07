@@ -12,7 +12,7 @@ public:
 	Console();
 
 	bool ready();
-	void write(int64_t duration, unsigned int step, unsigned int total);
+	void write(std::string &duration, unsigned int step, unsigned int total);
 
 	~Console();
 };

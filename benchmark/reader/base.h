@@ -14,6 +14,7 @@ public:
 
 	virtual bool ready() = 0;
 	virtual std::unique_ptr<Bench::Container> read(size_t length) = 0;
+	virtual bool write(Bench::Container &sample) = 0;
 
 	virtual ~Base();
 };

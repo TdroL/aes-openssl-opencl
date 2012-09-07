@@ -13,7 +13,7 @@ public:
 	std::string desc;
 
 	virtual bool ready() = 0;
-	virtual void write(int64_t duration, unsigned int step, unsigned int total) = 0;
+	virtual void write(std::string &duration, unsigned int step, unsigned int total) = 0;
 
 	virtual ~Base();
 };

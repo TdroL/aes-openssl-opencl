@@ -4,6 +4,7 @@
 #include "../bench/base.h"
 #include "boost/program_options.hpp"
 #include "boost/filesystem.hpp"
+#include "boost/lexical_cast.hpp"
 
 #ifndef KEYLENGTH
 	#define KEYLENGTH(keybits) ((keybits)/8)
@@ -20,7 +21,8 @@ namespace Bench
 
 struct Container
 {
-	unsigned char *data;
+	typedef unsigned char data_type;
+	Container::data_type *data;
 	size_t length;
 
 	Container(size_t length_);
@@ -39,7 +41,7 @@ public:
 	static void add_options();
 
 	virtual bool init(size_t sampleLength, size_t keyLength) = 0;
-	virtual int64_t run(Bench::Container &sample) = 0;
+	virtual std::string run(Bench::Container &sample) = 0;
 	virtual bool release() = 0;
 
 	virtual ~Base();

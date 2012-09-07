@@ -58,9 +58,9 @@ bool Benchmark::run(Reader::Base &reader, Writer::Base &writer, string &benchNam
 	bool status = true;
 	for (size_t i = 0; i < loops; i++)
 	{
-		int64_t dt = bench->run(*sample);
+		string dt = bench->run(*sample);
 
-		if (dt < 0)
+		if (dt.empty())
 		{
 			cerr << "Bench(" <<  pairFound->first << ")#run(sample["<< sampleSize <<"]) failed" << endl;
 			if ( ! bench->errMsg.empty())
@@ -72,6 +72,11 @@ bool Benchmark::run(Reader::Base &reader, Writer::Base &writer, string &benchNam
 		}
 
 		writer.write(dt, i, loops);
+	}
+
+	if ( ! reader.write(*sample))
+	{
+		clog << "Warning: could not write to input file" << endl;
 	}
 
 	if ( ! bench->release())

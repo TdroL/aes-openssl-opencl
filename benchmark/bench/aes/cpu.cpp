@@ -21,7 +21,7 @@ void Cpu::add_options()
 
 bool Cpu::init(size_t sampleLength, size_t keyLength)
 {
-	unsigned char key[] = { 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16 };
+	unsigned char key[KEYLENGTH(256)] = { 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32 };
 
 	EVP_CIPHER_CTX_init(&ctx);
 
@@ -38,7 +38,7 @@ bool Cpu::init(size_t sampleLength, size_t keyLength)
 	}
 }
 
-int64_t Cpu::run(Bench::Container &sample)
+string Cpu::run(Bench::Container &sample)
 {
 #ifdef _DEBUG
 #endif
@@ -47,26 +47,22 @@ int64_t Cpu::run(Bench::Container &sample)
 
 	unsigned char *inBuffer = sample.data;
 	int inSize = static_cast<int>(sample.length);
-	unsigned char *outBuffer = new unsigned char[sample.length * sizeof(*sample.data)];
 	int outSize = static_cast<int>(sample.length);
 
 	assert(inBuffer != nullptr);
-	assert(outBuffer != nullptr);
 
 	auto start = hrc::now();
 
-	int status = EVP_EncryptUpdate(&ctx, outBuffer, &outSize, inBuffer, inSize);
+	int status = EVP_EncryptUpdate(&ctx, inBuffer, &outSize, inBuffer, inSize);
 
 	auto end = hrc::now();
 
-	delete[] outBuffer;
-
 	if (status)
 	{
-		return ch::duration_cast<ch::microseconds>(end - start).count();
+		return boost::lexical_cast<string>(ch::duration_cast<ch::microseconds>(end - start).count());
 	}
-	
-	return -1;
+
+	return "";
 }
 
 bool Cpu::release()

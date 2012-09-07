@@ -20,17 +20,19 @@ __kernel void aes_opt_local_roundkeys(
 	state += id * 4;
 
 	uint s0, s1, s2, s3, t0, t1, t2, t3;
-	uint4 s, t, o0, o8, o16, o24;
+	uint4 s, t, o0, o8, o16, o24, vs;
 
-	s0 = SWITCH_ORDER(state[0]);
-	s1 = SWITCH_ORDER(state[1]);
-	s2 = SWITCH_ORDER(state[2]);
-	s3 = SWITCH_ORDER(state[3]);
+	s0 = state[0]; //SWITCH_ORDER(state[0]);
+	s1 = state[1]; //SWITCH_ORDER(state[1]);
+	s2 = state[2]; //SWITCH_ORDER(state[2]);
+	s3 = state[3]; //SWITCH_ORDER(state[3]);
 
-	s0 ^= lroundkeys[rk+0];
-	s1 ^= lroundkeys[rk+1];
-	s2 ^= lroundkeys[rk+2];
-	s3 ^= lroundkeys[rk+3];
+	VECTOR_SWITCH_ORDER(vs);
+
+	s0 = vs.s0 ^ lroundkeys[rk+0];
+	s1 = vs.s1 ^ lroundkeys[rk+1];
+	s2 = vs.s2 ^ lroundkeys[rk+2];
+	s3 = vs.s3 ^ lroundkeys[rk+3];
 
 	s = (uint4) (s0, s1, s2, s3);
 	o0  = (s >>  0) & 0xff;
@@ -166,10 +168,12 @@ __kernel void aes_opt_local_roundkeys(
 	s2 ^= lroundkeys[rk+2];
 	s3 ^= lroundkeys[rk+3];
 
-	state[0] = SWITCH_ORDER(s0);
-	state[1] = SWITCH_ORDER(s1);
-	state[2] = SWITCH_ORDER(s2);
-	state[3] = SWITCH_ORDER(s3);
+	VECTOR_SWITCH_ORDER(vs);
+
+	state[0] = vs.s0;//SWITCH_ORDER(s0);
+	state[1] = vs.s1;//SWITCH_ORDER(s1);
+	state[2] = vs.s2;//SWITCH_ORDER(s2);
+	state[3] = vs.s3;//SWITCH_ORDER(s3);
 }
 
 #endif

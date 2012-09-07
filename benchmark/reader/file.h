@@ -16,6 +16,7 @@ public:
 
 	bool ready();
 	std::unique_ptr<Bench::Container> read(size_t length);
+	bool write(Bench::Container &sample);
 
 	~File();
 };

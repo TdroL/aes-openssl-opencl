@@ -37,12 +37,6 @@
     <Filter Include="Source Files\reader">
       <UniqueIdentifier>{54a1ef07-2174-4bd2-b7d8-8b5799b6750c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\bench\perf">
-      <UniqueIdentifier>{6a7a85bf-404a-49e3-8c70-addbbf9d9695}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\bench\perf">
-      <UniqueIdentifier>{b2657594-44ef-49a1-8272-78c6390d976e}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="ReadMe.txt" />
@@ -96,8 +90,8 @@
     <ClInclude Include="rijndael.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="bench\perf\gpuloop.h">
-      <Filter>Header Files\bench\perf</Filter>
+    <ClInclude Include="bench\aes\p.h">
+      <Filter>Header Files\bench\aes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -146,8 +140,8 @@
     <ClCompile Include="rijndael.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="bench\perf\gpuloop.cpp">
-      <Filter>Source Files\bench\perf</Filter>
+    <ClCompile Include="bench\aes\p.cpp">
+      <Filter>Source Files\bench\aes</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -6,16 +6,25 @@ EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
+		Debug|Win64 = Debug|Win64
 		Debug2|Win32 = Debug2|Win32
+		Debug2|Win64 = Debug2|Win64
 		Release|Win32 = Release|Win32
+		Release|Win64 = Release|Win64
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{D620955E-1990-4C1A-AE9D-128A2723F046}.Debug|Win32.ActiveCfg = Debug|Win32
 		{D620955E-1990-4C1A-AE9D-128A2723F046}.Debug|Win32.Build.0 = Debug|Win32
+		{D620955E-1990-4C1A-AE9D-128A2723F046}.Debug|Win64.ActiveCfg = Debug|Win32
+		{D620955E-1990-4C1A-AE9D-128A2723F046}.Debug|Win64.Build.0 = Debug|Win32
 		{D620955E-1990-4C1A-AE9D-128A2723F046}.Debug2|Win32.ActiveCfg = Debug|Win32
 		{D620955E-1990-4C1A-AE9D-128A2723F046}.Debug2|Win32.Build.0 = Debug|Win32
+		{D620955E-1990-4C1A-AE9D-128A2723F046}.Debug2|Win64.ActiveCfg = Debug|Win32
+		{D620955E-1990-4C1A-AE9D-128A2723F046}.Debug2|Win64.Build.0 = Debug|Win32
 		{D620955E-1990-4C1A-AE9D-128A2723F046}.Release|Win32.ActiveCfg = Release|Win32
 		{D620955E-1990-4C1A-AE9D-128A2723F046}.Release|Win32.Build.0 = Release|Win32
+		{D620955E-1990-4C1A-AE9D-128A2723F046}.Release|Win64.ActiveCfg = Release|Win32
+		{D620955E-1990-4C1A-AE9D-128A2723F046}.Release|Win64.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
