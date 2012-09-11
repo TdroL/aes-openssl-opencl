@@ -39,9 +39,9 @@ public:
 	virtual bool opencl_save_ptx(std::string &file);
 	virtual bool opencl_build(std::string &kernelName, std::string &options = std::string(""));
 
-	bool init(size_t sampleLength, size_t keyLength);
-	std::string run(Bench::Container &sample);
-	bool release();
+	virtual bool init(size_t sampleLength, size_t keyLength);
+	virtual std::string run(Bench::Container &sample);
+	virtual bool release();
 
 	template <typename T>
 	void get_device_info(cl_device_info deviceInfo, T &value);

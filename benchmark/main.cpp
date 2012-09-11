@@ -60,7 +60,7 @@ int main(int argc, char* argv[])
 	Benchmark bm;
 	bm.registerBench("aes-cpu", Bench::factory<Bench::Aes::Cpu>());
 	bm.registerBench("aes-gpu", Bench::factory<Bench::Aes::Gpu>());
-	bm.registerBench("aes-p",   Bench::factory<Bench::Aes::P>());
+	bm.registerBench("aes-p", Bench::factory<Bench::Aes::P>());
 
 	po::store(po::command_line_parser(argc, argv).
 			  options(desc).positional(p).run(), vm);

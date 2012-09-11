@@ -49,6 +49,7 @@ void Gpu::add_options()
 		("save-ptx",     po::value<string>(),
 						 "saves compiled kernel (aes-gpu only)")
 		("unsafe-optimizations", "enables unsafe opencl optimizations (aes-gpu only)")
+		("use-cpu",      "forces to use CPU as computing device (aes-gpu only)")
 		;
 }
 
@@ -61,11 +62,24 @@ bool Gpu::opencl_init()
 		return false;
 	}
 
-	err = clGetDeviceIDs(platformId, CL_DEVICE_TYPE_GPU, 1, &deviceId, nullptr);
-	if (err != CL_SUCCESS)
+	if (vm->count("use-cpu"))
 	{
-		errMsg = (boost::format("Could not get device id (err %1%)") % perror(err)).str();
-		return false;
+		clog << "Warning: forcing CPU as computing device" << endl;
+		err = clGetDeviceIDs(platformId, CL_DEVICE_TYPE_CPU, 1, &deviceId, nullptr);
+		if (err != CL_SUCCESS)
+		{
+			errMsg = (boost::format("Could not get device id (err %1%)") % perror(err)).str();
+			return false;
+		}
+	}
+	else
+	{
+		err = clGetDeviceIDs(platformId, CL_DEVICE_TYPE_GPU, 1, &deviceId, nullptr);
+		if (err != CL_SUCCESS)
+		{
+			errMsg = (boost::format("Could not get device id (err %1%)") % perror(err)).str();
+			return false;
+		}
 	}
 
 	context = clCreateContext(0, 1, &deviceId, nullptr, nullptr, &err);
@@ -276,7 +290,7 @@ bool Gpu::opencl_save_ptx(string &file)
 		return false;
 	}
 
-	fs.write(binaryBuffer.get(), string(binaryBuffer.get()).find_last_of("}") + 1);
+	fs.write(binaryBuffer.get(), string(binaryBuffer.get()).find_last_of("\n") + 1);
 	return true;
 }
 
@@ -468,7 +482,7 @@ bool Gpu::init(size_t sampleLength, size_t keyLength_)
 
 std::string Gpu::run(Bench::Container &sample)
 {
-	unique_ptr<unsigned char> outBuffer(new unsigned char[sample.length * sizeof(sample.data[0])]);
+	unique_ptr<unsigned char> outBuffer(new unsigned char[sample.length * sizeof(Container::data_type)]);
 
 	unsigned int nrounds = NROUNDS(keyLength);
 	assert(nrounds == 10 || nrounds == 12 || nrounds == 14);
