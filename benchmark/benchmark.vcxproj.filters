@@ -37,6 +37,12 @@
     <Filter Include="Source Files\reader">
       <UniqueIdentifier>{54a1ef07-2174-4bd2-b7d8-8b5799b6750c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\bench\aes\p">
+      <UniqueIdentifier>{60c1cb8b-c713-4ee3-b2f0-c7327ad05a93}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\bench\aes\p">
+      <UniqueIdentifier>{f5784c83-c9ae-4373-9fa4-7092251c50f4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="ReadMe.txt" />
@@ -90,8 +96,11 @@
     <ClInclude Include="rijndael.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="bench\aes\p.h">
-      <Filter>Header Files\bench\aes</Filter>
+    <ClInclude Include="bench\aes\p\cpu.h">
+      <Filter>Header Files\bench\aes\p</Filter>
+    </ClInclude>
+    <ClInclude Include="bench\aes\p\gpu.h">
+      <Filter>Header Files\bench\aes\p</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -140,8 +149,11 @@
     <ClCompile Include="rijndael.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="bench\aes\p.cpp">
-      <Filter>Source Files\bench\aes</Filter>
+    <ClCompile Include="bench\aes\p\cpu.cpp">
+      <Filter>Source Files\bench\aes\p</Filter>
+    </ClCompile>
+    <ClCompile Include="bench\aes\p\gpu.cpp">
+      <Filter>Source Files\bench\aes\p</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

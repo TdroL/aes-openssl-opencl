@@ -3,6 +3,7 @@
 
 #include "bench/aes/cpu.h"
 #include "bench/aes/gpu.h"
-#include "bench/aes/p.h"
+#include "bench/aes/p/cpu.h"
+#include "bench/aes/p/gpu.h"
 
 #endif

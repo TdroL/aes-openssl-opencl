@@ -48,7 +48,7 @@ int main(int argc, char* argv[])
 		("loops,l",        po::value<uint>()
 		                    ->default_value(250),       "number of loops")
 		("sample-size,s",  po::value<string>()
-		                    ->default_value("1024"),    "sample size [sufix: none,K,M]")
+		                    ->default_value("1024"),    "sample size [suffix: none,K,M]")
 		("key-length,k",   po::value<uint>()
 		                     ->default_value(256),      "key length [128,192,256]")
 		;
@@ -58,15 +58,17 @@ int main(int argc, char* argv[])
 	Bench::Base::path = argv[0];
 
 	Benchmark bm;
-	bm.registerBench("aes-cpu", Bench::factory<Bench::Aes::Cpu>());
-	bm.registerBench("aes-gpu", Bench::factory<Bench::Aes::Gpu>());
-	bm.registerBench("aes-p", Bench::factory<Bench::Aes::P>());
+	bm.registerBench("aes-cpu",   Bench::factory<Bench::Aes::Cpu>());
+	bm.registerBench("aes-gpu",   Bench::factory<Bench::Aes::Gpu>());
+	bm.registerBench("aes-p-cpu", Bench::factory<Bench::Aes::P::Cpu>());
+	bm.registerBench("aes-p-gpu", Bench::factory<Bench::Aes::P::Gpu>());
 
 	po::store(po::command_line_parser(argc, argv).
 			  options(desc).positional(p).run(), vm);
 	po::notify(vm);
 
-	if (vm.count("help")) {
+	if (vm.count("help"))
+	{
 		cout << desc << endl;
 		return EXIT_SUCCESS;
 	}

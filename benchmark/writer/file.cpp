@@ -32,17 +32,19 @@ bool File::ready()
 
 void File::write(string &duration, unsigned int step, unsigned int total)
 {
-	cout << ".";
+	clog << ".";
 
 	step++;
 	if (step % 50 == 0 || step == total)
 	{
-		cout << "  " << (step * 100 / total) << "%" << endl;
+		clog << "  " << (step * 100 / total) << "%" << endl;
 	}
 	else if (step % 10 == 0)
 	{
-		cout << " ";
+		clog << " ";
 	}
+
+	clog.flush();
 
 	file << duration << endl;
 }

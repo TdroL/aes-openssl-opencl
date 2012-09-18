@@ -27,15 +27,15 @@ bool Benchmark::run(Reader::Base &reader, Writer::Base &writer, string &benchNam
 	Bench::Base *bench = pairFound->second;
 	assert(bench != nullptr);
 
-	cout << "Input file: " 
+	clog << "Input file: "
 	     << reader.desc << endl;
-	cout << "Writing results to: " 
+	clog << "Writing results to: "
 	     << writer.desc << endl;
-	cout << "Benchmark: " 
+	clog << "Benchmark: "
 	     << benchName << endl;
-	cout << "Loops count: " 
+	clog << "Loops count: "
 	     << loops << endl;
-	cout << "Sample size: " 
+	clog << "Sample size: "
 	     << sampleSize << " bytes" << endl;
 
 	unique_ptr<Bench::Container> sample(reader.read(sampleSize));

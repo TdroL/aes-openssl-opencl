@@ -71,6 +71,8 @@
       <AdditionalIncludeDirectories>C:\Users\tdrol\lib\openssl-1.0.1c\include;C:\Users\tdrol\lib\boost\boost_1_51_0;$(AMDAPPSDKROOT)include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <ObjectFileName>$(IntDir)/%(RelativeDir)/</ObjectFileName>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
+      <ExceptionHandling>Sync</ExceptionHandling>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -90,7 +92,8 @@
     <ClInclude Include="benchmark.h" />
     <ClInclude Include="bench\aes\cpu.h" />
     <ClInclude Include="bench\aes\gpu.h" />
-    <ClInclude Include="bench\aes\p.h" />
+    <ClInclude Include="bench\aes\p\cpu.h" />
+    <ClInclude Include="bench\aes\p\gpu.h" />
     <ClInclude Include="bench\base.h" />
     <ClInclude Include="reader.h" />
     <ClInclude Include="reader\base.h" />
@@ -108,7 +111,8 @@
     <ClCompile Include="benchmark.cpp" />
     <ClCompile Include="bench\aes\cpu.cpp" />
     <ClCompile Include="bench\aes\gpu.cpp" />
-    <ClCompile Include="bench\aes\p.cpp" />
+    <ClCompile Include="bench\aes\p\cpu.cpp" />
+    <ClCompile Include="bench\aes\p\gpu.cpp" />
     <ClCompile Include="bench\base.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="reader.cpp" />

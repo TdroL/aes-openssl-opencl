@@ -98,57 +98,57 @@ bool Gpu::opencl_init()
 
 	if (vm->count("device-info"))
 	{
-		cout << "Device info:" << endl;
+		clog << "Device info:" << endl;
 
 		{
 			string info;
 			get_device_info(CL_DEVICE_NAME, info);
-			cout << "  CL_DEVICE_NAME                     : " << info << endl;
+			clog << "  CL_DEVICE_NAME                     : " << info << endl;
 		}
 		{
 			string info;
 			get_device_info(CL_DEVICE_PROFILE, info);
-			cout << "  CL_DEVICE_PROFILE                  : " << info << endl;
+			clog << "  CL_DEVICE_PROFILE                  : " << info << endl;
 		}
 		{
 			cl_uint info;
 			get_device_info(CL_DEVICE_MAX_CLOCK_FREQUENCY, info);
-			cout << "  CL_DEVICE_MAX_CLOCK_FREQUENCY      : " << info << " MHz" << endl;
+			clog << "  CL_DEVICE_MAX_CLOCK_FREQUENCY      : " << info << " MHz" << endl;
 		}
 		{
 			cl_uint info;
 			get_device_info(CL_DEVICE_MAX_COMPUTE_UNITS, info);
-			cout << "  CL_DEVICE_MAX_COMPUTE_UNITS        : " << info << endl;
+			clog << "  CL_DEVICE_MAX_COMPUTE_UNITS        : " << info << endl;
 		}
 		{
 			cl_ulong info;
 			get_device_info(CL_DEVICE_GLOBAL_MEM_SIZE, info);
-			cout << "  CL_DEVICE_GLOBAL_MEM_SIZE          : " << static_cast<double>(info) / 1024 / 1024 << " MiB" << endl;
+			clog << "  CL_DEVICE_GLOBAL_MEM_SIZE          : " << static_cast<double>(info) / 1024 / 1024 << " MiB" << endl;
 		}
 		{
 			cl_ulong info;
 			get_device_info(CL_DEVICE_LOCAL_MEM_SIZE, info);
-			cout << "  CL_DEVICE_LOCAL_MEM_SIZE           : " << static_cast<double>(info) / 1024 << " KiB" << endl;
+			clog << "  CL_DEVICE_LOCAL_MEM_SIZE           : " << static_cast<double>(info) / 1024 << " KiB" << endl;
 		}
 		{
 			cl_ulong info;
 			get_device_info(CL_DEVICE_MAX_MEM_ALLOC_SIZE, info);
-			cout << "  CL_DEVICE_MAX_MEM_ALLOC_SIZE       : " << static_cast<double>(info) / 1024 / 1024 << " MiB" << endl;
+			clog << "  CL_DEVICE_MAX_MEM_ALLOC_SIZE       : " << static_cast<double>(info) / 1024 / 1024 << " MiB" << endl;
 		}
 		{
 			cl_ulong info;
 			get_device_info(CL_DEVICE_MAX_CONSTANT_BUFFER_SIZE, info);
-			cout << "  CL_DEVICE_MAX_CONSTANT_BUFFER_SIZE : " << static_cast<double>(info) / 1024 << " KiB" << endl;
+			clog << "  CL_DEVICE_MAX_CONSTANT_BUFFER_SIZE : " << static_cast<double>(info) / 1024 << " KiB" << endl;
 		}
 		{
 			cl_ulong info;
 			get_device_info(CL_DEVICE_GLOBAL_MEM_CACHE_SIZE, info);
-			cout << "  CL_DEVICE_GLOBAL_MEM_CACHE_SIZE    : " << static_cast<double>(info) / 1024 << " KiB" << endl;
+			clog << "  CL_DEVICE_GLOBAL_MEM_CACHE_SIZE    : " << static_cast<double>(info) / 1024 << " KiB" << endl;
 		}
 		{
 			size_t info;
 			get_device_info(CL_DEVICE_MAX_WORK_GROUP_SIZE, info);
-			cout << "  CL_DEVICE_MAX_WORK_GROUP_SIZE      : " << info << endl;
+			clog << "  CL_DEVICE_MAX_WORK_GROUP_SIZE      : " << info << endl;
 		}
 	}
 
@@ -296,8 +296,6 @@ bool Gpu::opencl_save_ptx(string &file)
 
 bool Gpu::opencl_build(string &kernelName, string &options)
 {
-	cout << "Build options: " << options << endl;
-
 	err = clBuildProgram(program, 0, nullptr, options.c_str(), nullptr, nullptr);
 	size_t len;
 	array<char, 1024 * 10> logBuffer; // error message buffer, 10 KiB
@@ -310,7 +308,7 @@ bool Gpu::opencl_build(string &kernelName, string &options)
 
 	if (errMsg.size() > 0)
 	{
-		cout << "Build log:" << endl << errMsg << endl;
+		clog << "Build log:" << endl << errMsg << endl;
 	}
 
 	if (err != CL_SUCCESS)
@@ -324,7 +322,7 @@ bool Gpu::opencl_build(string &kernelName, string &options)
 
 		if (opencl_save_ptx(file))
 		{
-			cout << "Compiled program saved to: " << file << endl;
+			clog << "Compiled program saved to: " << file << endl;
 		}
 		else
 		{
@@ -335,7 +333,8 @@ bool Gpu::opencl_build(string &kernelName, string &options)
 	}
 
 	kernel = clCreateKernel(program, kernelName.c_str(), &err);
-	if ( ! kernel || err != CL_SUCCESS) {
+	if ( ! kernel || err != CL_SUCCESS)
+	{
 		errMsg = (boost::format("Failed to create compute kernel \"%1%\" (err %2%)") % kernelName % perror(err)).str();
 		return false;
 	}
@@ -353,13 +352,13 @@ bool Gpu::init(size_t sampleLength, size_t keyLength_)
 	string kernelName = (*vm)["kernel-name"].as<string>();
 
 	keyLength = keyLength_;
-	cout << "Kernel name: " << kernelName << endl;
-	cout << "Key length: " << keyLength << " bits" << endl;
+	clog << "Kernel name: " << kernelName << endl;
+	clog << "Key length: " << keyLength << " bits" << endl;
 
 	if (vm->count("load-ptx"))
 	{
 		string file = (*vm)["load-ptx"].as<string>();
-		cout << "Loading pre-compiled program: " << file << endl;
+		clog << "Loading pre-compiled program: " << file << endl;
 
 		if ( ! opencl_load_ptx(file))
 		{
@@ -386,6 +385,7 @@ bool Gpu::init(size_t sampleLength, size_t keyLength_)
 		options << " -cl-unsafe-math-optimizations";
 	}
 
+	clog << "Build options: " << options.str() << endl;
 	if ( ! opencl_build(kernelName, options.str()))
 	{
 		return false;
@@ -423,19 +423,19 @@ bool Gpu::init(size_t sampleLength, size_t keyLength_)
 
 	global = sampleLengthPadded / 16;
 
-	cout << "Sample size padded: " << sampleLengthPadded << " bytes (padding to " << lengthPad << " bytes)" << endl;
+	clog << "Sample size padded: " << sampleLengthPadded << " bytes (padding to " << lengthPad << " bytes)" << endl;
 
-	cl_ulong max_alloc_size;
-	err = clGetDeviceInfo(deviceId, CL_DEVICE_MAX_MEM_ALLOC_SIZE, sizeof(max_alloc_size), &max_alloc_size, nullptr);
+	cl_ulong maxAllocSize;
+	err = clGetDeviceInfo(deviceId, CL_DEVICE_MAX_MEM_ALLOC_SIZE, sizeof(maxAllocSize), &maxAllocSize, nullptr);
 	if (err != CL_SUCCESS)
 	{
 		errMsg = (boost::format("Failed to get maximum allocable memory size (err %1%)") % perror(err)).str();
 		return false;
 	}
 
-	if (sampleLengthPadded + RKLENGTH(256) > max_alloc_size)
+	if (sampleLengthPadded + RKLENGTH(256) > maxAllocSize)
 	{
-		errMsg = (boost::format("Required memory is too big (%1% bytes), maximum size is %2% bytes") % (sampleLengthPadded + RKLENGTH(256)) % max_alloc_size).str();
+		errMsg = (boost::format("Required memory is too big (%1% bytes), maximum size is %2% bytes") % (sampleLengthPadded + RKLENGTH(256)) % maxAllocSize).str();
 		return false;
 	}
 
@@ -472,7 +472,8 @@ bool Gpu::init(size_t sampleLength, size_t keyLength_)
 	rijndaelSetupEncrypt(reinterpret_cast<unsigned long *>(roundKeys), key, keyLength);
 
 	err = clEnqueueWriteBuffer(queue, memRoundKeys, CL_TRUE, 0, RKLENGTH(keyLength), roundKeys, 0, nullptr, nullptr);
-	if (err != CL_SUCCESS) {
+	if (err != CL_SUCCESS)
+	{
 		errMsg = (boost::format("Failed write data to buffer \"roundkeys\" (%1%)") % perror(err)).str();
 		return false;
 	}
@@ -490,25 +491,29 @@ std::string Gpu::run(Bench::Container &sample)
 	auto start = hrc::now();
 
 	err = clEnqueueWriteBuffer(queue, memState, CL_FALSE, 0, sample.length, sample.data, 0, nullptr, nullptr);
-	if (err != CL_SUCCESS) {
+	if (err != CL_SUCCESS)
+	{
 		errMsg = "Failed write data to buffer (state)";
 		return "";
 	}
 
 	err = clEnqueueNDRangeKernel(queue, kernel, 1, nullptr, &global, &local, 0, nullptr, nullptr);
-	if (err != CL_SUCCESS) {
+	if (err != CL_SUCCESS)
+	{
 		errMsg = (boost::format("Failed to execute kernel (%1%)") % perror(err)).str();
 		return "";
 	}
 
 	err = clEnqueueReadBuffer(queue, memState, CL_FALSE, 0, sample.length, sample.data, 0, nullptr, nullptr);
-	if (err != CL_SUCCESS) {
+	if (err != CL_SUCCESS)
+	{
 		errMsg = (boost::format("Failed to read from buffer (%1%)") % perror(err)).str();
 		return "";
 	}
 
 	err = clFinish(queue);
-	if (err != CL_SUCCESS) {
+	if (err != CL_SUCCESS)
+	{
 		errMsg = (boost::format("Failed to finish queue (%1%)") % perror(err)).str();
 		return "";
 	}
@@ -644,7 +649,7 @@ string Gpu::pparam_name(cl_device_info paramName, bool trim)
 string Gpu::perror(cl_int err, bool trim)
 {
 	static array<string, 50> errors = {{
-		"CL_SUCCESS                                  ", //  0 
+		"CL_SUCCESS                                  ", //  0
 		"CL_DEVICE_NOT_FOUND                         ", // -1
 		"CL_DEVICE_NOT_AVAILABLE                     ", // -2
 		"CL_COMPILER_NOT_AVAILABLE                   ", // -3

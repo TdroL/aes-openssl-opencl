@@ -2,10 +2,6 @@
 #include "cpu.h"
 #include "boost/chrono.hpp"
 
-#ifdef _DEBUG
-#include <iostream>
-#endif
-
 namespace Bench
 {
 namespace Aes

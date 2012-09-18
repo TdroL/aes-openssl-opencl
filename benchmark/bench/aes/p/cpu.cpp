@@ -1,25 +1,19 @@
 #include "stdafx.h"
-#include "p.h"
+#include "cpu.h"
 #include "boost/chrono.hpp"
-
-#ifdef _DEBUG
-#include <iostream>
-#endif
 
 namespace Bench
 {
 namespace Aes
+{
+namespace P
 {
 
 using namespace std;
 namespace ch = boost::chrono;
 typedef ch::high_resolution_clock hrc;
 
-void P::add_options()
-{
-}
-
-bool P::init(size_t sampleLength, size_t keyLength_)
+bool Cpu::init(size_t sampleLength, size_t keyLength_)
 {
 	EVP_CIPHER_CTX_init(&ctx);
 
@@ -28,7 +22,7 @@ bool P::init(size_t sampleLength, size_t keyLength_)
 	return (keyLength == 128 || keyLength == 192 || keyLength == 256);
 }
 
-string P::run(Bench::Container &sample)
+string Cpu::run(Bench::Container &sample)
 {
 	assert(sample.data != nullptr);
 
@@ -99,31 +93,24 @@ string P::run(Bench::Container &sample)
 	return "";
 }
 
-bool P::release()
+bool Cpu::release()
 {
 	EVP_CIPHER_CTX_cleanup(&ctx);
 
 	return true;
 }
 
-P::~P()
+Cpu::~Cpu()
 {
 }
 
 }
 
-std::unique_ptr<Aes::P> factory()
+}
+
+std::unique_ptr<Aes::P::Cpu> factory()
 {
-	static bool added = false;
-
-	if ( ! added)
-	{
-		assert(Base::desc != nullptr);
-		Aes::P::add_options();
-		added = true;
-	}
-
-	return std::unique_ptr<Aes::P>(new Aes::P());
+	return std::unique_ptr<Aes::P::Cpu>(new Aes::P::Cpu);
 }
 
 }

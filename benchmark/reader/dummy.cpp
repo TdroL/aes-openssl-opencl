@@ -31,7 +31,7 @@ unique_ptr<Bench::Container> Dummy::read(size_t length)
 	Bench::Container *sample = new Bench::Container(length);
 	assert(sample->data != nullptr);
 
-	generate_n(sample->data, length, []() -> Bench::Container::data_type { return dist(gen); });
+	generate_n(sample->data, length, []() { return dist(gen); });
 
 	return unique_ptr<Bench::Container>(sample);
 }
