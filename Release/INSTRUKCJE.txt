@@ -1,0 +1,103 @@
+Analizator kerneli należy uruchamiać przez plik run.bat (lub run.sh jeżli uruchamiane przez MinGW/Msys lub po skompilowaniu na linuksie. Uwaga: plik run.bat wykonuje plik run.sh). Będzie on zapisywał wyniki do katalogów:
+- ptx/ - wygenerowany pośredni kod kerneli (PTX)
+- results/ - wyniki czasowe kolejnych prób
+
+Wygenerowane pliki w katalogu ptx/:
+	aes.txt
+	aes_constant_roundkeys.txt
+	aes_local_roundkeys.txt
+	aes_local_constant_roundkeys.txt
+	aes_local_tables.txt
+	aes_opt.txt
+	aes_opt_constant_roundkeys.txt
+	aes_opt_local_roundkeys.txt
+	aes_opt_local_constant_roundkeys.txt
+	aes_opt_local_tables.txt
+	aes_vector.txt
+	aes_vector_constant_roundkeys.txt
+	aes_vector_local_roundkeys.txt
+	aes_vector_local_constant_roundkeys.txt
+	aes_vector_local_tables.txt
+	aes_vector_unroll_constant_local_roundkeys_local_tables_if.txt
+	aes_vector_unroll_constant_roundkeys.txt
+	aes_vector_unroll_constant_roundkeys_local_tables.txt
+	aes_vector_unroll_local_roundkeys.txt
+	aes_vector_unroll_local_roundkeys_if.txt
+	aes_vector_unroll_local_roundkeys_local_tables.txt
+	aes_vector_unroll_local_roundkeys_local_tables_if.txt
+	aes_vector_unroll_local_tables.txt
+	- pośredni kod kerneli, nazwy plików odpowiadają użytym kernelom z katalogu kernels/
+
+Wygenerowane pliki w katalogu results/:
+	device-info.txt - informacje o platformie
+	openssl.txt - czasy szyfrowania 10 megabajtowego pakietu danych przy pomocy AES-256 z biblioteki OpenSSL
+
+	aes.txt
+	aes_constant_roundkeys.txt
+	aes_local_roundkeys.txt
+	aes_local_constant_roundkeys.txt
+	aes_local_tables.txt
+
+	aes_opt.txt
+	aes_opt_constant_roundkeys.txt
+	aes_opt_local_roundkeys.txt
+	aes_opt_local_constant_roundkeys.txt
+	aes_opt_local_tables.txt
+
+	aes_vector.txt
+	aes_vector_constant_roundkeys.txt
+	aes_vector_local_roundkeys.txt
+	aes_vector_local_constant_roundkeys.txt
+	aes_vector_local_tables.txt
+
+	aes_vector_unroll_constant_local_roundkeys_local_tables_if.txt
+	aes_vector_unroll_constant_roundkeys.txt
+	aes_vector_unroll_constant_roundkeys_local_tables.txt
+	aes_vector_unroll_local_roundkeys.txt
+	aes_vector_unroll_local_roundkeys_if.txt
+	aes_vector_unroll_local_roundkeys_local_tables.txt
+	aes_vector_unroll_local_roundkeys_local_tables_if.txt
+	aes_vector_unroll_local_tables.txt
+	- czasy szyfrowania 10 megabajtowego pakietu danych przy pomocy AES-256 na platformie OpenCL, nazwy plików odpowiadają użytym kernelom z katalogu kernels/
+
+	perf-openssl-K1.txt
+	perf-openssl-K2.txt
+	perf-openssl-K4.txt
+	perf-openssl-K8.txt
+	perf-openssl-K16.txt
+	perf-openssl-K32.txt
+	perf-openssl-K64.txt
+	perf-openssl-K128.txt
+	perf-openssl-K256.txt
+	perf-openssl-K512.txt
+	perf-openssl-M1.txt
+	perf-openssl-M2.txt
+	perf-openssl-M4.txt
+	perf-openssl-M8.txt
+	perf-openssl-M16.txt
+	perf-openssl-M32.txt
+	perf-openssl-M64.txt
+	perf-openssl-M127.txt
+	- czas szyfrowania pakietów danych o rosnących rozmiarach (do 1 kilobajta do 127 megabajtów) przy pomocy AES-256 z biblioteki OpenSSL
+
+	perf-opencl-K1.txt
+	perf-opencl-K2.txt
+	perf-opencl-K4.txt
+	perf-opencl-K8.txt
+	perf-opencl-K16.txt
+	perf-opencl-K32.txt
+	perf-opencl-K64.txt
+	perf-opencl-K128.txt
+	perf-opencl-K256.txt
+	perf-opencl-K512.txt
+	perf-opencl-M1.txt
+	perf-opencl-M2.txt
+	perf-opencl-M4.txt
+	perf-opencl-M8.txt
+	perf-opencl-M16.txt
+	perf-opencl-M32.txt
+	perf-opencl-M64.txt
+	perf-opencl-M127.txt
+	- czas szyfrowania pakietów danych o rosnących rozmiarach (do 1 kilobajta do 127 megabajtów) przy pomocy AES na platformie OpenCL używając kernela aes_vector_unroll_constant_local_roundkeys_local_tables_if
+
+Pliki perf-128.sh i perf-192.sh generują czasy szyfrowania dla AES-128 i AES-192.

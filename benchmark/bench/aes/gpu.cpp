@@ -68,7 +68,7 @@ bool Gpu::opencl_init()
 		err = clGetDeviceIDs(platformId, CL_DEVICE_TYPE_CPU, 1, &deviceId, nullptr);
 		if (err != CL_SUCCESS)
 		{
-			errMsg = (boost::format("Could not get device id (err %1%)") % perror(err)).str();
+			errMsg = (boost::format("Could not get device id [CPU] (err %1%)") % perror(err)).str();
 			return false;
 		}
 	}
@@ -77,7 +77,7 @@ bool Gpu::opencl_init()
 		err = clGetDeviceIDs(platformId, CL_DEVICE_TYPE_GPU, 1, &deviceId, nullptr);
 		if (err != CL_SUCCESS)
 		{
-			errMsg = (boost::format("Could not get device id (err %1%)") % perror(err)).str();
+			errMsg = (boost::format("Could not get device id [GPU] (err %1%)") % perror(err)).str();
 			return false;
 		}
 	}

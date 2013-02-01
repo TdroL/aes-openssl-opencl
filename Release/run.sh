@@ -31,14 +31,6 @@ benchmark -b aes-gpu -s 10M -n aes_vector_unroll_local_roundkeys_local_tables   
 benchmark -b aes-gpu -s 10M -n aes_vector_unroll_local_roundkeys_local_tables_if -o results/aes_vector_unroll_local_roundkeys_local_tables_if.txt --load-ptx ptx/aes_vector_unroll_local_roundkeys_local_tables_if-256.txt
 benchmark -b aes-gpu -s 10M -n aes_vector_unroll_local_tables                     -o results/aes_vector_unroll_local_tables.txt --load-ptx ptx/aes_vector_unroll_local_tables-256.txt
 
-benchmark -b aes-p -s 16   -o results/p-16.txt
-benchmark -b aes-p -s 32   -o results/p-32.txt
-benchmark -b aes-p -s 64   -o results/p-64.txt
-benchmark -b aes-p -s 128  -o results/p-128.txt
-benchmark -b aes-p -s 256  -o results/p-256.txt
-benchmark -b aes-p -s 512  -o results/p-512.txt
-benchmark -b aes-p -s 1024 -o results/p-1024.txt
-
 benchmark -b aes-cpu -s 1K   -o results/perf-openssl-K1.txt
 benchmark -b aes-cpu -s 2K   -o results/perf-openssl-K2.txt
 benchmark -b aes-cpu -s 4K   -o results/perf-openssl-K4.txt
